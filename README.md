@@ -1,20 +1,5 @@
-# AWESOME PROJECT
-This project is very awesome. If you could not tell, this is the Awesome Project's description which is telling you that this readme is completely satire for the time being.
+# Block-meister
+This game will be a minecraft-like block game in which the player is given free reign in a sandbox world where they can discover the horrors that await in Block-meister
 ## Installation
- - Sell your soul to satan
- - Buy beans with your newly acquired wealth
- - Grow the beans
- - Mull over your life choices
- - Suffer
- - Installation complete!
-## Usage
- - Beans
- - Done
-
-## Credits
-### Conor:
- - Self elected project lead
- - Weeb
-### Alin:
- - Cute
- - Cuddly
+ - Good question
+ - Instructions to come!
