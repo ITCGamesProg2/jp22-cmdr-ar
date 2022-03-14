@@ -1,20 +1,5 @@
-# AWESOME PROJECT
-This project is very awesome. If you could not tell, this is the Awesome Project's description which is telling you that this readme is completely satire for the time being.
-## Installation
- - Sell your soul to satan
- - Buy beans with your newly acquired wealth
- - Grow the beans
- - Mull over your life choices
- - Suffer
- - Installation complete!
-## Usage
- - Beans
- - Done
-
-## Credits
-### Conor:
- - Self elected project lead
- - Weeb
-### Alin:
- - Cute
- - Cuddly
+![Logo](./logo.png)
+## Decription
+This game will be a dungeon-crawlr game in which the player who is a skeleton will delve deep into the mines to find out why the adventurers he sees are so determined to go deeper. Explore, Fight and Craft in a classic RPG style action adventure!
+## Project Resources
+ - https://miro.com/app/board/uXjVOFgy2Kc=/?invite_link_id=746147619364
