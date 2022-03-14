@@ -1,7 +1,8 @@
 #include "Game.h"
 
 Game::Game() :
-	m_window{ sf::VideoMode{ 800U, 600U, 32U }, "MMMMMMMM MONMKLENEKENEEEE" }
+	m_window{ sf::VideoMode{ 1024U, 576U, 32U }, "Block-Meister" },
+	menu{ m_window }
 {
 	state = State::Menu;
 }
@@ -39,6 +40,7 @@ void Game::processEvents()
 		switch (state)
 		{
 		case State::Menu:
+			menu.processEvents(newEvent);
 			break;
 		case State::Game:
 			break;
@@ -56,6 +58,7 @@ void Game::update(sf::Time dt)
 	switch (state)
 	{
 	case State::Menu:
+		menu.update(dt);
 		break;
 	case State::Game:
 		break;
@@ -69,6 +72,7 @@ void Game::render()
 	switch (state)
 	{
 	case State::Menu:
+		menu.render();
 		break;
 	case State::Game:
 		break;
