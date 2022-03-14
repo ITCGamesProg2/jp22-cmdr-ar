@@ -79,7 +79,7 @@ void Menu::Setup()
 	title.setPosition(50,50);
 	title.setScale(1.5f,1.5f);
 	logo.setScale(4,4);
-	logo.setPosition(600,300);
+	logo.setPosition(600,250);
 	lamp.setPosition(450, 150);
 	lamp.setScale(4, 4);
 	play.setPosition(50, 200);
