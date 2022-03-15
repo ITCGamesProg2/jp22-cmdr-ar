@@ -2,7 +2,7 @@
 
 Game::Game() :
 	m_window{ sf::VideoMode{ 1024U, 576U, 32U }, "Block-Meister" },
-	menu{ m_window }
+	menu{ m_window }, level{ m_window }
 {
 	state = State::Menu;
 }
@@ -43,6 +43,7 @@ void Game::processEvents()
 			menu.processEvents(newEvent);
 			break;
 		case State::Game:
+			level.processEvents(newEvent);
 			break;
 		}
 	}
@@ -59,24 +60,26 @@ void Game::update(sf::Time dt)
 	{
 	case State::Menu:
 		menu.update(dt);
+		if (menu.playClicked)
+		{
+			state = State::Game;
+		}
 		break;
 	case State::Game:
+		level.update(dt);
 		break;
 	}
 }
 
 void Game::render()
 {
-	m_window.clear(sf::Color::White);
-
 	switch (state)
 	{
 	case State::Menu:
 		menu.render();
 		break;
 	case State::Game:
+		level.render();
 		break;
 	}
-
-	m_window.display();
 }

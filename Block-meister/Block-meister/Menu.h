@@ -11,6 +11,8 @@ public:
 	void update(sf::Time& dt);
 	void render();
 
+	bool playClicked = false;
+
 private:
 	void Setup();
 
@@ -30,7 +32,7 @@ private:
 	sf::Texture lampTex;
 	sf::Clock lampTimer;
 	int lampcurrentFrame = 0;
-	float lampincrement = 0.35f;
+	float lampincrement = 0.25f;
 
 	sf::Sprite title;
 	sf::Texture titleTex;

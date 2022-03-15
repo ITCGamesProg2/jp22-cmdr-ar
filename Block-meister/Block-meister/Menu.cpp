@@ -27,6 +27,10 @@ void Menu::update(sf::Time& dt)
 	if (play.getGlobalBounds().contains((sf::Vector2f)sf::Mouse::getPosition(*window)))
 	{
 		playTex.loadFromFile("resources/images/menu/play2.png");
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			playClicked = true;
+		}
 	}
 	else
 	{
@@ -67,11 +71,14 @@ void Menu::update(sf::Time& dt)
 void Menu::render()
 {
 	window->clear(sf::Color::Black);
+
 	window->draw(bg);
 	window->draw(title);
 	window->draw(lamp);
 	window->draw(logo);
 	window->draw(play);
+
+	window->display();
 }
 
 void Menu::Setup()
@@ -80,7 +87,7 @@ void Menu::Setup()
 	title.setScale(1.5f,1.5f);
 	logo.setScale(4,4);
 	logo.setPosition(600,250);
-	lamp.setPosition(450, 150);
+	lamp.setPosition(440, 140);
 	lamp.setScale(4, 4);
 	play.setPosition(50, 200);
 }

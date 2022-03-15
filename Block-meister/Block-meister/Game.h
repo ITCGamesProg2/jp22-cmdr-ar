@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Menu.h"
+#include "Level.h"
 
 enum class State {
 	Menu, Game
@@ -24,6 +25,7 @@ private:
 	bool m_exitGame = false;
 
 	Menu menu;
+	Level level;
 
 };
 
