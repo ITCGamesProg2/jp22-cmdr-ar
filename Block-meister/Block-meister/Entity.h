@@ -15,6 +15,9 @@ public:
 	void update(sf::Time& dt);
 	void render();
 
+	//Getters
+	sf::Sprite getSprite() { return body; }
+
 private:
 	sf::Sprite body;
 	sf::Texture tex;

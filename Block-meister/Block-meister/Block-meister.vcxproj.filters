@@ -33,7 +33,7 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="YamlLoader.cpp">
+    <ClCompile Include="LevelEditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,7 +53,7 @@
     <ClInclude Include="Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="YamlLoader.h">
+    <ClInclude Include="LevelEditor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
