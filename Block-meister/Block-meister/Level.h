@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <vector>
 #include "Player.h"
 #include "Entity.h"
 
@@ -17,6 +18,6 @@ public:
 
 private:
 	Player player;
-	Entity object;
+	std::vector<Entity> objects;
 };
 

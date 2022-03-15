@@ -41,9 +41,15 @@ void Game::processEvents()
 		{
 		case State::Menu:
 			menu.processEvents(newEvent);
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::F12))
+			{
+				state = State::LevelEditor;
+			}
 			break;
 		case State::Game:
 			level.processEvents(newEvent);
+			break;
+		case State::LevelEditor:
 			break;
 		}
 	}
@@ -68,6 +74,8 @@ void Game::update(sf::Time dt)
 	case State::Game:
 		level.update(dt);
 		break;
+	case State::LevelEditor:
+		break;
 	}
 }
 
@@ -80,6 +88,8 @@ void Game::render()
 		break;
 	case State::Game:
 		level.render();
+		break;
+	case State::LevelEditor:
 		break;
 	}
 }

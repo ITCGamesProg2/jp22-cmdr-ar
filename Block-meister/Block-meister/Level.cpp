@@ -4,13 +4,13 @@ Level::Level(sf::RenderWindow& t_window)
 	: window{ &t_window }, player{ t_window }
 {
 	loadLevel(0);
-	object.SetWindowPtr(t_window);
+	Entity::window = &t_window;
+	Entity::player = &player;
 }
 
 void Level::loadLevel(int no)
 {
-	object.SetPlayerPtr(player);
-	object.SetTexture("resources/images/game/yoda.png");
+	
 }
 
 void Level::processEvents(sf::Event& ev)

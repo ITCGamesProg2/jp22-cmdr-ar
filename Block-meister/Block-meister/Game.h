@@ -4,7 +4,7 @@
 #include "Level.h"
 
 enum class State {
-	Menu, Game
+	Menu, Game, LevelEditor
 };
 
 class Game
