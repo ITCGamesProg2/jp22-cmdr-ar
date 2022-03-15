@@ -7,6 +7,8 @@ Player::Player(sf::RenderWindow& t_window)
 	body.setTexture(tex);
 	body.setScale(2,2);
 	body.setPosition(200, 200);
+	body.setOrigin(sf::Vector2f(body.getLocalBounds().width/2, body.getLocalBounds().height / 2));
+	view.reset(sf::FloatRect(0, 0, 1024, 576));
 }
 
 void Player::processEvents(sf::Event& ev)
@@ -67,10 +69,12 @@ void Player::update(sf::Time& dt)
 {
 	animate();
 	body.move(moveBy * speed * dt.asSeconds());
+	view.setCenter(body.getPosition());
 }
 
 void Player::render()
 {
+	window->setView(view);
 	window->draw(body);
 }
 

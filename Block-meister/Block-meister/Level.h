@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Player.h"
+#include "Entity.h"
 
 class Level
 {
@@ -16,5 +17,6 @@ public:
 
 private:
 	Player player;
+	Entity object;
 };
 

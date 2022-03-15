@@ -12,6 +12,7 @@ public:
 	void render();
 
 private:
+	sf::View view;
 	sf::Sprite body;
 	sf::Texture tex;
 	sf::Vector2f moveBy;
