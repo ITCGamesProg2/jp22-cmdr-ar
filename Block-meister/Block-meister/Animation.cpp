@@ -17,6 +17,14 @@ void Animation::update()
 {
 	if (playing)
 	{
+		if (waiting)
+		{
+			if (waitTimer.getElapsedTime().asSeconds() > waitBetweenAnims)
+			{
+				currentPosHorizontal++;
+				waiting = false;
+			}
+		}
 		if (animTimer.getElapsedTime().asSeconds() > timePerFrame && !waiting)
 		{
 			if (currentPosHorizontal > currentMaxHorizontal - 1) currentPosHorizontal = 0;
@@ -28,7 +36,15 @@ void Animation::update()
 
 			///////////////////////////////////
 
-			currentPosHorizontal++;
+			if (currentPosHorizontal != 0 || waitBetweenAnims == 0.0f)
+			{
+				currentPosHorizontal++;
+			}
+			else if (waitBetweenAnims != 0.0f)
+			{
+				waiting = true;
+				waitTimer.restart();
+			}
 			animTimer.restart();
 		}
 	}

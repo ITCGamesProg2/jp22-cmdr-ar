@@ -19,9 +19,7 @@ private:
 
 	sf::Sprite bg;
 	sf::Texture bgTex;
-	sf::Clock bgTimer;
-	int bgcurrentFrame = 0;
-	float bgincrement = 0.4f;
+	Animation bg_anim;
 
 	sf::Sprite logo;
 	sf::Texture logoTex;

@@ -32,8 +32,8 @@ private:
 	bool playing = false;
 	float timePerFrame = 0.0f;
 	sf::Clock animTimer;
-	sf::Clock waitTimer;
 
+	sf::Clock waitTimer;
 	float waitBetweenAnims = 0.0f;
 	bool waiting = false;
 };

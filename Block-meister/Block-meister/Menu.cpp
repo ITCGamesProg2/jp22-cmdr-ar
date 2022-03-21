@@ -2,15 +2,12 @@
 #include <iostream>
 
 Menu::Menu(sf::RenderWindow& t_window)
-	:	window{ &t_window }, lamp_anim{ lamp }, logo_anim{ logo }
+	:	window{ &t_window }, lamp_anim{ lamp }, logo_anim{ logo }, bg_anim{ bg }
 {
 	titleTex.loadFromFile("resources/images/menu/title.png");
 	title.setTexture(titleTex);
 	playTex.loadFromFile("resources/images/menu/play1.png");
 	play.setTexture(playTex);
-	bgTex.loadFromFile("resources/images/menu/bgPixel/bg6.png");
-	bg.setTexture(bgTex);
-	// 2.5f
 	Setup();
 }
 
@@ -32,15 +29,8 @@ void Menu::update(sf::Time& dt)
 	{
 		playTex.loadFromFile("resources/images/menu/play1.png");
 	}
-
-	if (bgTimer.getElapsedTime().asSeconds() > bgincrement)
-	{
-		if (bgcurrentFrame > 6) bgcurrentFrame = 0;
-		bgTex.loadFromFile("resources/images/menu/bgPixel/bg" + std::to_string(bgcurrentFrame) + ".png");
-		bgcurrentFrame++;
-		bgTimer.restart();
-	}
-
+	
+	bg_anim.update();
 	logo_anim.update();
 	lamp_anim.update();
 }
@@ -66,9 +56,15 @@ void Menu::Setup()
 	lamp.setTexture(lampTex);
 
 	logo_anim.Setup(52, 33, 6, 1);
-	logo_anim.playAnim(2.5f, 0, 6);
+	logo_anim.playAnim(0.1f, 0, 6);
+	logo_anim.setWaitTime(3.5f);
 	logoTex.loadFromFile("resources/images/menu/logo/spritesheet.png");
 	logo.setTexture(logoTex);
+
+	bg_anim.Setup(1024, 576, 7, 1);
+	bg_anim.playAnim(0.4f, 0, 7);
+	bgTex.loadFromFile("resources/images/menu/bgPixel/spritesheet.png");
+	bg.setTexture(bgTex);
 
 	title.setPosition(50,50);
 	title.setScale(1.5f,1.5f);
