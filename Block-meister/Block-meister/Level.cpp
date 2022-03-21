@@ -27,7 +27,10 @@ void Level::render()
 {
 	window->clear(sf::Color::Black);
 
-	object.render();
+	for (Entity& e : objects)
+	{
+		e.render();
+	}
 	player.render();
 
 	window->display();

@@ -2,19 +2,15 @@
 #include <iostream>
 
 Menu::Menu(sf::RenderWindow& t_window)
-	:	window{ &t_window }
+	:	window{ &t_window }, lamp_anim{ lamp }, logo_anim{ logo }
 {
 	titleTex.loadFromFile("resources/images/menu/title.png");
 	title.setTexture(titleTex);
-	logoTex.loadFromFile("resources/images/menu/logo/blink0.png");
-	logo.setTexture(logoTex);
 	playTex.loadFromFile("resources/images/menu/play1.png");
 	play.setTexture(playTex);
 	bgTex.loadFromFile("resources/images/menu/bgPixel/bg6.png");
 	bg.setTexture(bgTex);
-	lampTex.loadFromFile("resources/images/menu/lamp/lamp0.png");
-	lamp.setTexture(lampTex);
-
+	// 2.5f
 	Setup();
 }
 
@@ -45,27 +41,8 @@ void Menu::update(sf::Time& dt)
 		bgTimer.restart();
 	}
 
-	if (logoTimer.getElapsedTime().asSeconds() > logoincrement)
-	{
-		if (logocurrentFrame == 1) logoincrement = 0.1f;
-		if (logocurrentFrame > 5)
-		{
-			logoincrement = 2.5f;
-			logocurrentFrame = 0;
-		}
-		logoTex.loadFromFile("resources/images/menu/logo/blink" + std::to_string(logocurrentFrame) + ".png");
-		logocurrentFrame++;
-
-		logoTimer.restart();
-	}
-
-	if (lampTimer.getElapsedTime().asSeconds() > lampincrement)
-	{
-		if (lampcurrentFrame > 3) lampcurrentFrame = 0;
-		lampTex.loadFromFile("resources/images/menu/lamp/lamp" + std::to_string(lampcurrentFrame) + ".png");
-		lampcurrentFrame++;
-		lampTimer.restart();
-	}
+	logo_anim.update();
+	lamp_anim.update();
 }
 
 void Menu::render()
@@ -83,6 +60,16 @@ void Menu::render()
 
 void Menu::Setup()
 {
+	lamp_anim.Setup(45,45,4,1);
+	lamp_anim.playAnim(0.25f,0,4);
+	lampTex.loadFromFile("resources/images/menu/lamp/lampSheet.png");
+	lamp.setTexture(lampTex);
+
+	logo_anim.Setup(52, 33, 6, 1);
+	logo_anim.playAnim(2.5f, 0, 6);
+	logoTex.loadFromFile("resources/images/menu/logo/spritesheet.png");
+	logo.setTexture(logoTex);
+
 	title.setPosition(50,50);
 	title.setScale(1.5f,1.5f);
 	logo.setScale(4,4);

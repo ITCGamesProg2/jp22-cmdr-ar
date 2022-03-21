@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Animation.h"
 
 class Menu
 {
@@ -24,20 +25,18 @@ private:
 
 	sf::Sprite logo;
 	sf::Texture logoTex;
-	sf::Clock logoTimer;
-	int logocurrentFrame = 0;
-	float logoincrement = 2.5f;
+	Animation logo_anim;
 
 	sf::Sprite lamp;
 	sf::Texture lampTex;
-	sf::Clock lampTimer;
-	int lampcurrentFrame = 0;
-	float lampincrement = 0.25f;
+	Animation lamp_anim;
 
 	sf::Sprite title;
 	sf::Texture titleTex;
 	sf::Sprite play;
 	sf::Texture playTex;
+
+	
 
 };
 
