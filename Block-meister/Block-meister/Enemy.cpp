@@ -1,4 +1,6 @@
 #include "Enemy.h"
+sf::RenderWindow* Enemy::window = nullptr;
+Player* Enemy::player = nullptr;
 
 Enemy::Enemy()
 {
