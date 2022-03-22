@@ -20,9 +20,11 @@ public:
 	void processEvents(sf::Event& ev);
 	void update(sf::Time& dt);
 	void render();
+	void changeType(Type type);
 
 	//Getters
 	sf::Sprite getSprite() { return body; }
+	Type getType() { return type; }
 	
 	//Setters
 	void setType(Type t_type);

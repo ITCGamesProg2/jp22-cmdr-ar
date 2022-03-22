@@ -17,6 +17,25 @@ void Terrain::SetTexture(const char* path)
 	body.setTexture(tex);
 }
 
+void Terrain::changeType(Type type)
+{
+	switch (type)
+	{
+	case Type::wall:
+		setType(Type::wall);
+		body.setColor(sf::Color::Blue);
+		SetTexture("./resources/images/game/yoda.png");
+		break;
+	case Type::ground:
+		setType(Type::ground);
+		body.setColor(sf::Color::Yellow);
+		SetTexture("./resources/images/game/yoda.png");
+		break;
+	default:
+		break;
+	}
+}
+
 void Terrain::processEvents(sf::Event& ev)
 {
 }

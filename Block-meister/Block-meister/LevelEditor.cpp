@@ -32,6 +32,7 @@ void LevelEditor::processEvents(sf::Event& event)
 	}
 }
 
+
 sf::Vector2f LevelEditor::getMousePosition(sf::RenderWindow& t_window)
 {
 	sf::Vector2f m_mousePosition;

@@ -91,11 +91,14 @@ void Level::createTerrain()
 	switch (editor.getDesiredType())
 	{
 	case 1:
-		wall.setType(Type::wall);
+		wall.changeType(Type::wall);
 		wall.setPos(gridPlacement(editor.getMouse()));
-		wall.SetTexture("./resources/images/game/yoda.png");
 		terrain.push_back(wall);
 		break;
+	case 2:
+		wall.changeType(Type::ground);
+		wall.setPos(gridPlacement(editor.getMouse()));
+		terrain.push_back(wall);
 	default:
 		break;
 	}
@@ -112,8 +115,10 @@ void Level::checkCollisions()
 {
 	mouseBounds.setPosition(editor.getMouse());
 
+	// Player and Terrain
 	collision.collisionDetection(player, terrain);
-	collision.collisionDetection(outline, terrain);
+	// Player, Terrain and Outline 
+	collision.collisionDetection(player, outline, terrain);
 }
 
 void Level::setOutline()

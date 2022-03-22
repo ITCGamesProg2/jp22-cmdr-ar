@@ -8,14 +8,15 @@ void Collision::collisionDetection(Player& player, std::vector<Terrain>& terrain
 {
 	for (Terrain& e : terrain)
 	{
-		if (player.getSprite().getGlobalBounds().intersects(e.getSprite().getGlobalBounds()))
+		if (player.getSprite().getGlobalBounds().intersects(e.getSprite().getGlobalBounds()) &&
+			e.getType() == Type::wall)
 		{
 			player.bump();
 		}
 	}
 }
 
-void Collision::collisionDetection(sf::RectangleShape& shape, std::vector<Terrain>& terrain)
+void Collision::collisionDetection(Player& player, sf::RectangleShape& shape, std::vector<Terrain>& terrain)
 {
 	for (Terrain& e : terrain)
 	{
@@ -24,13 +25,18 @@ void Collision::collisionDetection(sf::RectangleShape& shape, std::vector<Terrai
 			shape.setFillColor(sf::Color::Red);
 			break;
 		}
-		else {
+		else 
+		{
 			shape.setFillColor(sf::Color::Green);
-		}
+		} 
 	}
 	if (terrain.size() < 1)
 	{
 		shape.setFillColor(sf::Color::Green);
+	}
+	if (shape.getGlobalBounds().intersects(player.getSprite().getGlobalBounds()))
+	{
+		shape.setFillColor(sf::Color::Red);
 	}
 }
 
