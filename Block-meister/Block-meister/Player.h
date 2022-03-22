@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Window.h"
+#include "Animation.h"
 
 enum class Direction
 {
@@ -40,14 +41,7 @@ private:
 
 	//animation
 	void animate();
-	bool up = false;
-	bool down = false;
-	bool otherKey = false;
-	bool lastMovedUp = false;
-
-	int currentFrame = 0;
-	sf::Clock Timer;
-	float increment = 0.15f;
+	Animation anim;
 
 };
 

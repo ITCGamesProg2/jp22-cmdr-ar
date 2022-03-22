@@ -1,13 +1,18 @@
 #include "Player.h"
 
 Player::Player(sf::RenderWindow& t_window)
-	:	window{ &t_window }
+	: window{ &t_window }, anim{ body }
 {
-	tex.loadFromFile("resources/images/game/player/downFrames/down0.png");
+	tex.loadFromFile("resources/images/game/player/downFrames/spritesheet.png");
+	//animation setup
+	anim.Setup(52, 33, 2, 1);
+	anim.playAnim(0.15f, 0, 2);
+	anim.pause();
+
 	body.setTexture(tex);
-	body.setScale(2,2);
+	body.setScale(2, 2);
 	body.setPosition(200, 200);
-	body.setOrigin(sf::Vector2f(body.getLocalBounds().width/2, body.getLocalBounds().height / 2));
+	body.setOrigin(sf::Vector2f(body.getLocalBounds().width / 2, body.getLocalBounds().height / 2));
 	view.reset(sf::FloatRect(0, 0, 1024, 576));
 
 	//Next movement bounds
@@ -38,26 +43,18 @@ void Player::processEvents(sf::Event& event)
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		currentDirection = Direction::Up;
-		up = true;
-		down = false;
-		lastMovedUp = true;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		currentDirection = Direction::Left;
-		otherKey = true;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		currentDirection = Direction::Down;
-		down = true;
-		up = false;
-		lastMovedUp = false;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		currentDirection = Direction::Right;
-		otherKey = true;
 	}
 	else
 	{
@@ -105,7 +102,7 @@ void Player::boundsCollision(sf::Time& dt)
 	if (nextMovement.getPosition().x - (nextMovement.getGlobalBounds().width * 0.5) < 0)
 	{
 		currentDirection = Direction::None;
-		body.move(sf::Vector2f{1,0} *speed * dt.asSeconds());
+		body.move(sf::Vector2f{ 1,0 } *speed * dt.asSeconds());
 	}
 	//Right Side Bounds
 	if (nextMovement.getPosition().x + (nextMovement.getGlobalBounds().width * 0.5) > Window::WIDTH)
@@ -127,7 +124,6 @@ void Player::boundsCollision(sf::Time& dt)
 	}
 }
 
-
 void Player::update(sf::Time& dt)
 {
 	m_dt = dt;
@@ -136,7 +132,6 @@ void Player::update(sf::Time& dt)
 	boundsCollision(dt);
 	body.move(moveBy * speed * dt.asSeconds());
 	nextMovement.setPosition(body.getPosition() + (moveBy * speed * dt.asSeconds()));
-	std::cout << moveBy.x << ", " << moveBy.y << std::endl;
 	//view.setCenter(body.getPosition());
 }
 
@@ -151,33 +146,19 @@ void Player::bump()
 {
 	currentDirection = Direction::None;
 	sf::Vector2f x = { -1.0f * moveBy.x, -1.0f * moveBy.y };
-	body.move( x * speed * m_dt.asSeconds());
+	body.move(x * speed * m_dt.asSeconds());
 }
 
 void Player::animate()
 {
-	if (Timer.getElapsedTime().asSeconds() > increment)
+	anim.update();
+
+	if (currentDirection == Direction::None)
 	{
-		if (up || down)
-		{
-			if (currentFrame > 1) currentFrame = 0;
-			if (down) tex.loadFromFile("resources/images/game/player/downFrames/down" + std::to_string(currentFrame) + ".png");
-			if (up) tex.loadFromFile("resources/images/game/player/upFrames/up" + std::to_string(currentFrame) + ".png");
-			currentFrame++;
-			Timer.restart();
-		}
-		else if (otherKey)
-		{
-			if (currentFrame > 1) currentFrame = 0;
-			if (!lastMovedUp) tex.loadFromFile("resources/images/game/player/downFrames/down" + std::to_string(currentFrame) + ".png");
-			if (lastMovedUp) tex.loadFromFile("resources/images/game/player/upFrames/up" + std::to_string(currentFrame) + ".png");
-			currentFrame++;
-			Timer.restart();
-		}
-		else
-		{
-			if (lastMovedUp) tex.loadFromFile("resources/images/game/player/up.png");
-			else tex.loadFromFile("resources/images/game/player/down.png");
-		}
+		anim.pause();
+	}
+	else
+	{
+		anim.play();
 	}
 }
