@@ -1,2 +1,14 @@
-﻿  Player.cpp
+﻿  AttackEntity.cpp
+  Level.cpp
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\Level.cpp(138,66): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\Level.cpp(139,66): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  Generating Code...
   Block-meister.vcxproj -> C:\Users\C00260445\Desktop\jp\Block-meister\Debug\Block-meister.exe

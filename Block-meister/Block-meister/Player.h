@@ -22,6 +22,7 @@ public:
 	void bump();
 
 	sf::Sprite getSprite() { return body; }
+	Direction getDir() { return currentDirection; }
 
 private:
 	sf::View view;
