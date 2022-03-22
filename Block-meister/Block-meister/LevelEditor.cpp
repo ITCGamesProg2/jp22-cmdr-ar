@@ -2,7 +2,7 @@
 
 LevelEditor::LevelEditor()
 {
-	mouseBounds.setSize(sf::Vector2f{ 1, 1 });
+	
 }
 
 void LevelEditor::update(sf::RenderWindow& t_window)
@@ -10,19 +10,25 @@ void LevelEditor::update(sf::RenderWindow& t_window)
 	if (levelEditor)
 	{
 		mousePosition = getMousePosition(t_window);
-		mouseBounds.setPosition(mousePosition);
 	}
 }
 
 void LevelEditor::processEvents(sf::Event& event)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab))
 	{
-		desiredType = 1;
+		levelEditor = !levelEditor;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+	if (levelEditor)
 	{
-		desiredType = 2;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+		{
+			desiredType = 1;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+		{
+			desiredType = 2;
+		}
 	}
 }
 
@@ -36,23 +42,4 @@ sf::Vector2f LevelEditor::getMousePosition(sf::RenderWindow& t_window)
 	return m_mousePosition;
 }
 
-void LevelEditor::selectEntity(Entity& t_entity)
-{
-	if (mouseBounds.getGlobalBounds().intersects(t_entity.getSprite().getGlobalBounds()))
-	{
-		currentlySelectedEntity = &t_entity;
-	}
-}
 
-void LevelEditor::selectTerrain(Terrain& t_terrain)
-{
-	if (mouseBounds.getGlobalBounds().intersects(t_terrain.getSprite().getGlobalBounds()))
-	{
-		currentlySelectedTerrain = &t_terrain;
-	}
-}
-
-void LevelEditor::moveSelected()
-{
-
-}

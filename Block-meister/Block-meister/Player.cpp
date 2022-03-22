@@ -136,7 +136,6 @@ void Player::update(sf::Time& dt)
 	boundsCollision(dt);
 	body.move(moveBy * speed * dt.asSeconds());
 	nextMovement.setPosition(body.getPosition() + (moveBy * speed * dt.asSeconds()));
-	std::cout << moveBy.x << ", " << moveBy.y << std::endl;
 	//view.setCenter(body.getPosition());
 }
 

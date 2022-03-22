@@ -8,6 +8,7 @@ Terrain::Terrain()
 	body.setTextureRect(sf::IntRect{ 0, 0, 100, 100 });
 	body.setColor(sf::Color::Blue);
 	body.setOrigin(50, 50);
+	terrainCount++;
 }
 
 void Terrain::SetTexture(const char* path)
