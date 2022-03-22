@@ -18,6 +18,9 @@ public:
 	void processEvents(sf::Event& event);
 	void update(sf::Time& dt);
 	void render();
+	void bump();
+
+	sf::Sprite getSprite() { return body; }
 
 private:
 	sf::View view;
@@ -25,6 +28,7 @@ private:
 	sf::Texture tex;
 	sf::Vector2f moveBy;
 	float speed = 150.f;
+	sf::Time m_dt;
 
 	//movement
 	Direction currentDirection{ Direction::None };

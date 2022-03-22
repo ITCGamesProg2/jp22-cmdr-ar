@@ -32,6 +32,7 @@ void Level::update(sf::Time& dt)
 {
 	player.update(dt);
 	editor.update(*window);
+	checkCollisions();
 }
 
 void Level::render()
@@ -66,4 +67,9 @@ void Level::createTerrain()
 	default:
 		break;
 	}
+}
+
+void Level::checkCollisions()
+{
+	collision.collisionDetection(player, terrain);
 }

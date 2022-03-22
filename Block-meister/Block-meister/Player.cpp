@@ -130,6 +130,7 @@ void Player::boundsCollision(sf::Time& dt)
 
 void Player::update(sf::Time& dt)
 {
+	m_dt = dt;
 	animate();
 	setMovement();
 	boundsCollision(dt);
@@ -144,6 +145,13 @@ void Player::render()
 	window->setView(view);
 	window->draw(nextMovement);
 	window->draw(body);
+}
+
+void Player::bump()
+{
+	currentDirection = Direction::None;
+	sf::Vector2f x = { -1.0f * moveBy.x, -1.0f * moveBy.y };
+	body.move( x * speed * m_dt.asSeconds());
 }
 
 void Player::animate()

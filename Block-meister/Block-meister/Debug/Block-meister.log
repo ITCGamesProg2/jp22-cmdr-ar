@@ -1,4 +1,11 @@
-﻿  Terrain.cpp
-  YamlLoader.cpp
+﻿  Collision.cpp
+  Enemy.cpp
+  Entity.cpp
+  Game.cpp
+  Level.cpp
+  LevelEditor.cpp
+  main.cpp
+  Player.cpp
+  Terrain.cpp
   Generating Code...
   Block-meister.vcxproj -> C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Debug\Block-meister.exe
