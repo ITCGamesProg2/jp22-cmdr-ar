@@ -1,5 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include "Window.h"
+
+enum class Direction
+{
+	Up, Down, Left, Right, None,
+	UpRight, UpLeft, DownRight, DownLeft
+};
 
 class Player
 {
@@ -7,7 +15,7 @@ public:
 	Player(sf::RenderWindow& t_window);
 	sf::RenderWindow* window;
 
-	void processEvents(sf::Event& ev);
+	void processEvents(sf::Event& event);
 	void update(sf::Time& dt);
 	void render();
 
@@ -18,6 +26,13 @@ private:
 	sf::Vector2f moveBy;
 	float speed = 150.f;
 
+	//movement
+	Direction currentDirection{ Direction::None };
+	sf::RectangleShape nextMovement;
+	void setMovement();
+
+	//collision
+	void boundsCollision(sf::Time& dt);
 
 	//animation
 	void animate();

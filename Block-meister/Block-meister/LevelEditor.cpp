@@ -14,6 +14,18 @@ void LevelEditor::update(sf::RenderWindow& t_window)
 	}
 }
 
+void LevelEditor::processEvents(sf::Event& event)
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+	{
+		desiredType = 1;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+	{
+		desiredType = 2;
+	}
+}
+
 sf::Vector2f LevelEditor::getMousePosition(sf::RenderWindow& t_window)
 {
 	sf::Vector2f m_mousePosition;
@@ -24,15 +36,23 @@ sf::Vector2f LevelEditor::getMousePosition(sf::RenderWindow& t_window)
 	return m_mousePosition;
 }
 
-void LevelEditor::selectEntity(Entity t_entity)
+void LevelEditor::selectEntity(Entity& t_entity)
 {
 	if (mouseBounds.getGlobalBounds().intersects(t_entity.getSprite().getGlobalBounds()))
 	{
-		currentlySelected = &t_entity;
+		currentlySelectedEntity = &t_entity;
 	}
 }
 
-void LevelEditor::moveEntity()
+void LevelEditor::selectTerrain(Terrain& t_terrain)
+{
+	if (mouseBounds.getGlobalBounds().intersects(t_terrain.getSprite().getGlobalBounds()))
+	{
+		currentlySelectedTerrain = &t_terrain;
+	}
+}
+
+void LevelEditor::moveSelected()
 {
 
 }
