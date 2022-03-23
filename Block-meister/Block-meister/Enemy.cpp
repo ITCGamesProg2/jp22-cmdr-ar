@@ -12,6 +12,21 @@ void Enemy::SetTexture(const char* path)
 	body.setTexture(tex);
 }
 
+void Enemy::SetTexture(EnemyType _type)
+{
+	type = _type;
+	switch (_type)
+	{
+	case EnemyType::Slime:
+		tex.loadFromFile("resources/images/game/enemies/slime/slime.png");
+		break;
+	default:
+		tex.loadFromFile("resources/images/game/enemies/slime/slime.png");
+		break;
+	}
+	body.setTexture(tex);
+}
+
 void Enemy::processEvents(sf::Event& ev)
 {
 }

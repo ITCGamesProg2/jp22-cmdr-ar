@@ -14,6 +14,8 @@ public:
 	void update(sf::Time& dt);
 	void render();
 
+	bool attacking() { return isAttacking; }
+
 private:
 	bool isAttacking = false;
 	sf::Clock attackTimer;

@@ -9,6 +9,8 @@ Level::Level(sf::RenderWindow& t_window)
 	Terrain::window = &t_window;
 	AttackEntity::window = &t_window;
 	AttackEntity::player = &player;
+	Enemy::window = &t_window;
+	Enemy::player = &player;
 	
 	//Outline for editor placement
 	outline.setSize({ 100,100 });
@@ -17,6 +19,24 @@ Level::Level(sf::RenderWindow& t_window)
 
 	//Mouse bounds
 	mouseBounds.setSize(sf::Vector2f{ 1, 1 });
+
+	//test enemies
+	enemies.reserve(1024);
+	Enemy slime;
+	slime.SetTexture(EnemyType::Slime);
+	slime.setPos(10,10);
+	enemies.push_back(slime);
+	enemies.back().SetTexture(enemies.back().type);
+	Enemy slime2;
+	slime2.SetTexture(EnemyType::Slime);
+	slime2.setPos(100, 10);
+	enemies.push_back(slime2);
+	enemies.back().SetTexture(enemies.back().type);
+	Enemy slime3;
+	slime3.SetTexture(EnemyType::Slime);
+	slime3.setPos(200, 10);
+	enemies.push_back(slime3);
+	enemies.back().SetTexture(enemies.back().type);
 }
 
 void Level::loadLevel(int no)
@@ -73,7 +93,11 @@ void Level::render()
 	{
 		e.render();
 	}
-	for (Terrain& e : terrain)
+	for (Terrain& t : terrain)
+	{
+		t.render();
+	}
+	for (Enemy& e : enemies)
 	{
 		e.render();
 	}

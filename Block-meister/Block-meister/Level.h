@@ -3,6 +3,7 @@
 #include <vector>
 #include "Player.h"
 #include "Entity.h"
+#include "Enemy.h"
 #include "Terrain.h"
 #include "Collision.h"
 #include "LevelEditor.h"
@@ -33,6 +34,7 @@ private:
 	AttackEntity playerAttack;
 	std::vector<Entity> entities;
 	std::vector<Terrain> terrain;
+	std::vector<Enemy> enemies;
 	sf::RectangleShape outline;
 };
 
