@@ -1,0 +1,10 @@
+objects:
+  - type: 1
+    x: 100
+    y: 200
+  - type: 1
+    x: 200
+    y: 200
+  - type: 1
+    x: 400
+    y: 200

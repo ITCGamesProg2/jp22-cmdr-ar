@@ -8,6 +8,7 @@
 #include "Collision.h"
 #include "LevelEditor.h"
 #include "AttackEntity.h"
+#include "YamlLoader.h"
 
 class Level
 {
@@ -38,5 +39,7 @@ private:
 	sf::RectangleShape outline;
 
 	bool m_levelEditor{ false };
+	YamlLoader yml;
+	Data levelData;
 };
 

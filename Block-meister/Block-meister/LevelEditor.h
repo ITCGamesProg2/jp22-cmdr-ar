@@ -11,6 +11,7 @@ public:
 	void update(sf::RenderWindow& t_window);
 	void processEvents(sf::Event& event);
 	void editorOn() { levelEditor = true; }
+	void editorOff() { levelEditor = false; }
 
 	void createTerrain(std::vector<Terrain>& terrain);
 	void createTerrain(std::vector<Terrain>& terrain, sf::Vector2f position, Type type);

@@ -3,7 +3,6 @@
 Level::Level(sf::RenderWindow& t_window)
 	: window{ &t_window }, player{ t_window }
 {
-	loadLevel(0);
 	Entity::window = &t_window;
 	Entity::player = &player;
 	Terrain::window = &t_window;
@@ -26,14 +25,27 @@ Level::Level(sf::RenderWindow& t_window)
 		auto slime = std::make_shared<Enemy>();
 		slime.get()->SetTexture(EnemyType::Slime);
 		slime.get()->setPos(100 * i, 10);
+		slime.get()->setScale(2.f,2.f);
 		enemies.push_back(slime);
 	}
-	
+
+	loadLevel(0);
 }
 
 void Level::loadLevel(int no)
 {
-	
+	editor.editorOn(); // EDITOR ENABLED
+	//////////////////////////////////////////////////////////////////////////
+
+	yml.load(levelData);
+	for (Object& o : levelData.levelData.objects)
+	{
+		editor.createTerrain(terrain, sf::Vector2f(o.X, o.Y), static_cast<Type>(o.Type));
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	if (m_levelEditor) editor.editorOn(); // EDITOR OFF OR REENABLED
+	editor.editorOff();
 }
 
 void Level::processEvents(sf::Event& ev)
@@ -42,18 +54,21 @@ void Level::processEvents(sf::Event& ev)
 	editor.processEvents(ev);
 	playerAttack.processEvents(ev);
 
-	if (ev.type == sf::Event::MouseButtonPressed)
+	if (m_levelEditor)
 	{
-		if (sf::Mouse::Right == ev.key.code)
+		if (ev.type == sf::Event::MouseButtonPressed)
 		{
-			int terrainIndex = collision.selectTerrain(mouseBounds, terrain);
-			editor.deleteTerrain(terrain, terrainIndex);
-		}
+			if (sf::Mouse::Right == ev.key.code)
+			{
+				int terrainIndex = collision.selectTerrain(mouseBounds, terrain);
+				editor.deleteTerrain(terrain, terrainIndex);
+			}
 
-		if (sf::Mouse::Left == ev.key.code &&
-			outline.getFillColor() == sf::Color::Green)
-		{
-			editor.createTerrain(terrain);
+			if (sf::Mouse::Left == ev.key.code &&
+				outline.getFillColor() == sf::Color::Green)
+			{
+				editor.createTerrain(terrain);
+			}
 		}
 	}
 }

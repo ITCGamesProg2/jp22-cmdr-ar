@@ -27,6 +27,7 @@ public:
 
 	//Setters
 	void setPos(float x, float y) { body.setPosition(x, y); }
+	void setScale(float x, float y) { body.setScale(x, y); }
 
 private:
 	sf::Sprite body;
