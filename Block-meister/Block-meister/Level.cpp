@@ -21,22 +21,14 @@ Level::Level(sf::RenderWindow& t_window)
 	mouseBounds.setSize(sf::Vector2f{ 1, 1 });
 
 	//test enemies
-	enemies.reserve(1024);
-	Enemy slime;
-	slime.SetTexture(EnemyType::Slime);
-	slime.setPos(10,10);
-	enemies.push_back(slime);
-	enemies.back().SetTexture(enemies.back().type);
-	Enemy slime2;
-	slime2.SetTexture(EnemyType::Slime);
-	slime2.setPos(100, 10);
-	enemies.push_back(slime2);
-	enemies.back().SetTexture(enemies.back().type);
-	Enemy slime3;
-	slime3.SetTexture(EnemyType::Slime);
-	slime3.setPos(200, 10);
-	enemies.push_back(slime3);
-	enemies.back().SetTexture(enemies.back().type);
+	for (int i = 0; i < 3; i++)
+	{
+		auto slime = std::make_shared<Enemy>();
+		slime.get()->SetTexture(EnemyType::Slime);
+		slime.get()->setPos(100 * i, 10);
+		enemies.push_back(slime);
+	}
+	
 }
 
 void Level::loadLevel(int no)
@@ -54,24 +46,14 @@ void Level::processEvents(sf::Event& ev)
 	{
 		if (sf::Mouse::Right == ev.key.code)
 		{
-			int x = collision.selectTerrain(mouseBounds, terrain);
-			if (x != -1)
-			{
-				std::vector<Terrain>::const_iterator i = terrain.begin() + x;
-				terrain.erase(i);
-			}
-			int count = 0;
-			for (Terrain& e : terrain)
-			{
-				e.setCounter(count);
-				count++;
-			}
+			int terrainIndex = collision.selectTerrain(mouseBounds, terrain);
+			editor.deleteTerrain(terrain, terrainIndex);
 		}
 
 		if (sf::Mouse::Left == ev.key.code &&
 			outline.getFillColor() == sf::Color::Green)
 		{
-			createTerrain();
+			editor.createTerrain(terrain);
 		}
 	}
 }
@@ -97,14 +79,14 @@ void Level::render()
 	{
 		t.render();
 	}
-	for (Enemy& e : enemies)
+	for (std::shared_ptr<Enemy> e : enemies)
 	{
-		e.render();
+		e.get()->render();
 	}
 	player.render();
 	playerAttack.render();
 
-	if (editor.getEditor())
+	if (m_levelEditor)
 	{
 		window->draw(outline);
 	}
@@ -112,32 +94,6 @@ void Level::render()
 	window->display();
 }
 
-void Level::createTerrain()
-{
-	Terrain wall;
-
-	switch (editor.getDesiredType())
-	{
-	case 1:
-		wall.changeType(Type::wall);
-		wall.setPos(gridPlacement(editor.getMouse()));
-		terrain.push_back(wall);
-		break;
-	case 2:
-		wall.changeType(Type::ground);
-		wall.setPos(gridPlacement(editor.getMouse()));
-		terrain.push_back(wall);
-	default:
-		break;
-	}
-
-	int count = 0;
-	for (Terrain& e : terrain)
-	{
-		e.setCounter(count);
-		count++;
-	}
-}
 
 void Level::checkCollisions()
 {
@@ -147,6 +103,16 @@ void Level::checkCollisions()
 	collision.collisionDetection(player, terrain);
 	// Player, Terrain and Outline 
 	collision.collisionDetection(player, outline, terrain);
+}
+
+void Level::editorOn()
+{
+	if (!m_levelEditor)
+	{
+		std::cout << "*anime moans* I-It's n-not like I wanted to edit baka!" << std::endl;
+		m_levelEditor = true;
+		editor.editorOn();
+	}
 }
 
 void Level::setOutline()

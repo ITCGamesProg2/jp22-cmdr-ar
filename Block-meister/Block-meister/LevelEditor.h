@@ -10,18 +10,23 @@ public:
 
 	void update(sf::RenderWindow& t_window);
 	void processEvents(sf::Event& event);
+	void editorOn() { levelEditor = true; }
 
-	int getDesiredType() { return desiredType; }
+	void createTerrain(std::vector<Terrain>& terrain);
+	void createTerrain(std::vector<Terrain>& terrain, sf::Vector2f position, Type type);
+	void deleteTerrain(std::vector<Terrain>& terrain, int terrainIndex);
+	sf::Vector2f gridPlacement(sf::Vector2f mousePosition);
+
+	sf::Vector2f getMousePosition(sf::RenderWindow& t_window);
 	sf::Vector2f getMouse() { return mousePosition; }
 	bool getEditor() { return levelEditor; }
 
 private:
-	sf::Vector2f getMousePosition(sf::RenderWindow& t_window);
 
 	int desiredType{ 0 };
 
 	sf::Vector2f mousePosition{ 0,0 };
 
-	bool levelEditor{ true };
+	bool levelEditor{ false };
 };
 

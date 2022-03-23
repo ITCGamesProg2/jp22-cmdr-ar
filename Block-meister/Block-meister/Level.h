@@ -21,8 +21,8 @@ public:
 	void update(sf::Time& dt);
 	void render();
 
-	void createTerrain();
 	void checkCollisions();
+	void editorOn();
 	void setOutline();
 	sf::Vector2f gridPlacement(sf::Vector2f mousePosition);
 
@@ -34,7 +34,9 @@ private:
 	AttackEntity playerAttack;
 	std::vector<Entity> entities;
 	std::vector<Terrain> terrain;
-	std::vector<Enemy> enemies;
+	std::vector<std::shared_ptr<Enemy>> enemies;
 	sf::RectangleShape outline;
+
+	bool m_levelEditor{ false };
 };
 
