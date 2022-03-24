@@ -21,6 +21,7 @@ public:
 	sf::Vector2f getMousePosition(sf::RenderWindow& t_window);
 	sf::Vector2f getMouse() { return mousePosition; }
 	bool getEditor() { return levelEditor; }
+	int getDesiredType() { return desiredType; }
 
 private:
 

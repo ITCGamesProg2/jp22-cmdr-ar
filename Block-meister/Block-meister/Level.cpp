@@ -8,6 +8,8 @@ Level::Level(sf::RenderWindow& t_window)
 	Terrain::window = &t_window;
 	AttackEntity::window = &t_window;
 	AttackEntity::player = &player;
+	RangedAttackEntity::window = &t_window;
+	RangedAttackEntity::player = &player;
 	Enemy::window = &t_window;
 	Enemy::player = &player;
 	
@@ -15,6 +17,10 @@ Level::Level(sf::RenderWindow& t_window)
 	outline.setSize({ 100,100 });
 	outline.setFillColor(sf::Color::Green);
 	outline.setOrigin(50, 50);
+
+	outlineFill.setSize({ 90,90 });
+	outlineFill.setFillColor(sf::Color::Blue);
+	outlineFill.setOrigin(45, 45);
 
 	//Mouse bounds
 	mouseBounds.setSize(sf::Vector2f{ 1, 1 });
@@ -58,6 +64,7 @@ void Level::processEvents(sf::Event& ev)
 	player.processEvents(ev);
 	editor.processEvents(ev);
 	playerAttack.processEvents(ev);
+	playerRangedAttack[RangedAttackEntity::currentAttack].processEvents(ev);
 
 	if (m_levelEditor)
 	{
@@ -88,6 +95,7 @@ void Level::processEvents(sf::Event& ev)
 					saveLevel(1);
 				}
 			}
+			setOutline();
 		}
 		if (ev.type == sf::Event::KeyReleased)
 		{
@@ -103,9 +111,14 @@ void Level::update(sf::Time& dt)
 {
 	player.update(dt);
 	playerAttack.update(dt);
+	for (RangedAttackEntity& e : playerRangedAttack)
+	{
+		e.update(dt);
+	}
 	editor.update(*window);
 	checkCollisions();
 	outline.setPosition(gridPlacement(editor.getMouse()));
+	outlineFill.setPosition(outline.getPosition());
 }
 
 void Level::render()
@@ -124,12 +137,17 @@ void Level::render()
 	{
 		e.get()->render();
 	}
+	for (RangedAttackEntity& e : playerRangedAttack)
+	{
+		e.render();
+	}
 	player.render();
 	playerAttack.render();
 
 	if (m_levelEditor)
 	{
 		window->draw(outline);
+		window->draw(outlineFill);
 	}
 
 	window->display();
@@ -158,9 +176,18 @@ void Level::editorOn()
 
 void Level::setOutline()
 {
-	outline.setSize({ 100,100 });
-	outline.setFillColor(sf::Color::Green);
-	outline.setOrigin(50, 50);
+	switch (editor.getDesiredType())
+	{
+	case 1:
+		outlineFill.setFillColor(sf::Color::Blue);
+		break;
+	case 2:
+		outlineFill.setFillColor(sf::Color::Yellow);
+		break;
+	default:
+		outlineFill.setFillColor(sf::Color::Yellow);
+		break;
+	}
 }
 
 sf::Vector2f Level::gridPlacement(sf::Vector2f mousePosition)

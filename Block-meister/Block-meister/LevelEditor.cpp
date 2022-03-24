@@ -15,10 +15,6 @@ void LevelEditor::update(sf::RenderWindow& t_window)
 
 void LevelEditor::processEvents(sf::Event& event)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab))
-	{
-		levelEditor = !levelEditor;
-	}
 	if (levelEditor)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
@@ -47,6 +43,11 @@ void LevelEditor::createTerrain(std::vector<Terrain>& terrain)
 		case 2:
 			wall.changeType(Type::ground);
 			std::cout << "Terrain: Ground" << std::endl;
+			break;
+		default:
+			wall.changeType(Type::ground);
+			std::cout << "Terrain: Default Ground" << std::endl;
+			break;
 		}
 
 		wall.setPos(gridPlacement(mousePosition));

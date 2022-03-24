@@ -8,6 +8,7 @@
 #include "Collision.h"
 #include "LevelEditor.h"
 #include "AttackEntity.h"
+#include "RangedAttackEntity.h"
 #include "YamlLoader.h"
 
 class Level
@@ -34,10 +35,15 @@ private:
 	Collision collision;
 	Player player;
 	AttackEntity playerAttack;
+
+	static const int MAX_RANGED_ATTACKS{ 20 };
+	RangedAttackEntity playerRangedAttack[MAX_RANGED_ATTACKS];
+
 	std::vector<Entity> entities;
 	std::vector<Terrain> terrain;
 	std::vector<std::shared_ptr<Enemy>> enemies;
 	sf::RectangleShape outline;
+	sf::RectangleShape outlineFill;
 
 	bool m_levelEditor{ false };
 	bool ctrlDown = false;

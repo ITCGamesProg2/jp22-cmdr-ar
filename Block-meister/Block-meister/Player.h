@@ -23,6 +23,7 @@ public:
 
 	sf::Sprite getSprite() { return body; }
 	Direction getDir() { return currentDirection; }
+	sf::Vector2f getPos() { return body.getPosition(); }
 
 private:
 	sf::View view;
