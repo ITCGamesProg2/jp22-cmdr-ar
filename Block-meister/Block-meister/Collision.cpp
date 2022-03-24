@@ -22,21 +22,21 @@ void Collision::collisionDetection(Player& player, sf::RectangleShape& shape, st
 	{
 		if (shape.getGlobalBounds().intersects(e.getSprite().getGlobalBounds()))
 		{
-			shape.setOutlineColor(sf::Color::Red);
+			shape.setFillColor(sf::Color::Red);
 			break;
 		}
 		else
 		{
-			shape.setOutlineColor(sf::Color::Green);
+			shape.setFillColor(sf::Color::Green);
 		}
 	}
 	if (terrain.size() < 1)
 	{
-		shape.setOutlineColor(sf::Color::Green);
+		shape.setFillColor(sf::Color::Green);
 	}
 	if (shape.getGlobalBounds().intersects(player.getSprite().getGlobalBounds()))
 	{
-		shape.setOutlineColor(sf::Color::Red);
+		shape.setFillColor(sf::Color::Red);
 	}
 }
 

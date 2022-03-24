@@ -50,8 +50,8 @@ void Level::loadLevel(int no)
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	if (m_levelEditor) editor.editorOn(); // EDITOR OFF OR REENABLED
 	editor.editorOff();
+	if (m_levelEditor) editor.editorOn(); // EDITOR OFF OR REENABLED
 }
 
 void Level::saveLevel(int no)
@@ -70,16 +70,35 @@ void Level::processEvents(sf::Event& ev)
 	{
 		if (ev.type == sf::Event::MouseButtonPressed)
 		{
+			// Deleteing Entities
 			if (sf::Mouse::Right == ev.key.code)
 			{
-				int terrainIndex = collision.selectTerrain(mouseBounds, terrain);
-				editor.deleteTerrain(terrain, terrainIndex);
-			}
+				// Terrain Mode
+				if (editor.getMode() == Mode::terrain)
+				{
+					int terrainIndex = collision.selectTerrain(mouseBounds, terrain);
+					editor.deleteTerrain(terrain, terrainIndex);
+				}
+				// Enemy Mode
+				else if (editor.getMode() == Mode::enemies)
+				{
 
+				}
+			}
+			// Creating Entities
 			if (sf::Mouse::Left == ev.key.code &&
 				outline.getFillColor() == sf::Color::Green)
 			{
-				editor.createTerrain(terrain);
+				// Terrain Mode
+				if (editor.getMode() == Mode::terrain)
+				{
+					editor.createTerrain(terrain);
+				}
+				// Enemy Mode
+				else if (editor.getMode() == Mode::enemies)
+				{
+					editor.createEnemy(enemies);
+				}
 			}
 		}
 		if (ev.type == sf::Event::KeyPressed)

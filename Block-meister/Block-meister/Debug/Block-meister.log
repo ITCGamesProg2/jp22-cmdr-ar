@@ -1,11 +1,11 @@
 ﻿  Level.cpp
 C:\Users\unumuser\Desktop\Temp\jp22-cmdr-ar\Block-meister\Block-meister\Level.cpp(33,27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\unumuser\Desktop\Temp\jp22-cmdr-ar\Block-meister\Block-meister\Level.cpp(196,66): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\Users\unumuser\Desktop\Temp\jp22-cmdr-ar\Block-meister\Block-meister\Level.cpp(215,66): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\unumuser\Desktop\Temp\jp22-cmdr-ar\Block-meister\Block-meister\Level.cpp(197,66): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\Users\unumuser\Desktop\Temp\jp22-cmdr-ar\Block-meister\Block-meister\Level.cpp(216,66): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float

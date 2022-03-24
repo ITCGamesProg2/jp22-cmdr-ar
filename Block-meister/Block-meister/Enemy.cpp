@@ -14,7 +14,7 @@ void Enemy::SetTexture(const char* path)
 
 void Enemy::SetTexture(EnemyType _type)
 {
-	type = _type;
+	enemyType = _type;
 	switch (_type)
 	{
 	case EnemyType::Slime:
@@ -26,6 +26,20 @@ void Enemy::SetTexture(EnemyType _type)
 	}
 	body.setTexture(tex);
 }
+
+void Enemy::changeType(EnemyType type)
+{
+	switch (type)
+	{
+	case EnemyType::Slime:
+		
+		break;
+	}
+
+	enemyType = type;
+	SetTexture(type);
+}
+
 
 void Enemy::processEvents(sf::Event& ev)
 {

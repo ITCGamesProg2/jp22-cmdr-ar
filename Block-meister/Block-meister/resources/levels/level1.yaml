@@ -50,3 +50,6 @@ objects:
   - type: 1
     x: 870
     y: 200
+  - type: 0
+    x: 300
+    y: 300

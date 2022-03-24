@@ -17,50 +17,41 @@ void LevelEditor::processEvents(sf::Event& event)
 {
 	if (levelEditor)
 	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab))
+		{
+			modeIndex++;
+
+			switch (modeIndex)
+			{
+			case 1:
+				currentMode = Mode::terrain;
+				std::cout << "Mode: Terrain" << std::endl;
+				break;
+			case 2:
+				currentMode = Mode::enemies;
+				std::cout << "Mode: Enemies" << std::endl;
+				break;
+			}
+
+			if (modeIndex > 2)
+			{
+				modeIndex = 0;
+			}
+		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 		{
-			desiredType = 1;
+			desiredType = 0;
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 		{
-			desiredType = 2;
+			desiredType = 1;
 		}
 	}
 }
 
 void LevelEditor::createTerrain(std::vector<Terrain>& terrain)
 {
-	if (levelEditor)
-	{
-		Terrain wall;
-
-		switch (desiredType)
-		{
-		case 1:
-			wall.changeType(Type::wall);
-			std::cout << "Terrain: Wall" << std::endl;
-			break;
-		case 2:
-			wall.changeType(Type::ground);
-			std::cout << "Terrain: Ground" << std::endl;
-			break;
-		default:
-			wall.changeType(Type::ground);
-			std::cout << "Terrain: Default Ground" << std::endl;
-			break;
-		}
-
-		wall.setPos(gridPlacement(mousePosition));
-		terrain.push_back(wall);
-
-		int count = 0;
-
-		for (Terrain& e : terrain)
-		{
-			e.setCounter(count);
-			count++;
-		}
-	}
+	createTerrain(terrain, gridPlacement(mousePosition), (Type)desiredType);
 }
 
 void LevelEditor::createTerrain(std::vector<Terrain>& terrain, sf::Vector2f position, Type type)
@@ -76,6 +67,7 @@ void LevelEditor::createTerrain(std::vector<Terrain>& terrain, sf::Vector2f posi
 			break;
 		case Type::ground:
 			wall.changeType(Type::ground);
+			break;
 		}
 
 		wall.setPos(position);
@@ -104,6 +96,36 @@ void LevelEditor::deleteTerrain(std::vector<Terrain>& terrain, int terrainIndex)
 		for (Terrain& e : terrain)
 		{
 			e.setCounter(count);
+			count++;
+		}
+	}
+}
+
+void LevelEditor::createEnemy(std::vector<std::shared_ptr<Enemy>>& enemies)
+{
+	if (levelEditor)
+	{
+		std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>();
+		switch (desiredType)
+		{
+		case 1:
+			enemy->changeType(EnemyType::Slime);
+			std::cout << "Enemy: Slime" << std::endl;
+			break;
+		default:
+			enemy->changeType(EnemyType::Slime);
+			std::cout << "Enemy: Default Slime" << std::endl;
+			break;
+		}
+
+		enemy->setPos(gridPlacement(mousePosition));
+		enemies.push_back(enemy);
+
+		int count = 0;
+
+		for (std::shared_ptr<Enemy> e : enemies)
+		{
+			e->setCounter(count);
 			count++;
 		}
 	}
