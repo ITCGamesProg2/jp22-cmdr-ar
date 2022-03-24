@@ -1,7 +1,35 @@
-﻿  YamlLoader.cpp
+﻿  Collision.cpp
+  Game.cpp
+  Level.cpp
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\Level.cpp(27,27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\Level.cpp(169,66): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\Level.cpp(170,66): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  LevelEditor.cpp
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\LevelEditor.cpp(124,66): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\LevelEditor.cpp(125,66): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  Terrain.cpp
+  YamlLoader.cpp
 C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\YamlLoader.cpp(5,39): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
           with
           [
               T=float
           ]
+  main.cpp
+  Generating Code...
   Block-meister.vcxproj -> C:\Users\C00260445\Desktop\jp\Block-meister\Debug\Block-meister.exe

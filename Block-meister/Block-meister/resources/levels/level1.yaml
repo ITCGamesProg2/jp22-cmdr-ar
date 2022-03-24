@@ -1,10 +1,52 @@
 objects:
   - type: 1
     x: 100
-    y: 200
+    y: 300
   - type: 1
     x: 200
-    y: 200
-  - type: 1
+    y: 300
+  - type: 0
+    x: 100
+    y: 400
+  - type: 0
+    x: 200
+    y: 400
+  - type: 0
+    x: 300
+    y: 400
+  - type: 0
     x: 400
+    y: 400
+  - type: 0
+    x: 670
+    y: 400
+  - type: 0
+    x: 770
+    y: 400
+  - type: 0
+    x: 870
+    y: 400
+  - type: 0
+    x: 970
+    y: 400
+  - type: 0
+    x: 970
+    y: 300
+  - type: 0
+    x: 970
+    y: 200
+  - type: 0
+    x: 970
+    y: 100
+  - type: 1
+    x: 670
+    y: 300
+  - type: 1
+    x: 770
+    y: 300
+  - type: 1
+    x: 870
+    y: 300
+  - type: 1
+    x: 870
     y: 200

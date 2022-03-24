@@ -5,6 +5,8 @@
 #include <iostream>
 #include "yaml-cpp/yaml.h"
 
+#include "Terrain.h"
+
 struct Object
 {
 	int Type;
@@ -25,6 +27,6 @@ struct Data
 class YamlLoader
 {
 public:
-	static void load(Data& t_data);
-	static void emittter();
+	static void load(int level, Data& t_data);
+	static void emittter(int level, std::vector<Terrain> ter);
 };

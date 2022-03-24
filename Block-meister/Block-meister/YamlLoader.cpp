@@ -25,11 +25,11 @@ void operator >> (const YAML::Node& t_baseNode, Data& t_data)
 	t_data.levelData = ldata;
 }
 
-void YamlLoader::load(Data& t_data)
+void YamlLoader::load(int level, Data& t_data)
 {
 	try
 	{
-		YAML::Node baseNode = YAML::LoadFile("resources/levels/level1.yaml");
+		YAML::Node baseNode = YAML::LoadFile("resources/levels/level" + std::to_string(level) + ".yaml");
 		baseNode >> t_data;
 	}
 	catch (std::exception& e)
@@ -38,22 +38,29 @@ void YamlLoader::load(Data& t_data)
 	}
 }
 
-void YamlLoader::emittter()
+void YamlLoader::emittter(int level, std::vector<Terrain> terrain)
 {
 	YAML::Emitter out;
 	out << YAML::BeginMap;
-	out << YAML::Key << "player";
-	out << YAML::BeginMap;
-	out << YAML::Key << "name"; // name
-	out << YAML::Value << "Malia";
-	out << YAML::Key << "level"; // level
-	out << YAML::Value << "1";
-	out << YAML::Key << "floor"; // floor
-	out << YAML::Value << "1";
-	out << YAML::EndMap;
+	out << YAML::Key << "objects";
+	out << YAML::BeginSeq;
+
+	for (Terrain t : terrain)
+	{
+		out << YAML::BeginMap;
+		out << YAML::Key << "type"; // t type
+		out << YAML::Value << (int)t.getType();
+		out << YAML::Key << "x"; // t x
+		out << YAML::Value << t.getPos().x;
+		out << YAML::Key << "y"; // t y
+		out << YAML::Value << t.getPos().y;
+		out << YAML::EndMap;
+	}
+	
+	out << YAML::EndSeq;
 	out << YAML::EndMap;
 	///////////////////////////// FILE OPS ///////////////////////////////////////////
-	std::ofstream file("resources/data.yaml", std::ofstream::out | std::ofstream::trunc);
+	std::ofstream file("resources/levels/level" + std::to_string(level) + ".yaml", std::ofstream::out | std::ofstream::trunc);
 	file << out.c_str();
 	///////////////////////////// END ////////////////////////////////////////////////
 	file.close();

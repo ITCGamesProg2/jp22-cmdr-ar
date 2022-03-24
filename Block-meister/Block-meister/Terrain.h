@@ -25,6 +25,7 @@ public:
 	//Getters
 	sf::Sprite getSprite() { return body; }
 	Type getType() { return type; }
+	sf::Vector2f getPos() { return body.getPosition(); }
 
 	//Setters
 	void setType(Type t_type);

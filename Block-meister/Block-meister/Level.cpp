@@ -29,7 +29,7 @@ Level::Level(sf::RenderWindow& t_window)
 		enemies.push_back(slime);
 	}
 
-	loadLevel(0);
+	loadLevel(1);
 }
 
 void Level::loadLevel(int no)
@@ -37,7 +37,7 @@ void Level::loadLevel(int no)
 	editor.editorOn(); // EDITOR ENABLED
 	//////////////////////////////////////////////////////////////////////////
 
-	yml.load(levelData);
+	yml.load(no, levelData);
 	for (Object& o : levelData.levelData.objects)
 	{
 		editor.createTerrain(terrain, sf::Vector2f(o.X, o.Y), static_cast<Type>(o.Type));
@@ -46,6 +46,11 @@ void Level::loadLevel(int no)
 	//////////////////////////////////////////////////////////////////////////
 	if (m_levelEditor) editor.editorOn(); // EDITOR OFF OR REENABLED
 	editor.editorOff();
+}
+
+void Level::saveLevel(int no)
+{
+	yml.emittter(no, terrain);
 }
 
 void Level::processEvents(sf::Event& ev)
@@ -68,6 +73,27 @@ void Level::processEvents(sf::Event& ev)
 				outline.getFillColor() == sf::Color::Green)
 			{
 				editor.createTerrain(terrain);
+			}
+		}
+		if (ev.type == sf::Event::KeyPressed)
+		{
+			if (ev.key.code == sf::Keyboard::LControl)
+			{
+				ctrlDown = true;
+			}
+			if (ctrlDown)
+			{
+				if (ev.key.code == sf::Keyboard::S)
+				{
+					saveLevel(1);
+				}
+			}
+		}
+		if (ev.type == sf::Event::KeyReleased)
+		{
+			if (ev.key.code == sf::Keyboard::LControl)
+			{
+				ctrlDown = false;
 			}
 		}
 	}

@@ -17,6 +17,7 @@ public:
 	sf::RenderWindow* window;
 
 	void loadLevel(int no);
+	void saveLevel(int no); // editor save
 
 	void processEvents(sf::Event& ev);
 	void update(sf::Time& dt);
@@ -39,6 +40,7 @@ private:
 	sf::RectangleShape outline;
 
 	bool m_levelEditor{ false };
+	bool ctrlDown = false;
 	YamlLoader yml;
 	Data levelData;
 };
