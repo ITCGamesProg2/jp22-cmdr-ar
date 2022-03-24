@@ -22,6 +22,7 @@ void operator >> (const YAML::Node& t_baseNode, Data& t_data)
 	const YAML::Node& pDataNode = t_baseNode["objects"].as<YAML::Node>();
 	LevelData ldata;
 	pDataNode >> ldata;
+	t_data.levelData = ldata;
 }
 
 void YamlLoader::load(Data& t_data)
