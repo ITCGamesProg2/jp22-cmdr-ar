@@ -35,16 +35,22 @@ Level::Level(sf::RenderWindow& t_window)
 		enemies.push_back(slime);
 	}
 
-	loadLevel(1);
+	loadLevel();
 }
 
-void Level::loadLevel(int no)
+void Level::loadLevel()
 {
 	editor.editorOn(); // EDITOR ENABLED
 	//////////////////////////////////////////////////////////////////////////
 
-	yml.load(no, levelData);
-	for (Object& o : levelData.levelData.objects)
+	yml.load(playerData); // load the player data
+	currentLevel = playerData.Level;
+	player.setPos(playerData.X, playerData.Y);
+
+	yml.load(currentLevel, levelData); // load the current level
+
+
+	for (Object& o : levelData.objects)
 	{
 		editor.createTerrain(terrain, sf::Vector2f(o.X, o.Y), static_cast<Type>(o.Type));
 	}
@@ -54,9 +60,14 @@ void Level::loadLevel(int no)
 	if (m_levelEditor) editor.editorOn(); // EDITOR OFF OR REENABLED
 }
 
-void Level::saveLevel(int no)
+void Level::saveLevel()
 {
-	yml.emittter(no, terrain);
+	yml.emittter(currentLevel, terrain);
+}
+
+void Level::saveGame()
+{
+	yml.emittter(currentLevel, player.getPos());
 }
 
 void Level::processEvents(sf::Event& ev)
@@ -111,7 +122,7 @@ void Level::processEvents(sf::Event& ev)
 			{
 				if (ev.key.code == sf::Keyboard::S)
 				{
-					saveLevel(1);
+					saveLevel();
 				}
 			}
 			setOutline();

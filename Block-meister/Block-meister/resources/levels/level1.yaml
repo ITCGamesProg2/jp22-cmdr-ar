@@ -1,22 +1,4 @@
 objects:
-  - type: 1
-    x: 100
-    y: 300
-  - type: 1
-    x: 200
-    y: 300
-  - type: 0
-    x: 100
-    y: 400
-  - type: 0
-    x: 200
-    y: 400
-  - type: 0
-    x: 300
-    y: 400
-  - type: 0
-    x: 400
-    y: 400
   - type: 0
     x: 670
     y: 400
@@ -50,6 +32,150 @@ objects:
   - type: 1
     x: 870
     y: 200
+  - type: 1
+    x: 770
+    y: 200
+  - type: 1
+    x: 770
+    y: 100
+  - type: 1
+    x: 770
+    y: 0
+  - type: 1
+    x: 670
+    y: 0
+  - type: 1
+    x: 570
+    y: 0
+  - type: 1
+    x: 470
+    y: 0
+  - type: 1
+    x: 370
+    y: 0
+  - type: 1
+    x: 270
+    y: 0
+  - type: 1
+    x: 170
+    y: 0
+  - type: 1
+    x: 170
+    y: 100
+  - type: 1
+    x: 270
+    y: 100
+  - type: 1
+    x: 370
+    y: 100
+  - type: 1
+    x: 470
+    y: 100
+  - type: 1
+    x: 670
+    y: 100
+  - type: 1
+    x: 570
+    y: 100
+  - type: 1
+    x: 670
+    y: 200
+  - type: 1
+    x: 570
+    y: 200
+  - type: 1
+    x: 470
+    y: 200
+  - type: 1
+    x: 370
+    y: 200
+  - type: 1
+    x: 270
+    y: 200
+  - type: 1
+    x: 170
+    y: 200
   - type: 0
-    x: 300
+    x: 70
+    y: 0
+  - type: 0
+    x: 70
+    y: 100
+  - type: 0
+    x: 70
+    y: 200
+  - type: 0
+    x: 70
     y: 300
+  - type: 0
+    x: 70
+    y: 400
+  - type: 0
+    x: 170
+    y: 400
+  - type: 0
+    x: 270
+    y: 400
+  - type: 0
+    x: 370
+    y: 400
+  - type: 1
+    x: 570
+    y: 400
+  - type: 1
+    x: 470
+    y: 300
+  - type: 1
+    x: 570
+    y: 300
+  - type: 1
+    x: 370
+    y: 300
+  - type: 1
+    x: 270
+    y: 300
+  - type: 1
+    x: 170
+    y: 300
+  - type: 1
+    x: 70
+    y: 500
+  - type: 1
+    x: 170
+    y: 500
+  - type: 1
+    x: 270
+    y: 500
+  - type: 1
+    x: 370
+    y: 500
+  - type: 1
+    x: 470
+    y: 500
+  - type: 1
+    x: 570
+    y: 500
+  - type: 1
+    x: 670
+    y: 500
+  - type: 1
+    x: 770
+    y: 500
+  - type: 1
+    x: 870
+    y: 500
+  - type: 1
+    x: 970
+    y: 500
+  - type: 1
+    x: 870
+    y: 100
+  - type: 1
+    x: 870
+    y: 0
+  - type: 0
+    x: 970
+    y: 0
+  - type: 1
+    x: 470
+    y: 400

@@ -19,14 +19,18 @@ struct LevelData
 	std::vector<Object> objects;
 };
 
-struct Data
+struct PlayerData
 {
-	LevelData levelData;
+	int Level;
+	float X;
+	float Y;
 };
 
 class YamlLoader
 {
 public:
-	static void load(int level, Data& t_data);
+	static void load(int level, LevelData& t_data);
+	static void load(PlayerData& t_data);
 	static void emittter(int level, std::vector<Terrain> ter);
+	static void emittter(int level, sf::Vector2f pos);
 };

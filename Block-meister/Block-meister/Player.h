@@ -25,6 +25,8 @@ public:
 	Direction getDir() { return currentDirection; }
 	sf::Vector2f getPos() { return body.getPosition(); }
 
+	void setPos(float x, float y) { body.setPosition(x, y); }
+
 private:
 	sf::View view;
 	sf::Sprite body;

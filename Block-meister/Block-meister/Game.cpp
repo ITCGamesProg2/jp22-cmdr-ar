@@ -35,6 +35,7 @@ void Game::processEvents()
 		if (sf::Event::Closed == newEvent.type) // window message
 		{
 			m_exitGame = true;
+			level.saveGame();
 		}
 
 		switch (state)

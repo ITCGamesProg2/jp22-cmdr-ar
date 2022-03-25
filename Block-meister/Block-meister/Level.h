@@ -17,8 +17,9 @@ public:
 	Level(sf::RenderWindow& t_window);
 	sf::RenderWindow* window;
 
-	void loadLevel(int no);
-	void saveLevel(int no); // editor save
+	void loadLevel();
+	void saveLevel(); // editor save
+	void saveGame();
 
 	void processEvents(sf::Event& ev);
 	void update(sf::Time& dt);
@@ -48,6 +49,8 @@ private:
 	bool m_levelEditor{ false };
 	bool ctrlDown = false;
 	YamlLoader yml;
-	Data levelData;
+	LevelData levelData;
+	PlayerData playerData;
+	int currentLevel = 1;
 };
 
