@@ -26,14 +26,11 @@ Level::Level(sf::RenderWindow& t_window)
 	mouseBounds.setSize(sf::Vector2f{ 1, 1 });
 
 	//test enemies
-	for (int i = 0; i < 3; i++)
-	{
-		auto slime = std::make_shared<Enemy>();
-		slime.get()->SetTexture(EnemyType::Slime);
-		slime.get()->setPos(100 * i, 10);
-		slime.get()->setScale(2.f,2.f);
-		enemies.push_back(slime);
-	}
+	auto slime = std::make_shared<Enemy>();
+	slime.get()->SetTexture(EnemyType::Slime);
+	slime.get()->setPos(100 * 3, 10);
+	slime.get()->setScale(2.f, 2.f);
+	enemies.push_back(slime);
 
 	loadLevel();
 }
@@ -76,6 +73,10 @@ void Level::processEvents(sf::Event& ev)
 	editor.processEvents(ev);
 	playerAttack.processEvents(ev);
 	playerRangedAttack[RangedAttackEntity::currentAttack].processEvents(ev);
+	for (std::shared_ptr<Enemy> e : enemies)
+	{
+		e->processEvents(ev);
+	}
 
 	if (m_levelEditor)
 	{
@@ -147,6 +148,10 @@ void Level::update(sf::Time& dt)
 	}
 	editor.update(*window);
 	checkCollisions();
+	for (std::shared_ptr<Enemy> e : enemies)
+	{
+		e->update(dt);
+	}
 	outline.setPosition(gridPlacement(editor.getMouse()));
 	outlineFill.setPosition(outline.getPosition());
 }
@@ -163,6 +168,7 @@ void Level::render()
 	{
 		t.render();
 	}
+	player.render();
 	for (std::shared_ptr<Enemy> e : enemies)
 	{
 		e.get()->render();
@@ -171,7 +177,6 @@ void Level::render()
 	{
 		e.render();
 	}
-	player.render();
 	playerAttack.render();
 
 	if (m_levelEditor)
@@ -188,10 +193,14 @@ void Level::checkCollisions()
 {
 	mouseBounds.setPosition(editor.getMouse());
 
+	//Player and Enemies
+	collision.collisionDetection(player, enemies);
 	// Player and Terrain
 	collision.collisionDetection(player, terrain);
 	// Player, Terrain and Outline 
 	collision.collisionDetection(player, outline, terrain);
+	// Enemies and Terrain
+	collision.collisionDetection(terrain, enemies);
 }
 
 void Level::editorOn()

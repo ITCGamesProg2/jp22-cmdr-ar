@@ -21,22 +21,46 @@ public:
 	void processEvents(sf::Event& ev);
 	void update(sf::Time& dt);
 	void render();
-
+	bool timer(float t_desiredTime, sf::Clock t_timer);
+	void bump();
+		
 	EnemyType enemyType = EnemyType::Slime;
 
+
+	//Slime stuff
+	void slimeCharge(sf::Time& dt);
+	void setCharge(bool t_charging) { charging = t_charging; }
+	
 	//Getters
 	sf::Sprite getSprite() { return body; }
+	sf::Vector2f directionTowardsPlayer();
 
 	//Setters
 	void setPos(float x, float y) { body.setPosition(x, y); }
 	void setPos(sf::Vector2f pos) { body.setPosition(pos); }
 	void setScale(float x, float y) { body.setScale(x, y); }
 	void setCounter(int t_count) { count = t_count; }
+	void setKnockback(bool t_knockback);
 
 private:
+	sf::Time m_dt;
 	int count;
+	float speed{ 500 };
+	sf::Vector2f direction{ 0,1 };
+	sf::Clock bumpDuration;
+	bool knockback{ false };
+
+	//Slime stuff
+	bool charging{ false };
+	bool chargeActive{ false };
+	const float CHARGE_SPEED = 750;
+	const float SLIME_SPEED = 500;
+	sf::Vector2f playerDirection;
+	sf::Clock chargePrep;
+	sf::Clock chargeDuration;
 
 	sf::Sprite body;
+	sf::RectangleShape nextMovement;
 	sf::Texture tex;
 };
 
