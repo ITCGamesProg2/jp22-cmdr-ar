@@ -49,12 +49,13 @@ void LevelEditor::processEvents(sf::Event& event)
 	}
 }
 
-void LevelEditor::createTerrain(std::vector<Terrain>& terrain)
+Terrain LevelEditor::createTerrain()
 {
-	createTerrain(terrain, gridPlacement(mousePosition), (Type)desiredType);
+	Terrain t = createTerrain(gridPlacement(mousePosition), (Type)desiredType);
+	return t;
 }
 
-void LevelEditor::createTerrain(std::vector<Terrain>& terrain, sf::Vector2f position, Type type)
+Terrain LevelEditor::createTerrain(sf::Vector2f position, Type type)
 {
 	if (levelEditor)
 	{
@@ -71,31 +72,24 @@ void LevelEditor::createTerrain(std::vector<Terrain>& terrain, sf::Vector2f posi
 		}
 
 		wall.setPos(position);
-		terrain.push_back(wall);
 
-		int count = 0;
-
-		for (Terrain& e : terrain)
-		{
-			e.setCounter(count);
-			count++;
-		}
+		return wall;
 	}
 }
 
-void LevelEditor::deleteTerrain(std::vector<Terrain>& terrain, int terrainIndex)
+void LevelEditor::deleteTerrain(std::vector<std::shared_ptr<Terrain>>& terrain, int terrainIndex)
 {
 	if (levelEditor)
 	{
 		if (terrainIndex != -1)
 		{
-			std::vector<Terrain>::const_iterator i = terrain.begin() + terrainIndex;
+			std::vector< std::shared_ptr<Terrain>>::const_iterator i = terrain.begin() + terrainIndex;
 			terrain.erase(i);
 		}
 		int count = 0;
-		for (Terrain& e : terrain)
+		for (std::shared_ptr<Terrain> t : terrain)
 		{
-			e.setCounter(count);
+			t->setCounter(count);
 			count++;
 		}
 	}
@@ -135,8 +129,8 @@ sf::Vector2f LevelEditor::getMousePosition(sf::RenderWindow& t_window)
 {
 	sf::Vector2f m_mousePosition;
 
-	m_mousePosition.x = (float)sf::Mouse::getPosition(t_window).x;
-	m_mousePosition.y = (float)sf::Mouse::getPosition(t_window).y;
+	m_mousePosition.x = (float)sf::Mouse::getPosition(t_window).x + (t_window.getView().getCenter().x - (t_window.getView().getSize().x / 2));
+	m_mousePosition.y = (float)sf::Mouse::getPosition(t_window).y + (t_window.getView().getCenter().y - (t_window.getView().getSize().y / 2));
 
 	return m_mousePosition;
 }
@@ -149,4 +143,3 @@ sf::Vector2f LevelEditor::gridPlacement(sf::Vector2f mousePosition)
 
 	return mouseGridPlacement;
 }
-

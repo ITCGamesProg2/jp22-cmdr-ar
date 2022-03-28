@@ -41,7 +41,7 @@ private:
 	RangedAttackEntity playerRangedAttack[MAX_RANGED_ATTACKS];
 
 	std::vector<Entity> entities;
-	std::vector<Terrain> terrain;
+	std::vector<std::shared_ptr<Terrain>> terrain;
 	std::vector<std::shared_ptr<Enemy>> enemies;
 	sf::RectangleShape outline;
 	sf::RectangleShape outlineFill;

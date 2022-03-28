@@ -49,7 +49,18 @@ void Level::loadLevel()
 
 	for (Object& o : levelData.objects)
 	{
-		editor.createTerrain(terrain, sf::Vector2f(o.X, o.Y), static_cast<Type>(o.Type));
+
+		std::shared_ptr<Terrain> ter = std::make_shared<Terrain>(editor.createTerrain(sf::Vector2f(o.X, o.Y), static_cast<Type>(o.Type)));
+		ter->changeType(ter->getType());
+		terrain.push_back(ter);
+
+		int count = 0;
+
+		for (std::shared_ptr<Terrain> t : terrain)
+		{
+			t->setCounter(count);
+			count++;
+		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -104,7 +115,17 @@ void Level::processEvents(sf::Event& ev)
 				// Terrain Mode
 				if (editor.getMode() == Mode::terrain)
 				{
-					editor.createTerrain(terrain);
+					std::shared_ptr<Terrain> ter = std::make_shared<Terrain>(editor.createTerrain());
+					ter->changeType(ter->getType());
+					terrain.push_back(ter);
+
+					int count = 0;
+
+					for (std::shared_ptr<Terrain> t : terrain)
+					{
+						t->setCounter(count);
+						count++;
+					}
 				}
 				// Enemy Mode
 				else if (editor.getMode() == Mode::enemies)
@@ -164,15 +185,15 @@ void Level::render()
 	{
 		e.render();
 	}
-	for (Terrain& t : terrain)
+	for (std::shared_ptr<Terrain> t : terrain)
 	{
-		t.render();
+		t->render();
 	}
-	player.render();
 	for (std::shared_ptr<Enemy> e : enemies)
 	{
 		e.get()->render();
 	}
+	player.render();
 	for (RangedAttackEntity& e : playerRangedAttack)
 	{
 		e.render();

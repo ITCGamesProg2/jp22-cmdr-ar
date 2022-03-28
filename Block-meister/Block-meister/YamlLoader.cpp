@@ -52,25 +52,25 @@ void YamlLoader::load(PlayerData& t_data)
 	}
 }
 
-void YamlLoader::emittter(int level, std::vector<Terrain> terrain)
+void YamlLoader::emittter(int level, std::vector<std::shared_ptr<Terrain>> ter)
 {
 	YAML::Emitter out;
 	out << YAML::BeginMap;
 	out << YAML::Key << "objects";
 	out << YAML::BeginSeq;
 
-	for (Terrain t : terrain)
+	for (std::shared_ptr<Terrain> t : ter)
 	{
 		out << YAML::BeginMap;
 		out << YAML::Key << "type"; // t type
-		out << YAML::Value << (int)t.getType();
+		out << YAML::Value << (int)t->getType();
 		out << YAML::Key << "x"; // t x
-		out << YAML::Value << t.getPos().x;
+		out << YAML::Value << t->getPos().x;
 		out << YAML::Key << "y"; // t y
-		out << YAML::Value << t.getPos().y;
+		out << YAML::Value << t->getPos().y;
 		out << YAML::EndMap;
 	}
-	
+
 	out << YAML::EndSeq;
 	out << YAML::EndMap;
 	///////////////////////////// FILE OPS ///////////////////////////////////////////

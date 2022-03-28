@@ -60,6 +60,10 @@ void Player::processEvents(sf::Event& event)
 	{
 		currentDirection = Direction::None;
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+	{
+		dodge();
+	}
 }
 
 void Player::setMovement()
@@ -96,43 +100,23 @@ void Player::setMovement()
 	}
 }
 
-void Player::boundsCollision(sf::Time& dt)
-{
-	//Left Side Bounds
-	if (nextMovement.getPosition().x - (nextMovement.getGlobalBounds().width * 0.5) < 0)
-	{
-		currentDirection = Direction::None;
-		body.move(sf::Vector2f{ 1,0 } *speed * dt.asSeconds());
-	}
-	//Right Side Bounds
-	if (nextMovement.getPosition().x + (nextMovement.getGlobalBounds().width * 0.5) > Window::WIDTH)
-	{
-		currentDirection = Direction::None;
-		body.move(sf::Vector2f{ -1,0 } *speed * dt.asSeconds());
-	}
-	//Top Side Bounds
-	if (nextMovement.getPosition().y - (nextMovement.getGlobalBounds().height * 0.5) < 0)
-	{
-		currentDirection = Direction::None;
-		body.move(sf::Vector2f{ 0,1 } *speed * dt.asSeconds());
-	}
-	//Bottom Side Bounds
-	if (nextMovement.getPosition().y + (nextMovement.getGlobalBounds().width * 0.5) > Window::HEIGHT)
-	{
-		currentDirection = Direction::None;
-		body.move(sf::Vector2f{ 0,-1 } *speed * dt.asSeconds());
-	}
-}
-
 void Player::update(sf::Time& dt)
 {
 	m_dt = dt;
-	animate();
-	setMovement();
-	boundsCollision(dt);
+	if (!dodging)
+	{
+		animate();
+		setMovement();
+	}
+	if (dodging)
+	{
+		animateDodge(dt);
+		dodge();
+	}
+
 	body.move(moveBy * speed * dt.asSeconds());
 	nextMovement.setPosition(body.getPosition() + (moveBy * speed * dt.asSeconds()));
-	//view.setCenter(body.getPosition());
+	view.setCenter(body.getPosition());
 }
 
 void Player::render()
@@ -147,6 +131,50 @@ void Player::bump()
 	currentDirection = Direction::None;
 	sf::Vector2f x = { -1.0f * moveBy.x, -1.0f * moveBy.y };
 	body.move(x * speed * m_dt.asSeconds());
+}
+
+void Player::animateDodge(sf::Time& dt)
+{
+	if (dodgeTimer.getElapsedTime().asSeconds() < 0.1f)
+	{
+		sf::Vector2f scaleBy{ 0.f, 10 * dt.asSeconds() };
+		alpha -= dt.asSeconds() * 3000;
+		if (alpha < 0.f) alpha = 0.f;
+		body.setScale(body.getScale() + scaleBy);
+		body.setColor(sf::Color(255, 255, 255, alpha));
+	}
+	else if (dodgeTimer.getElapsedTime().asSeconds() > 0.4f)
+	{
+		sf::Vector2f scaleBy{ 0.f, 10 * dt.asSeconds() };
+		alpha += dt.asSeconds() * 3000;
+		if (alpha > 255.f) alpha = 255.f;
+		body.setScale(body.getScale() - scaleBy);
+		body.setColor(sf::Color(255, 255, 255, alpha));
+	}
+	else
+	{
+		body.setColor(sf::Color(255, 255, 255, 0));
+	}
+}
+
+void Player::dodge()
+{
+	if (dodgeTimer.getElapsedTime().asSeconds() > 0.5f && !dodging)
+	{
+		speed *= 5;
+		setMovement();
+		dodging = true;
+		dodgeTimer.restart();
+	}
+	else if (dodgeTimer.getElapsedTime().asSeconds() > 0.5f && dodging)
+	{
+		dodging = false;
+		dodgeTimer.restart();
+		speed /= 5;
+		//anim
+		body.setScale(2.f, 2.f);
+		body.setColor(sf::Color(255, 255, 255, 255));
+	}
 }
 
 void Player::animate()
