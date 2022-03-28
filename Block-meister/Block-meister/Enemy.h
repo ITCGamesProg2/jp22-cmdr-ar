@@ -33,7 +33,9 @@ public:
 	
 	//Getters
 	sf::Sprite getSprite() { return body; }
-	sf::Vector2f directionTowardsPlayer();
+	bool getChargeActive() { return chargeActive; }
+	void getBounceDirection(sf::Sprite t_sprite);
+	void directionTowardsPlayer();
 
 	//Setters
 	void setPos(float x, float y) { body.setPosition(x, y); }
@@ -46,7 +48,7 @@ private:
 	sf::Time m_dt;
 	int count;
 	float speed{ 500 };
-	sf::Vector2f direction{ 0,1 };
+	sf::Vector2f direction{ 0,0 };
 	sf::Clock bumpDuration;
 	bool knockback{ false };
 

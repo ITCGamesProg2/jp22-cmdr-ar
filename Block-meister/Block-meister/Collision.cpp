@@ -13,19 +13,25 @@ void Collision::collisionDetection(std::vector<std::shared_ptr<Terrain>>& terrai
 			if (e->getSprite().getGlobalBounds().intersects(t->getSprite().getGlobalBounds()) &&
 				t->getType() == Type::wall)
 			{
-				e->setKnockback(true);
+				e->setKnockback(true); 
+				e->getBounceDirection(t->getSprite());
 			}
 		}
 	}
 }
 
-void Collision::collisionDetection(Player& player, std::vector<std::shared_ptr<Enemy>> enemies)
+void Collision::collisionDetection(Player& player, std::vector<std::shared_ptr<Enemy>>& enemies)
 {
 	for (std::shared_ptr<Enemy> e : enemies)
 	{
 		if (player.getSprite().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()))
 		{
-	
+			if (e->getChargeActive())
+			{
+				e->setKnockback(true);
+				e->getBounceDirection(player.getSprite());
+			}
+			player.bump();
 		}
 	}
 }
@@ -66,7 +72,7 @@ void Collision::collisionDetection(Player& player, sf::RectangleShape& shape, st
 	}
 }
 
-int Collision::selectTerrain(sf::RectangleShape& shape, std::vector<std::shared_ptr<Terrain>> terrain)
+int Collision::selectTerrain(sf::RectangleShape& shape, std::vector<std::shared_ptr<Terrain>>& terrain)
 {
 	for (std::shared_ptr<Terrain> e : terrain)
 	{

@@ -84,7 +84,7 @@ void Enemy::slimeCharge(sf::Time& dt)
 		{
 			chargeActive = true;
 			speed = CHARGE_SPEED;
-			playerDirection = directionTowardsPlayer();
+			directionTowardsPlayer();
 			direction = playerDirection;
 			chargePrep.restart();
 		}
@@ -111,13 +111,42 @@ void Enemy::slimeCharge(sf::Time& dt)
 	}
 }
 
-sf::Vector2f Enemy::directionTowardsPlayer()
+void Enemy::getBounceDirection(sf::Sprite t_sprite)
+{
+	float X1 = abs((body.getGlobalBounds().left + body.getGlobalBounds().width) - t_sprite.getGlobalBounds().left);
+	float X2 = abs(body.getGlobalBounds().left - (t_sprite.getGlobalBounds().left + t_sprite.getGlobalBounds().width));
+	float Y1 = abs(body.getGlobalBounds().top - (t_sprite.getGlobalBounds().top + t_sprite.getGlobalBounds().height));
+	float Y2 = abs((body.getGlobalBounds().top + body.getGlobalBounds().height) - t_sprite.getGlobalBounds().top);
+
+	// Bottom side collision
+	if (direction.y < 0 && Y1 < Y2 && Y1 < X1 && Y1 < X2)
+	{
+		direction.y = -1 * direction.y;
+	}
+	// Top side collision
+	if (direction.y > 0 && Y2 < Y1 && Y2 < X1 && Y2 < X2)
+	{
+		direction.y = -1 * direction.y;
+	}
+	// Left side collision
+	if (direction.x > 0 && X1 < X2 && X1 < Y1 && X1 < Y2)
+	{
+		direction.x = -1 * direction.x;
+	}
+	// Right side collision
+	if (direction.x < 0 && X2 < X1 && X2 < Y1 && X2 < Y2)
+	{
+		direction.x = -1 * direction.x;
+	}
+}
+
+void Enemy::directionTowardsPlayer()
 {
 	sf::Vector2f t_direction = player->getPos() - body.getPosition();
 	float vectorLength = sqrt(t_direction.x * t_direction.x + t_direction.y * t_direction.y);
 	t_direction = t_direction / vectorLength;
 
-	return t_direction;
+	playerDirection = t_direction;
 }
 
 void Enemy::setKnockback(bool t_knockback)
@@ -150,8 +179,7 @@ void Enemy::bump()
 	if (!timer(0.5, bumpDuration) && knockback)
 	{
 		speed *= 0.92;
-		sf::Vector2f x = { -1.0f * direction.x, -1.0f * direction.y };
-		body.move(x * speed * m_dt.asSeconds());
+		body.move(direction * speed * m_dt.asSeconds());
 	}
 	if (timer(0.5, bumpDuration) && knockback)
 	{
@@ -164,4 +192,5 @@ void Enemy::bump()
 		chargeDuration.restart();
 		chargePrep.restart();
 	}
+
 }
