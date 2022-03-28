@@ -14,6 +14,7 @@ public:
 	void update(sf::Time& dt);
 	void render();
 
+	sf::Sprite getSprite() { return body; }
 	bool attacking() { return isAttacking; }
 
 private:

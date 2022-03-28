@@ -228,6 +228,10 @@ void Level::checkCollisions()
 	collision.collisionDetection(player, outline, terrain);
 	// Enemies and Terrain
 	collision.collisionDetection(terrain, enemies);
+	// Enemies and Attack
+	collision.collisionDetection(playerAttack, enemies);
+	// Enemies and Ranged Attack
+	collision.collisionDetection(playerRangedAttack, enemies);
 }
 
 void Level::editorOn()

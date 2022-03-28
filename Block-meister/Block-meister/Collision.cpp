@@ -4,6 +4,37 @@ Collision::Collision()
 {
 }
 
+void Collision::collisionDetection(RangedAttackEntity (&attack)[20], std::vector<std::shared_ptr<Enemy>>& enemies)
+{
+	for (int i = 0; i < 20; i++)
+	{
+		if (attack[i].getActive())
+		{
+			for (std::shared_ptr<Enemy> e : enemies)
+			{
+				if (attack[i].getSprite().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()))
+				{
+					e->setKnockback(true);
+					e->getBounceDirection(attack[i].getSprite());
+					attack[i].setActive(false);
+				}
+			}
+		}
+	}
+}
+
+void Collision::collisionDetection(AttackEntity& attack, std::vector<std::shared_ptr<Enemy>>& enemies)
+{
+	for (std::shared_ptr<Enemy> e : enemies)
+	{
+		if (attack.getSprite().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()))
+		{
+			e->setKnockback(true);
+			e->getBounceDirection(attack.getSprite());
+		}
+	}
+}
+
 void Collision::collisionDetection(std::vector<std::shared_ptr<Terrain>>& terrain, std::vector<std::shared_ptr<Enemy>> enemies)
 {
 	for (std::shared_ptr<Enemy> e : enemies)
