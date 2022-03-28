@@ -22,21 +22,26 @@ public:
 	void render();
 	void bump();
 	void dodge();
+	void knockbackEntity();
+	bool timer(float t_desiredTime, sf::Clock t_timer);
 
 	sf::Sprite getSprite() { return body; }
+	sf::RectangleShape getNextMove() { return nextMovement; }
+	bool getDodging() { return dodging; }
+	bool getKnockedback() { return knockback; }
 	Direction getDir() { return currentDirection; }
 	sf::Vector2f getPos() { return body.getPosition(); }
+	void getKnockbackDirection(sf::Sprite t_sprite);
 
 	void setPos(float x, float y) { body.setPosition(x, y); }
 
 	HealthBar health;
 
 private:
-	sf::View view;
-	sf::Sprite body;
-	sf::Texture tex;
+
 	sf::Vector2f moveBy;
 	float speed = 150.f;
+	float MAX_SPEED{ 150.f };
 	sf::Time m_dt;
 
 	//dodging
@@ -50,9 +55,18 @@ private:
 	sf::RectangleShape nextMovement;
 	void setMovement();
 
+	//knockback
+	sf::Vector2f knockbackDirection;
+	sf::Clock knockbackDuration;
+	bool knockback{ false };
+	float knockbackStrength{ 5 };
+
 	//animation
 	void animate();
 	Animation anim;
 
+	sf::View view;
+	sf::Sprite body;
+	sf::Texture tex;
 };
 

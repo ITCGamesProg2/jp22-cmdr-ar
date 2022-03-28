@@ -36,6 +36,7 @@ public:
 	bool getChargeActive() { return chargeActive; }
 	void getBounceDirection(sf::Sprite t_sprite);
 	void directionTowardsPlayer();
+	sf::RectangleShape getNextMove() { return nextMovement; }
 
 	//Setters
 	void setPos(float x, float y) { body.setPosition(x, y); }

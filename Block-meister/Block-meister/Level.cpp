@@ -161,6 +161,7 @@ void Level::processEvents(sf::Event& ev)
 
 void Level::update(sf::Time& dt)
 {
+	checkCollisions();
 	player.update(dt);
 	playerAttack.update(dt);
 	for (RangedAttackEntity& e : playerRangedAttack)
@@ -168,7 +169,6 @@ void Level::update(sf::Time& dt)
 		e.update(dt);
 	}
 	editor.update(*window);
-	checkCollisions();
 	for (std::shared_ptr<Enemy> e : enemies)
 	{
 		e->update(dt);

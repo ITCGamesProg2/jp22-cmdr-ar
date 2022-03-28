@@ -26,11 +26,11 @@ void Enemy::SetTexture(EnemyType _type)
 	}
 	body.setTexture(tex);
 	body.setOrigin((body.getGlobalBounds().width * 2) / 2, (body.getGlobalBounds().height * 2) / 2);
+	body.setOrigin((body.getLocalBounds().width / 2), (body.getLocalBounds().height / 2));
 	//Next movement bounds
 	nextMovement.setSize(sf::Vector2f{ body.getGlobalBounds().width * 2, body.getGlobalBounds().height * 2 });
 	nextMovement.setFillColor(sf::Color::Red);
-	nextMovement.setOrigin((nextMovement.getGlobalBounds().width * 2) / 2, (nextMovement.getGlobalBounds().height * 2) / 2);
-
+	nextMovement.setOrigin((nextMovement.getLocalBounds().width / 2), (nextMovement.getLocalBounds().height / 2));
 }
 
 void Enemy::changeType(EnemyType type)
@@ -41,6 +41,7 @@ void Enemy::changeType(EnemyType type)
 		//Slime body
 		SetTexture(EnemyType::Slime);
 		setScale(2.0f, 2.0f);
+		body.setOrigin((body.getLocalBounds().width / 2), (body.getLocalBounds().height / 2));
 		break;
 	}
 
@@ -138,6 +139,15 @@ void Enemy::getBounceDirection(sf::Sprite t_sprite)
 	{
 		direction.x = -1 * direction.x;
 	}
+
+	if (direction.x == 0 || direction.y == 0)
+	{
+		directionTowardsPlayer();
+		direction = -playerDirection;
+	}
+
+	bumpDuration.restart();
+	speed = SLIME_SPEED;
 }
 
 void Enemy::directionTowardsPlayer()
@@ -194,3 +204,4 @@ void Enemy::bump()
 	}
 
 }
+

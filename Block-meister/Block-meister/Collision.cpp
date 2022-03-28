@@ -4,13 +4,14 @@ Collision::Collision()
 {
 }
 
+// enemy and terrain collision
 void Collision::collisionDetection(std::vector<std::shared_ptr<Terrain>>& terrain, std::vector<std::shared_ptr<Enemy>> enemies)
 {
 	for (std::shared_ptr<Enemy> e : enemies)
 	{
 		for (std::shared_ptr<Terrain>& t : terrain)
 		{
-			if (e->getSprite().getGlobalBounds().intersects(t->getSprite().getGlobalBounds()) &&
+			if (e->getNextMove().getGlobalBounds().intersects(t->getSprite().getGlobalBounds()) &&
 				t->getType() == Type::wall)
 			{
 				e->setKnockback(true); 
@@ -20,34 +21,49 @@ void Collision::collisionDetection(std::vector<std::shared_ptr<Terrain>>& terrai
 	}
 }
 
+// Player and enemy collision
 void Collision::collisionDetection(Player& player, std::vector<std::shared_ptr<Enemy>>& enemies)
 {
 	for (std::shared_ptr<Enemy> e : enemies)
 	{
-		if (player.getSprite().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()))
+		if (player.getNextMove().getGlobalBounds().intersects(e->getNextMove().getGlobalBounds()) &&
+			!player.getDodging())
 		{
-			if (e->getChargeActive())
+			if (e->getChargeActive() || player.getKnockedback())
 			{
 				e->setKnockback(true);
 				e->getBounceDirection(player.getSprite());
 			}
-			player.bump();
+			player.getKnockbackDirection(e->getSprite());
 		}
 	}
 }
 
+// Player and terrain collision
 void Collision::collisionDetection(Player& player, std::vector<std::shared_ptr<Terrain>>& terrain)
 {
 	for (std::shared_ptr<Terrain>& e : terrain)
 	{
-		if (player.getSprite().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()) &&
-			e->getType() == Type::wall)
+		if (!player.getDodging())
 		{
-			player.bump();
+			if (player.getSprite().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()) &&
+				e->getType() == Type::wall)
+			{
+				player.bump();
+			}
+		}
+		else 
+		{
+			if (player.getNextMove().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()) &&
+				e->getType() == Type::wall)
+			{
+				player.getKnockbackDirection(e->getSprite());
+			}
 		}
 	}
 }
 
+// Player, Terrain and mouse collision
 void Collision::collisionDetection(Player& player, sf::RectangleShape& shape, std::vector<std::shared_ptr<Terrain>>& terrain)
 {
 	for (std::shared_ptr<Terrain>& e : terrain)

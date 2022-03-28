@@ -19,9 +19,10 @@ Player::Player(sf::RenderWindow& t_window)
 	nextMovement.setSize(sf::Vector2f{ 52 * 2, 33 * 2 });
 	nextMovement.setFillColor(sf::Color::Red);
 	nextMovement.setOrigin((52 * 2) / 2, (33 * 2) / 2);
-	
+
 	//health
 	health.setBarColour(sf::Color::Red);
+
 }
 
 
@@ -116,7 +117,7 @@ void Player::update(sf::Time& dt)
 		animateDodge(dt);
 		dodge();
 	}
-
+	knockbackEntity();
 	body.move(moveBy * speed * dt.asSeconds());
 	nextMovement.setPosition(body.getPosition() + (moveBy * speed * dt.asSeconds()));
 	view.setCenter(body.getPosition());
@@ -192,4 +193,55 @@ void Player::animate()
 	{
 		anim.play();
 	}
+}
+
+void Player::knockbackEntity()
+{
+	if (!timer(0.5, knockbackDuration) && knockback)
+	{
+		speed *= 0.92;
+		if (dodging)
+		{
+			moveBy = knockbackDirection;
+		}
+		else {
+			moveBy = knockbackDirection * knockbackStrength;
+		}
+	}
+	else if (timer(0.5, knockbackDuration) && knockback)
+	{
+		knockback = false;
+		knockbackDuration.restart();
+		speed = MAX_SPEED;
+	}
+
+	if (!knockback && speed < 50)
+	{
+		speed = MAX_SPEED;
+	}
+}
+
+bool Player::timer(float t_desiredTime, sf::Clock t_timer)
+{
+	sf::Time timePasted = t_timer.getElapsedTime();
+	float secondsPasted = timePasted.asSeconds();
+	float desiredTimer = t_desiredTime;
+
+	if (secondsPasted >= desiredTimer)
+	{
+		return true;
+	}
+	return false;
+}
+
+void Player::getKnockbackDirection(sf::Sprite t_sprite)
+{
+	knockback = true;
+	speed = MAX_SPEED;
+	
+ 	sf::Vector2f t_direction = t_sprite.getPosition() - body.getPosition();
+	float vectorLength = sqrt(t_direction.x * t_direction.x + t_direction.y * t_direction.y);
+	t_direction = t_direction / vectorLength;
+
+	knockbackDirection = -t_direction;
 }
