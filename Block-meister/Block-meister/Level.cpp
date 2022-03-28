@@ -14,13 +14,13 @@ Level::Level(sf::RenderWindow& t_window)
 	Enemy::player = &player;
 	
 	//Outline for editor placement
-	outline.setSize({ 100,100 });
+	outline.setSize({ 50,50 });
 	outline.setFillColor(sf::Color::Green);
-	outline.setOrigin(50, 50);
+	outline.setOrigin(25, 25);
 
-	outlineFill.setSize({ 90,90 });
+	outlineFill.setSize({ 40,40 });
 	outlineFill.setFillColor(sf::Color::Blue);
-	outlineFill.setOrigin(45, 45);
+	outlineFill.setOrigin(20, 20);
 
 	//Mouse bounds
 	mouseBounds.setSize(sf::Vector2f{ 1, 1 });
@@ -52,7 +52,18 @@ void Level::loadLevel()
 
 	for (Object& o : levelData.objects)
 	{
-		editor.createTerrain(terrain, sf::Vector2f(o.X, o.Y), static_cast<Type>(o.Type));
+		
+		std::shared_ptr<Terrain> ter = std::make_shared<Terrain>(editor.createTerrain(sf::Vector2f(o.X, o.Y), static_cast<Type>(o.Type)));
+		ter->changeType(ter->getType());
+		terrain.push_back(ter);
+
+		int count = 0;
+
+		for (std::shared_ptr<Terrain> t : terrain)
+		{
+			t->setCounter(count);
+			count++;
+		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -103,7 +114,17 @@ void Level::processEvents(sf::Event& ev)
 				// Terrain Mode
 				if (editor.getMode() == Mode::terrain)
 				{
-					editor.createTerrain(terrain);
+					std::shared_ptr<Terrain> ter = std::make_shared<Terrain>(editor.createTerrain());
+					ter->changeType(ter->getType());
+					terrain.push_back(ter);
+
+					int count = 0;
+
+					for (std::shared_ptr<Terrain> t : terrain)
+					{
+						t->setCounter(count);
+						count++;
+					}
 				}
 				// Enemy Mode
 				else if (editor.getMode() == Mode::enemies)
@@ -159,9 +180,9 @@ void Level::render()
 	{
 		e.render();
 	}
-	for (Terrain& t : terrain)
+	for (std::shared_ptr<Terrain> t : terrain)
 	{
-		t.render();
+		t->render();
 	}
 	for (std::shared_ptr<Enemy> e : enemies)
 	{
@@ -209,10 +230,10 @@ void Level::setOutline()
 	switch (editor.getDesiredType())
 	{
 	case 1:
-		outlineFill.setFillColor(sf::Color::Blue);
+		outlineFill.setFillColor(sf::Color::Yellow);
 		break;
 	case 2:
-		outlineFill.setFillColor(sf::Color::Yellow);
+		outlineFill.setFillColor(sf::Color::Blue);
 		break;
 	default:
 		outlineFill.setFillColor(sf::Color::Yellow);

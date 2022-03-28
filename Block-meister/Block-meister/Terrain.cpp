@@ -5,9 +5,8 @@ Player* Terrain::player = nullptr;
 
 Terrain::Terrain()
 {
-	body.setTextureRect(sf::IntRect{ 0, 0, 100, 100 });
-	body.setColor(sf::Color::Blue);
-	body.setOrigin(50, 50);
+	body.setTextureRect(sf::IntRect{ 0, 0, 50, 50 });
+	body.setOrigin(25, 25);
 	terrainCount++;
 }
 
@@ -23,13 +22,11 @@ void Terrain::changeType(Type type)
 	{
 	case Type::wall:
 		setType(Type::wall);
-		body.setColor(sf::Color::Blue);
-		SetTexture("./resources/images/game/yoda.png");
+		SetTexture("./resources/images/game/brick.png");
 		break;
 	case Type::ground:
 		setType(Type::ground);
-		body.setColor(sf::Color::Yellow);
-		SetTexture("./resources/images/game/yoda.png");
+		SetTexture("./resources/images/game/brick_ground.png");
 		break;
 	default:
 		break;

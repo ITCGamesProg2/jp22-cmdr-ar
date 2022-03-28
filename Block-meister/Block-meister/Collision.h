@@ -8,9 +8,9 @@ class Collision
 public:
 	Collision();
 
-	void collisionDetection(Player& player, std::vector<Terrain>& terrain);
-	void collisionDetection(Player& player, sf::RectangleShape& shape, std::vector<Terrain>& terrain);
-	int selectTerrain(sf::RectangleShape& shape, std::vector<Terrain>& terrain);
+	void collisionDetection(Player& player, std::vector<std::shared_ptr<Terrain>>& terrain);
+	void collisionDetection(Player& player, sf::RectangleShape& shape, std::vector<std::shared_ptr<Terrain>>& terrain);
+	int selectTerrain(sf::RectangleShape& shape, std::vector<std::shared_ptr<Terrain>> terrain);
 
 private:
 };

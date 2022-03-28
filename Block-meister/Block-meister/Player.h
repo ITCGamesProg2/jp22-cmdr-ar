@@ -20,6 +20,7 @@ public:
 	void update(sf::Time& dt);
 	void render();
 	void bump();
+	void dodge();
 
 	sf::Sprite getSprite() { return body; }
 	Direction getDir() { return currentDirection; }
@@ -35,13 +36,16 @@ private:
 	float speed = 150.f;
 	sf::Time m_dt;
 
+	//dodging
+	bool dodging;
+	sf::Clock dodgeTimer;
+	void animateDodge(sf::Time& dt);
+	float alpha = 255;
+
 	//movement
 	Direction currentDirection{ Direction::None };
 	sf::RectangleShape nextMovement;
 	void setMovement();
-
-	//collision
-	void boundsCollision(sf::Time& dt);
 
 	//animation
 	void animate();

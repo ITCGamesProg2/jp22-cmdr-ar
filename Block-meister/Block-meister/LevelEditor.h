@@ -17,9 +17,9 @@ public:
 	void processEvents(sf::Event& event);
 
 	//Terrain creation
-	void createTerrain(std::vector<Terrain>& terrain);
-	void createTerrain(std::vector<Terrain>& terrain, sf::Vector2f position, Type type);
-	void deleteTerrain(std::vector<Terrain>& terrain, int terrainIndex);
+	Terrain createTerrain();
+	Terrain createTerrain(sf::Vector2f position, Type type);
+	void deleteTerrain(std::vector<std::shared_ptr<Terrain>>& terrain, int terrainIndex);
 
 	//Enemy creation
 	void createEnemy(std::vector<std::shared_ptr<Enemy>>& enemies);

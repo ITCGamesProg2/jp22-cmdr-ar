@@ -31,6 +31,6 @@ class YamlLoader
 public:
 	static void load(int level, LevelData& t_data);
 	static void load(PlayerData& t_data);
-	static void emittter(int level, std::vector<Terrain> ter);
+	static void emittter(int level, std::vector<std::shared_ptr<Terrain>> ter);
 	static void emittter(int level, sf::Vector2f pos);
 };
