@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Window.h"
 #include "Animation.h"
+#include "HealthBar.h"
 
 enum class Direction
 {
@@ -27,6 +28,8 @@ public:
 	sf::Vector2f getPos() { return body.getPosition(); }
 
 	void setPos(float x, float y) { body.setPosition(x, y); }
+
+	HealthBar health;
 
 private:
 	sf::View view;

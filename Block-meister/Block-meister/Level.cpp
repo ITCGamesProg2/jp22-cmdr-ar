@@ -206,6 +206,12 @@ void Level::render()
 		window->draw(outlineFill);
 	}
 
+	{ // FORBIDDEN CODE I AM SORRY - conor
+		sf::Vector2f newPos = window->getView().getCenter() - (window->getView().getSize() / 2.f);
+		player.health.setPos(newPos.x, newPos.y);
+		player.health.render(*window);
+	}
+
 	window->display();
 }
 

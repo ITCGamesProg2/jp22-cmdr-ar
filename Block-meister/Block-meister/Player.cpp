@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player(sf::RenderWindow& t_window)
-	: window{ &t_window }, anim{ body }
+	: window{ &t_window }, anim{ body }, health{ 300,25,50 }
 {
 	tex.loadFromFile("resources/images/game/player/downFrames/spritesheet.png");
 	//animation setup
@@ -19,6 +19,9 @@ Player::Player(sf::RenderWindow& t_window)
 	nextMovement.setSize(sf::Vector2f{ 52 * 2, 33 * 2 });
 	nextMovement.setFillColor(sf::Color::Red);
 	nextMovement.setOrigin((52 * 2) / 2, (33 * 2) / 2);
+	
+	//health
+	health.setBarColour(sf::Color::Red);
 }
 
 
