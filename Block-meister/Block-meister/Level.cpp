@@ -14,13 +14,13 @@ Level::Level(sf::RenderWindow& t_window)
 	Enemy::player = &player;
 	
 	//Outline for editor placement
-	outline.setSize({ 100,100 });
+	outline.setSize({ 50,50 });
 	outline.setFillColor(sf::Color::Green);
-	outline.setOrigin(50, 50);
+	outline.setOrigin(25, 25);
 
-	outlineFill.setSize({ 90,90 });
+	outlineFill.setSize({ 45,45 });
 	outlineFill.setFillColor(sf::Color::Blue);
-	outlineFill.setOrigin(45, 45);
+	outlineFill.setOrigin(22.5, 22.5);
 
 	//Mouse bounds
 	mouseBounds.setSize(sf::Vector2f{ 1, 1 });
@@ -228,6 +228,10 @@ void Level::checkCollisions()
 	collision.collisionDetection(player, outline, terrain);
 	// Enemies and Terrain
 	collision.collisionDetection(terrain, enemies);
+	// Enemies and Attack
+	collision.collisionDetection(playerAttack, enemies);
+	// Enemies and Ranged Attack
+	collision.collisionDetection(playerRangedAttack, enemies);
 }
 
 void Level::editorOn()

@@ -15,6 +15,7 @@ public:
 	void render();
 
 	bool attacking() { return isAttacking; }
+	sf::Sprite getSprite() { return body; }
 
 private:
 	bool isAttacking = false;

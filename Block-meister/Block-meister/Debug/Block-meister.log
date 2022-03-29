@@ -1,5 +1,12 @@
-﻿  Player.cpp
-C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.cpp(148,42): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
-C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.cpp(156,42): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
-C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.cpp(202,16): warning C4305: '*=': truncation from 'double' to 'float'
+﻿  Level.cpp
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Level.cpp(266,66): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Level.cpp(267,66): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
   Block-meister.vcxproj -> C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Debug\Block-meister.exe

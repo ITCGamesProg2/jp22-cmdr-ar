@@ -140,14 +140,14 @@ void Enemy::getBounceDirection(sf::Sprite t_sprite)
 		direction.x = -1 * direction.x;
 	}
 
-	if (direction.x == 0 || direction.y == 0)
+	if (direction.x == 0 && direction.y == 0)
 	{
 		directionTowardsPlayer();
 		direction = -playerDirection;
 	}
 
 	bumpDuration.restart();
-	speed = SLIME_SPEED;
+
 }
 
 void Enemy::directionTowardsPlayer()

@@ -23,14 +23,14 @@ public:
 	void render();
 	bool timer(float t_desiredTime, sf::Clock t_timer);
 	void bump();
-		
+	void resetSpeed() { speed = SLIME_SPEED; }
 	EnemyType enemyType = EnemyType::Slime;
 
 
 	//Slime stuff
 	void slimeCharge(sf::Time& dt);
 	void setCharge(bool t_charging) { charging = t_charging; }
-	
+
 	//Getters
 	sf::Sprite getSprite() { return body; }
 	bool getChargeActive() { return chargeActive; }

@@ -15,6 +15,7 @@ public:
 	void render();
 
 	bool getActive() { return active; }
+	sf::Sprite getSprite() { return body; }
 
 	void setActive(bool t_active) { active = t_active; }
 

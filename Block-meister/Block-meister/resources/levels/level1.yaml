@@ -767,3 +767,6 @@ objects:
   - type: 0
     x: 810
     y: -70
+  - type: 0
+    x: 890
+    y: -100
