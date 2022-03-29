@@ -112,6 +112,19 @@ void Enemy::slimeCharge(sf::Time& dt)
 	}
 }
 
+bool Enemy::getParticleReady()
+{
+	if (!alive && particleReady)
+	{
+		particleReady = false;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void Enemy::getBounceDirection(sf::Sprite t_sprite)
 {
 	float X1 = abs((body.getGlobalBounds().left + body.getGlobalBounds().width) - t_sprite.getGlobalBounds().left);
@@ -145,9 +158,16 @@ void Enemy::getBounceDirection(sf::Sprite t_sprite)
 		directionTowardsPlayer();
 		direction = -playerDirection;
 	}
-
 	bumpDuration.restart();
+}
 
+void Enemy::getBounceDirection()
+{
+	sf::Vector2f t_direction = player->getPos() - body.getPosition();
+	float vectorLength = sqrt(t_direction.x * t_direction.x + t_direction.y * t_direction.y);
+	t_direction = t_direction / vectorLength;
+
+	direction = -t_direction;
 }
 
 void Enemy::directionTowardsPlayer()
@@ -157,6 +177,15 @@ void Enemy::directionTowardsPlayer()
 	t_direction = t_direction / vectorLength;
 
 	playerDirection = t_direction;
+}
+
+void Enemy::setAlive(bool t_alive)
+{
+	alive = t_alive;
+	if (!alive)
+	{
+		particleReady = true;
+	}
 }
 
 void Enemy::setKnockback(bool t_knockback)

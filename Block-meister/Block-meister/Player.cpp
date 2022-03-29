@@ -238,6 +238,7 @@ void Player::getKnockbackDirection(sf::Sprite t_sprite)
 {
 	knockback = true;
 	speed = MAX_SPEED;
+	knockbackDuration.restart();
 	
  	sf::Vector2f t_direction = t_sprite.getPosition() - body.getPosition();
 	float vectorLength = sqrt(t_direction.x * t_direction.x + t_direction.y * t_direction.y);

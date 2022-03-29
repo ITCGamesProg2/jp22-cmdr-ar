@@ -15,7 +15,7 @@ void Collision::collisionDetection(RangedAttackEntity(&attack)[20], std::vector<
 				if (attack[i].getSprite().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()))
 				{
 					e->setKnockback(true);
-					e->getBounceDirection(attack[i].getSprite());
+					e->getBounceDirection();
 					e->resetSpeed();
 					attack[i].setActive(false);
 				}
@@ -31,8 +31,9 @@ void Collision::collisionDetection(AttackEntity& attack, std::vector<std::shared
 		if (attack.getSprite().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()) && attack.attacking())
 		{
 			e->setKnockback(true);
-			e->getBounceDirection(attack.getSprite());
+			e->getBounceDirection();
 			e->resetSpeed();
+			e->setAlive(false);
 		}
 	}
 }

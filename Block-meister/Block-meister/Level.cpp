@@ -12,6 +12,7 @@ Level::Level(sf::RenderWindow& t_window)
 	RangedAttackEntity::player = &player;
 	Enemy::window = &t_window;
 	Enemy::player = &player;
+	ParticleManager::window = &t_window;
 	
 	//Outline for editor placement
 	outline.setSize({ 50,50 });
@@ -175,6 +176,7 @@ void Level::update(sf::Time& dt)
 	}
 	outline.setPosition(gridPlacement(editor.getMouse()));
 	outlineFill.setPosition(outline.getPosition());
+	particleManager.update(dt);
 }
 
 void Level::render()
@@ -189,6 +191,7 @@ void Level::render()
 	{
 		t->render();
 	}
+	particleManager.render();
 	for (std::shared_ptr<Enemy> e : enemies)
 	{
 		e.get()->render();
@@ -232,6 +235,16 @@ void Level::checkCollisions()
 	collision.collisionDetection(playerAttack, enemies);
 	// Enemies and Ranged Attack
 	collision.collisionDetection(playerRangedAttack, enemies);
+
+	// Particle Manager
+	for (std::shared_ptr<Enemy> e : enemies)
+	{
+		if (e->getParticleReady())
+		{
+			particleManager.createParticle(e->enemyType, e->getSprite().getPosition());
+		}
+	}
+	
 }
 
 void Level::editorOn()

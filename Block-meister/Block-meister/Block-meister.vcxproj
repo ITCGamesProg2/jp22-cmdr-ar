@@ -29,6 +29,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelEditor.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="ParticleManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RangedAttackEntity.h" />
     <ClInclude Include="Terrain.h" />
@@ -46,6 +47,7 @@
     <ClCompile Include="LevelEditor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="ParticleManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RangedAttackEntity.cpp" />
     <ClCompile Include="Terrain.cpp" />
@@ -121,13 +123,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)/include; $(SFML_SDK)/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/include;$(SFML_SDK)/include;$(THOR_SDK)/include;$(ProjectDir)/lib</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)/lib; $(SFML_SDK)/lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)/lib;$(SFML_SDK)/lib;$(THOR_SDK)/lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;thor-d.lib;thor.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

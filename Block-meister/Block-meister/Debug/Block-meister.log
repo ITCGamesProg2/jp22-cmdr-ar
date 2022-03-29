@@ -1,12 +1,3 @@
-﻿  Level.cpp
-C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Level.cpp(266,66): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Level.cpp(267,66): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
+﻿  Enemy.cpp
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(222,16): warning C4305: '*=': truncation from 'double' to 'float'
   Block-meister.vcxproj -> C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Debug\Block-meister.exe

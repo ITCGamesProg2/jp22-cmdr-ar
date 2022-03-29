@@ -24,17 +24,19 @@ public:
 	bool timer(float t_desiredTime, sf::Clock t_timer);
 	void bump();
 	void resetSpeed() { speed = SLIME_SPEED; }
-	EnemyType enemyType = EnemyType::Slime;
 
+	EnemyType enemyType = EnemyType::Slime;
 
 	//Slime stuff
 	void slimeCharge(sf::Time& dt);
 	void setCharge(bool t_charging) { charging = t_charging; }
 
 	//Getters
-	sf::Sprite getSprite() { return body; }
+	sf::Sprite& getSprite() { return body; }
 	bool getChargeActive() { return chargeActive; }
+	bool getParticleReady();
 	void getBounceDirection(sf::Sprite t_sprite);
+	void getBounceDirection();
 	void directionTowardsPlayer();
 	sf::RectangleShape getNextMove() { return nextMovement; }
 
@@ -43,6 +45,7 @@ public:
 	void setPos(sf::Vector2f pos) { body.setPosition(pos); }
 	void setScale(float x, float y) { body.setScale(x, y); }
 	void setCounter(int t_count) { count = t_count; }
+	void setAlive(bool t_alive);
 	void setKnockback(bool t_knockback);
 
 private:
@@ -52,6 +55,8 @@ private:
 	sf::Vector2f direction{ 0,0 };
 	sf::Clock bumpDuration;
 	bool knockback{ false };
+	bool alive{ true };
+	bool particleReady{ false };
 
 	//Slime stuff
 	bool charging{ false };

@@ -10,12 +10,14 @@
 #include "AttackEntity.h"
 #include "RangedAttackEntity.h"
 #include "YamlLoader.h"
+#include "ParticleManager.h"
 
 class Level
 {
 public:
 	Level(sf::RenderWindow& t_window);
 	sf::RenderWindow* window;
+	ParticleManager particleManager;
 
 	void loadLevel();
 	void saveLevel(); // editor save
