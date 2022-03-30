@@ -30,7 +30,7 @@ Level::Level(sf::RenderWindow& t_window)
 
 	//test enemies
 	auto slime = std::make_shared<Enemy>();
-	slime->changeType(EnemyType::Slime);
+	slime->changeType(EnemyType::Beetle);
 	slime.get()->setPos(600, 400);
 	enemies.push_back(slime);
 
@@ -117,22 +117,21 @@ void Level::processEvents(sf::Event& ev)
 				// Enemy Mode
 				else if (editor.getMode() == Mode::enemies)
 				{
-
+					int enemyIndex = collision.selectEnemy(mouseBounds, enemies);
+					editor.deleteEnemy(enemies, enemyIndex);
 				}
 			}
 			// Creating Entities
-			if (sf::Mouse::Left == ev.key.code &&
-				outline.getFillColor() == sf::Color::Green)
+			if (sf::Mouse::Left == ev.key.code)
 			{
 				// Terrain Mode
-				if (editor.getMode() == Mode::terrain)
+				if (editor.getMode() == Mode::terrain && outline.getFillColor() == sf::Color::Green)
 				{
 					std::shared_ptr<Terrain> ter = std::make_shared<Terrain>(editor.createTerrain());
 					ter->changeType(ter->getType());
 					terrain.push_back(ter);
 
 					int count = 0;
-
 					for (std::shared_ptr<Terrain>& t : terrain)
 					{
 						t->setCounter(count);
@@ -143,6 +142,13 @@ void Level::processEvents(sf::Event& ev)
 				else if (editor.getMode() == Mode::enemies)
 				{
 					editor.createEnemy(enemies);
+
+					int count = 0;
+					for (std::shared_ptr<Enemy>& t : enemies)
+					{
+						t->setCounter(count);
+						count++;
+					}
 				}
 			}
 		}
@@ -182,13 +188,9 @@ void Level::processEvents(sf::Event& ev)
 				currentPlayerAttack = 0;
 			}
 		}
-		// Beetle Ranged Test
+		// Test
 		if (ev.key.code == sf::Keyboard::B)
 		{
-			for (std::shared_ptr<Enemy> e : enemies)
-			{
-				e->beetleReadyup();
-			}
 		}
 	}
 }
@@ -313,17 +315,24 @@ void Level::editorOn()
 
 void Level::setOutline()
 {
-	switch (editor.getDesiredType())
+	if (editor.getMode() == Mode::enemies)
 	{
-	case 1:
-		outlineFill.setFillColor(sf::Color::Blue);
-		break;
-	case 2:
-		outlineFill.setFillColor(sf::Color::Yellow);
-		break;
-	default:
-		outlineFill.setFillColor(sf::Color::Yellow);
-		break;
+		outlineFill.setFillColor(sf::Color::White);
+	}
+	else 
+	{
+		switch (editor.getDesiredType())
+		{
+		case 0:
+			outlineFill.setFillColor(sf::Color::Blue);
+			break;
+		case 1:
+			outlineFill.setFillColor(sf::Color::Yellow);
+			break;
+		default:
+			outlineFill.setFillColor(sf::Color::Yellow);
+			break;
+		}
 	}
 }
 

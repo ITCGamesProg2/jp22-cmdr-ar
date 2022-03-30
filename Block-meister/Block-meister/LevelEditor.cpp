@@ -43,12 +43,26 @@ void LevelEditor::processEvents(sf::Event& event)
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 		{
 			desiredType = 0;
-			std::cout << "Type: 0" << std::endl;
+
+			if (currentMode == Mode::terrain)
+			{
+				std::cout << "Type: Wall" << std::endl;
+			}
+			else {
+				std::cout << "Type: Slime" << std::endl;
+			}
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 		{
 			desiredType = 1;
-			std::cout << "Type: 1" << std::endl;
+
+			if (currentMode == Mode::terrain)
+			{
+				std::cout << "Type: Ground" << std::endl;
+			}
+			else {
+				std::cout << "Type: Beetle" << std::endl;
+			}
 		}
 
 		//editor tools
@@ -127,9 +141,13 @@ void LevelEditor::createEnemy(std::vector<std::shared_ptr<Enemy>>& enemies)
 		std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>();
 		switch (desiredType)
 		{
-		case 1:
+		case 0:
 			enemy->changeType(EnemyType::Slime);
 			std::cout << "Enemy: Slime" << std::endl;
+			break;
+		case 1:
+			enemy->changeType(EnemyType::Beetle);
+			std::cout << "Enemy: Beetle" << std::endl;
 			break;
 		default:
 			enemy->changeType(EnemyType::Slime);
@@ -145,6 +163,46 @@ void LevelEditor::createEnemy(std::vector<std::shared_ptr<Enemy>>& enemies)
 		for (std::shared_ptr<Enemy> e : enemies)
 		{
 			e->setCounter(count);
+			count++;
+		}
+	}
+}
+
+Enemy LevelEditor::createEnemy(sf::Vector2f position, EnemyType type)
+{
+	if (levelEditor)
+	{
+		Enemy enemy;
+
+		switch (type)
+		{
+		case EnemyType::Slime:
+			enemy.changeType(EnemyType::Slime);
+			break;
+		case EnemyType::Beetle:
+			enemy.changeType(EnemyType::Beetle);
+			break;
+		}
+
+		enemy.setPos(position);
+
+		return enemy;
+	}
+}
+
+void LevelEditor::deleteEnemy(std::vector<std::shared_ptr<Enemy>>& enemies, int enemiesIndex)
+{
+	if (levelEditor)
+	{
+		if (enemiesIndex != -1)
+		{
+			std::vector<std::shared_ptr<Enemy>>::const_iterator i = enemies.begin() + enemiesIndex;
+			enemies.erase(i);
+		}
+		int count = 0;
+		for (std::shared_ptr<Enemy> t : enemies)
+		{
+			t->setCounter(count);
 			count++;
 		}
 	}

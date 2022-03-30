@@ -24,8 +24,8 @@ public:
 
 	//Enemy creation
 	void createEnemy(std::vector<std::shared_ptr<Enemy>>& enemies);
-	void createEnemy(std::vector<Enemy>& enemies, sf::Vector2f position, Type type);
-	void deleteEnemy(std::vector<Enemy>& enemies, int enemiesIndex);
+	Enemy createEnemy(sf::Vector2f position, EnemyType type);
+	void deleteEnemy(std::vector<std::shared_ptr<Enemy>>& enemies, int enemiesIndex);
 
 	//Tools
 	sf::Vector2f gridPlacement(sf::Vector2f mousePosition);

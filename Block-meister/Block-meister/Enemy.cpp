@@ -42,13 +42,14 @@ void Enemy::SetTexture(EnemyType _type)
 		break;
 	case EnemyType::Beetle:
 		tex.loadFromFile("resources/images/game/enemies/beetle/beetle.png");
+		body.setScale(1.5,1.5);
 		break;
 	}
 
 	body.setTexture(tex);
 	body.setOrigin((body.getLocalBounds().width / 2), (body.getLocalBounds().height / 2));
 	//Next movement bounds
-	nextMovement.setSize(sf::Vector2f{ body.getLocalBounds().width * 2, body.getLocalBounds().height * 2 });
+	nextMovement.setSize(sf::Vector2f{ body.getLocalBounds().width * body.getScale().x, body.getLocalBounds().height * body.getScale().y });
 	nextMovement.setFillColor(sf::Color::Red);
 	nextMovement.setOrigin((nextMovement.getLocalBounds().width / 2), (nextMovement.getLocalBounds().height / 2));
 }
@@ -104,7 +105,7 @@ void Enemy::update(sf::Time& dt)
 		{
 			slimeCharge(dt);
 		}
-		beetleInitiateAim();
+		beetleUpdate();
 	}
 }
 
@@ -146,6 +147,8 @@ void Enemy::slimeCharge(sf::Time& dt)
 				charging = false;
 				speed = SLIME_SPEED;
 			}
+
+			chargeCooldown.restart();
 		}
 	}
 	else
@@ -175,30 +178,40 @@ sf::Vector2f* Enemy::getTriAim()
 	}
 }
 
-void Enemy::beetleInitiateAim()
-{
-	if (timer(2, beetleAim) && beetleReady && enemyType == EnemyType::Beetle)
-	{
-		beetleAttacking = true;
-		beetleReady = false;
-	}
-	else if (timer(3, beetleAim) && enemyType == EnemyType::Beetle)
-	{
-		tex.loadFromFile("resources/images/game/enemies/beetle/beetle.png");
-	}
-}
-
-void Enemy::beetleReadyup()
+// In update loop
+void Enemy::beetleUpdate()
 {
 	if (enemyType == EnemyType::Beetle)
 	{
-		beetleReady = true;
-		directionTowardsPlayer();
-		body.setRotation(thor::polarAngle(playerDirection));
-		tex.loadFromFile("resources/images/game/enemies/beetle/beetle_attack.png");
-		beetleAim.restart();
+		// Beetle aims at play once in range and changes texture
+		if (playerDistance < 350.f &&
+			!beetleReady && !beetleAttacking)
+		{
+			beetleReady = true;
+			directionTowardsPlayer();
+			body.setRotation(thor::polarAngle(playerDirection));
+			tex.loadFromFile("resources/images/game/enemies/beetle/beetle_attack.png");
+			beetleAim.restart();
+		}
+		else if (timer(2, beetleAim) && beetleReady)
+		{
+			beetleAttacking = true;
+			beetleReady = false;
+		}
+
+		// Changes texture back to normal once timer runs out
+		if (timer(3, beetleAim))
+		{
+			tex.loadFromFile("resources/images/game/enemies/beetle/beetle.png");
+		}
+		// Sets rotation of beetle
+		if (!beetleReady && !beetleAttacking)
+		{
+			//body.setRotation(thor::polarAngle(direction));
+		}
 	}
 }
+
 
 bool Enemy::getParticleReady()
 {
@@ -285,6 +298,17 @@ void Enemy::setKnockback(bool t_knockback)
 	charging = false;
 }
 
+void Enemy::beetleReset()
+{
+	if (enemyType == EnemyType::Beetle)
+	{
+		beetleReady = false;
+		beetleAttacking = false;
+		beetleAim.restart();
+		tex.loadFromFile("resources/images/game/enemies/beetle/beetle.png");
+	}
+}
+
 void Enemy::setupPathing()
 {
 	int width = 0;
@@ -322,6 +346,7 @@ void Enemy::setupPathing()
 
 void Enemy::updatePathing(sf::Time& dt)
 {
+	// NOTE - ENEMY NEEDS TO STOP MOVING WHEN (knockback) IS TRUE
 	playerDistance = sqrt(pow(player->getPos().x - body.getPosition().x, 2) +
 		pow(player->getPos().y - body.getPosition().y, 2) * 1.0);
 	if (pathing.path.empty() && !charging && playerDistance > 250.f) Pathfind();
@@ -350,7 +375,10 @@ void Enemy::updatePathing(sf::Time& dt)
 
 	if (playerDistance <= 250.f && !charging)
 	{
-		charging = true;
+		if (timer(2, chargeCooldown))
+		{
+			charging = true;
+		}
 	}
 }
 
@@ -435,6 +463,7 @@ void Enemy::damageEnemy(float t_damage)
 			setAlive(false);
 		}
 		iFrames.restart();
+		beetleReset();
 	}
 }
 

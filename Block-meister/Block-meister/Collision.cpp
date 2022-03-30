@@ -136,3 +136,16 @@ int Collision::selectTerrain(sf::RectangleShape& shape, std::vector<std::shared_
 	}
 	return -1;
 }
+
+int Collision::selectEnemy(sf::RectangleShape& shape, std::vector<std::shared_ptr<Enemy>>& enemies)
+{
+	for (std::shared_ptr<Enemy> e : enemies)
+	{
+		if (shape.getGlobalBounds().intersects(e->getSprite().getGlobalBounds()))
+		{
+			std::cout << e->count << std::endl;
+			return e->count;
+		}
+	}
+	return -1;
+}

@@ -39,6 +39,7 @@ public:
 	void setMovement();
 
 	EnemyType enemyType = EnemyType::Slime;
+	int count;
 
 	//Directional
 	EnemyDirection currentDirection{ EnemyDirection::None };
@@ -49,14 +50,9 @@ public:
 	void setCharge(bool t_charging) { charging = t_charging; }
 
 	//Beetle stuff
-	sf::Vector2f triAim[3];
 	sf::Vector2f* getTriAim();
-	void beetleReadyup();
-	void beetleInitiateAim();
-	sf::Clock beetleAim;
-	bool beetleReady{ false };
-	bool beetleAttacking{ false };
-
+	void beetleUpdate();
+	
 	//Getters
 	sf::Sprite& getSprite() { return body; }
 	bool getChargeActive() { return chargeActive; }
@@ -73,7 +69,7 @@ public:
 	void setCounter(int t_count) { count = t_count; }
 	void setAlive(bool t_alive);
 	void setKnockback(bool t_knockback);
-	void resetBeetleAttacking() { beetleAttacking = false; }
+	void resetBeetleAttacking() { beetleAttacking = false, beetleReady = false; }
 
 	//pathfinding
 	void setupPathing();
@@ -85,7 +81,6 @@ private:
 	void updatePathing(sf::Time& dt);
 
 	sf::Time m_dt;
-	int count;
 	float speed{ 500 };
 	sf::Vector2f direction{ 0,0 };
 	sf::Vector2f playerDirection;
@@ -106,9 +101,17 @@ private:
 	const float SLIME_SPEED = 500;
 	sf::Clock chargePrep;
 	sf::Clock chargeDuration;
+	sf::Clock chargeCooldown;
 
 	//Beetle stuff
 	const float BEETLE_HEALTH{ 100 };
+	sf::Clock beetleAim;
+	bool beetleReady{ false };
+	bool beetleAttacking{ false };
+	sf::Vector2f triAim[3];
+
+	//Reset Values
+	void beetleReset();
 
 	sf::Sprite body;
 	sf::RectangleShape nextMovement;

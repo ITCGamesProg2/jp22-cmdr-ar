@@ -1,17 +1,129 @@
-﻿  Enemy.cpp
-C:\Users\C00260445\Desktop\jp latest\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\C00260445\Desktop\jp latest\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\C00260445\Desktop\jp latest\Block-meister\Block-meister\Enemy.cpp(166,39): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\C00260445\Desktop\jp latest\Block-meister\Block-meister\Enemy.cpp(296,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\C00260445\Desktop\jp latest\Block-meister\Block-meister\Enemy.cpp(317,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\C00260445\Desktop\jp latest\Block-meister\Block-meister\Enemy.cpp(318,17): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\C00260445\Desktop\jp latest\Block-meister\Block-meister\Enemy.cpp(325,23): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\C00260445\Desktop\jp latest\Block-meister\Block-meister\Enemy.cpp(341,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\C00260445\Desktop\jp latest\Block-meister\Block-meister\Enemy.cpp(363,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\C00260445\Desktop\jp latest\Block-meister\Block-meister\Enemy.cpp(364,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\C00260445\Desktop\jp latest\Block-meister\Block-meister\Enemy.cpp(367,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\C00260445\Desktop\jp latest\Block-meister\Block-meister\Enemy.cpp(368,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\C00260445\Desktop\jp latest\Block-meister\Block-meister\Enemy.cpp(406,16): warning C4305: '*=': truncation from 'double' to 'float'
-C:\Users\C00260445\Desktop\jp latest\Block-meister\Block-meister\Enemy.cpp(425,5): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\C00260445\Desktop\jp latest\Block-meister\Block-meister\Enemy.cpp(430,25): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  Block-meister.vcxproj -> C:\Users\C00260445\Desktop\jp latest\Block-meister\Debug\Block-meister.exe
+﻿  Collision.cpp
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Enemy.cpp
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(169,39): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(320,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(341,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(342,17): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(350,23): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(366,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(391,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(392,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(395,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(396,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(434,16): warning C4305: '*=': truncation from 'double' to 'float'
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(453,5): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(458,25): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Game.cpp
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Level.cpp
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Level.cpp(342,66): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Level.cpp(343,66): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  LevelEditor.cpp
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\LevelEditor.cpp(224,66): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\LevelEditor.cpp(225,66): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  ParticleManager.cpp
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\ParticleManager.cpp(30,5): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\functional(753,27): warning C4244: 'return': conversion from 'T' to '_Rx', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              _Rx=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\functional(919): message : see reference to function template instantiation '_Rx std::_Invoker_ret<_Rx,false>::_Call<_Callable&,>(_Fx) noexcept(false)' being compiled
+          with
+          [
+              _Rx=float,
+              _Callable=thor::Distribution<int>,
+              _Fx=thor::Distribution<int> &
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\functional(920): message : see reference to function template instantiation '_Rx std::_Invoker_ret<_Rx,false>::_Call<_Callable&,>(_Fx) noexcept(false)' being compiled
+          with
+          [
+              _Rx=float,
+              _Callable=thor::Distribution<int>,
+              _Fx=thor::Distribution<int> &
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\functional(919): message : while compiling class template member function '_Rx std::_Func_impl_no_alloc<thor::Distribution<int>,_Rx>::_Do_call(void)'
+          with
+          [
+              _Rx=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\functional(813): message : see reference to class template instantiation 'std::_Func_impl_no_alloc<thor::Distribution<int>,_Ret>' being compiled
+          with
+          [
+              _Ret=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\functional(1010): message : see reference to variable template 'const bool _Is_large<std::_Func_impl_no_alloc<thor::Distribution<int>,float> >' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\functional(1143): message : see reference to function template instantiation 'void std::_Func_class<_Ret>::_Reset<thor::Distribution<int>>(_Fx &&)' being compiled
+          with
+          [
+              _Ret=float,
+              _Fx=thor::Distribution<int>
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\functional(1143): message : see reference to function template instantiation 'void std::_Func_class<_Ret>::_Reset<thor::Distribution<int>>(_Fx &&)' being compiled
+          with
+          [
+              _Ret=float,
+              _Fx=thor::Distribution<int>
+          ]
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\include\Thor\Math\Distribution.hpp(127): message : see reference to function template instantiation 'std::function<T (void)>::function<Fn,0>(_Fx)' being compiled
+          with
+          [
+              T=float,
+              Fn=thor::Distribution<int>,
+              _Fx=thor::Distribution<int>
+          ]
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\include\Thor\Math\Distribution.hpp(126): message : see reference to function template instantiation 'std::function<T (void)>::function<Fn,0>(_Fx)' being compiled
+          with
+          [
+              T=float,
+              Fn=thor::Distribution<int>,
+              _Fx=thor::Distribution<int>
+          ]
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\ParticleManager.cpp(11): message : see reference to function template instantiation 'thor::Distribution<float>::Distribution<thor::Distribution<int>>(Fn,void *)' being compiled
+          with
+          [
+              Fn=thor::Distribution<int>
+          ]
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\ParticleManager.cpp(11): message : see reference to function template instantiation 'thor::Distribution<float>::Distribution<thor::Distribution<int>>(Fn,void *)' being compiled
+          with
+          [
+              Fn=thor::Distribution<int>
+          ]
+  main.cpp
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\LevelEditor.cpp(117): warning C4715: 'LevelEditor::createTerrain': not all control paths return a value
+C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\LevelEditor.cpp(191): warning C4715: 'LevelEditor::createEnemy': not all control paths return a value
+  Block-meister.vcxproj -> C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Debug\Block-meister.exe
