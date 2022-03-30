@@ -16,6 +16,7 @@ class Player
 public:
 	Player(sf::RenderWindow& t_window);
 	sf::RenderWindow* window;
+	HealthBar health;
 
 	void processEvents(sf::Event& event);
 	void update(sf::Time& dt);
@@ -25,6 +26,7 @@ public:
 	void knockbackEntity();
 	bool timer(float t_desiredTime, sf::Clock t_timer);
 
+	//Getters
 	sf::Sprite getSprite() { return body; }
 	sf::RectangleShape getNextMove() { return nextMovement; }
 	bool getDodging() { return dodging; }
@@ -33,9 +35,8 @@ public:
 	sf::Vector2f getPos() { return body.getPosition(); }
 	void getKnockbackDirection(sf::Sprite t_sprite);
 
+	//Setters
 	void setPos(float x, float y) { body.setPosition(x, y); }
-
-	HealthBar health;
 
 private:
 

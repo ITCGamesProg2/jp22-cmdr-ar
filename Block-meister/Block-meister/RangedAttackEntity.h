@@ -10,21 +10,24 @@ public:
 	static sf::RenderWindow* window;
 	static Player* player;
 
-	void processEvents(sf::Event& ev);
 	void update(sf::Time& dt);
 	void render();
+	void activateProjectile(sf::Vector2f t_position, sf::Vector2f t_direction);
+	void activateProjectile(sf::Vector2f t_position);
 
 	bool getActive() { return active; }
 	sf::Sprite getSprite() { return body; }
 
 	void setActive(bool t_active) { active = t_active; }
 
-	static int currentAttack;
 	static const int MAX_ATTACKS = 20;
+	static const int MAX_BEETLE_ATTACKS = 3;
+
+	static const int ATTACK_DAMAGE = 25;
 
 private:
 	sf::Vector2f getMousePosition(sf::RenderWindow& t_window);
-	void calculateDirection(sf::Vector2f t_mousePos);
+	void calculateDirection(sf::Vector2f t_mousePos, sf::Vector2f t_start);
 	void boundsCollision(sf::Time& dt);
 
 	bool active{ false };

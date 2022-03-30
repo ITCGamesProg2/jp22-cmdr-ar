@@ -28,9 +28,8 @@ Level::Level(sf::RenderWindow& t_window)
 
 	//test enemies
 	auto slime = std::make_shared<Enemy>();
-	slime.get()->SetTexture(EnemyType::Slime);
+	slime->changeType(EnemyType::Beetle);
 	slime.get()->setPos(100 * 3, 10);
-	slime.get()->setScale(2.f, 2.f);
 	enemies.push_back(slime);
 
 	loadLevel();
@@ -84,7 +83,6 @@ void Level::processEvents(sf::Event& ev)
 	player.processEvents(ev);
 	editor.processEvents(ev);
 	playerAttack.processEvents(ev);
-	playerRangedAttack[RangedAttackEntity::currentAttack].processEvents(ev);
 	for (std::shared_ptr<Enemy> e : enemies)
 	{
 		e->processEvents(ev);
@@ -158,6 +156,28 @@ void Level::processEvents(sf::Event& ev)
 			}
 		}
 	}
+	// Outside level editor
+	if (ev.type == sf::Event::KeyPressed)
+	{
+		// Player Ranged Attack
+		if (ev.key.code == sf::Keyboard::Q)
+		{
+			playerRangedAttack->activateProjectile(player.getPos());
+			currentPlayerAttack++;
+			if (currentPlayerAttack >= RangedAttackEntity::MAX_ATTACKS)
+			{
+				currentPlayerAttack = 0;
+			}
+		}
+		// Beetle Ranged Test
+		if (ev.key.code == sf::Keyboard::B)
+		{
+			for (std::shared_ptr<Enemy> e : enemies)
+			{
+				e->beetleReadyup();
+			}
+		}
+	}
 }
 
 void Level::update(sf::Time& dt)
@@ -169,11 +189,25 @@ void Level::update(sf::Time& dt)
 	{
 		e.update(dt);
 	}
-	editor.update(*window);
+	for (RangedAttackEntity& e : beetleAttacks)
+	{
+		e.update(dt);
+	}
 	for (std::shared_ptr<Enemy> e : enemies)
 	{
 		e->update(dt);
+		//Beetle aiming update loop
+		if (e->getBeetleAttacking())
+		{
+			sf::Vector2f* aimTemp = e->getTriAim();
+			for (size_t i = 0; i < RangedAttackEntity::MAX_BEETLE_ATTACKS; i++)
+			{
+				beetleAttacks[i].activateProjectile(e->getSprite().getPosition(), aimTemp[i]);
+			}
+			e->resetBeetleAttacking();
+		}
 	}
+	editor.update(*window);
 	outline.setPosition(gridPlacement(editor.getMouse()));
 	outlineFill.setPosition(outline.getPosition());
 	particleManager.update(dt);
@@ -198,6 +232,10 @@ void Level::render()
 	}
 	player.render();
 	for (RangedAttackEntity& e : playerRangedAttack)
+	{
+		e.render();
+	}
+	for (RangedAttackEntity& e : beetleAttacks)
 	{
 		e.render();
 	}

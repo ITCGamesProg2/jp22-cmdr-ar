@@ -17,6 +17,8 @@ public:
 	bool attacking() { return isAttacking; }
 	sf::Sprite getSprite() { return body; }
 
+	static const int ATTACK_DAMAGE = 50;
+
 private:
 	bool isAttacking = false;
 	sf::Clock attackTimer;

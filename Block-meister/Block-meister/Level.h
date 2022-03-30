@@ -39,15 +39,23 @@ private:
 	Player player;
 	AttackEntity playerAttack;
 
+	//Player ranged attacks
 	static const int MAX_RANGED_ATTACKS{ 20 };
 	RangedAttackEntity playerRangedAttack[MAX_RANGED_ATTACKS];
+	int currentPlayerAttack{ 0 };
 
+	//Beetle stuff
+	RangedAttackEntity beetleAttacks[3];
+	int currentBeetleAttack{ 0 };
+
+	//Entities
 	std::vector<Entity> entities;
 	std::vector<std::shared_ptr<Terrain>> terrain;
 	std::vector<std::shared_ptr<Enemy>> enemies;
 	sf::RectangleShape outline;
 	sf::RectangleShape outlineFill;
 
+	//Editor stuff
 	bool m_levelEditor{ false };
 	bool ctrlDown = false;
 	YamlLoader yml;

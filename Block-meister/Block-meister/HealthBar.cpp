@@ -5,6 +5,7 @@ HealthBar::HealthBar(float width, float height, int maxhp)
 {
 	currentHP = maxHP;
 	bg.setSize({ width, height });
+	bg.setFillColor(sf::Color(255, 255, 255, 170));
 	bar.setSize({ width - 10, height - 10});
 	bar.setPosition(5,5);
 	barXAsPercent = maxBar / 100.f;

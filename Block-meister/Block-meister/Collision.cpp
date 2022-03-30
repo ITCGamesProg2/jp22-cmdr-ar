@@ -18,6 +18,7 @@ void Collision::collisionDetection(RangedAttackEntity(&attack)[20], std::vector<
 					e->getBounceDirection();
 					e->resetSpeed();
 					attack[i].setActive(false);
+					e->damageEnemy(RangedAttackEntity::ATTACK_DAMAGE);
 				}
 			}
 		}
@@ -33,7 +34,7 @@ void Collision::collisionDetection(AttackEntity& attack, std::vector<std::shared
 			e->setKnockback(true);
 			e->getBounceDirection();
 			e->resetSpeed();
-			e->setAlive(false);
+			e->damageEnemy(AttackEntity::ATTACK_DAMAGE);
 		}
 	}
 }

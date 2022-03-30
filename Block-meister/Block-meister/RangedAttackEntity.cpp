@@ -3,7 +3,6 @@
 sf::RenderWindow* RangedAttackEntity::window = nullptr;
 Player* RangedAttackEntity::player = nullptr;
 sf::Clock RangedAttackEntity::attackTimer;
-int RangedAttackEntity::currentAttack = 0;
 
 RangedAttackEntity::RangedAttackEntity()
 {
@@ -14,29 +13,6 @@ RangedAttackEntity::RangedAttackEntity()
 
 }
 
-void RangedAttackEntity::processEvents(sf::Event& ev)
-{
-	if (ev.type == sf::Event::KeyPressed)
-	{
-		if (sf::Keyboard::Q == ev.key.code)
-		{
-			if (!active &&
-				attackTimer.getElapsedTime().asSeconds() > timeBetweenAttacks)
-			{
-				body.setPosition(player->getPos());
-				active = true;
-				calculateDirection(getMousePosition(*window));
-
-				currentAttack++;
-				if (currentAttack >= MAX_ATTACKS)
-				{
-					currentAttack = 0;
-				}
-				attackTimer.restart();
-			}
-		}
-	}
-}
 
 void RangedAttackEntity::update(sf::Time& dt)
 {
@@ -65,9 +41,9 @@ sf::Vector2f RangedAttackEntity::getMousePosition(sf::RenderWindow& t_window)
 	return m_mousePosition;
 }
 
-void RangedAttackEntity::calculateDirection(sf::Vector2f t_mousePos)
+void RangedAttackEntity::calculateDirection(sf::Vector2f t_mousePos, sf::Vector2f t_start)
 {
-	direction = t_mousePos - player->getPos();
+	direction = t_mousePos - t_start;
 	float vectorLength = sqrt(direction.x * direction.x + direction.y * direction.y);
 	direction = direction / vectorLength;
 
@@ -98,5 +74,40 @@ void RangedAttackEntity::boundsCollision(sf::Time& dt)
 	if (body.getPosition().y > Window::HEIGHT)
 	{
 		active = false;
+	}
+}
+
+/// <summary>
+/// Enemy Projectile Activation
+/// </summary>
+/// <param name="t_position"></param>
+/// <param name="t_direction"></param>
+void RangedAttackEntity::activateProjectile(sf::Vector2f t_position, sf::Vector2f t_direction)
+{
+	body.setPosition(t_position);
+	active = true;
+	direction = t_direction;
+
+	float angle = atan2(t_position.y - player->getPos().y, t_position.x - player->getPos().x);
+	angle = angle * 180 / 3.1416;
+	body.setRotation(angle - 90);
+
+	attackTimer.restart();
+}
+
+/// <summary>
+/// Player Projectile Activation
+/// </summary>
+/// <param name="t_position"></param>
+void RangedAttackEntity::activateProjectile(sf::Vector2f t_position)
+{
+	if (!active &&
+		attackTimer.getElapsedTime().asSeconds() > timeBetweenAttacks)
+	{
+		body.setPosition(t_position);
+		active = true;
+		calculateDirection(getMousePosition(*window), player->getPos());
+
+		attackTimer.restart();
 	}
 }

@@ -2,8 +2,11 @@
 sf::RenderWindow* Enemy::window = nullptr;
 Player* Enemy::player = nullptr;
 
-Enemy::Enemy()
+Enemy::Enemy() 
+	: healthBar{100, 18, 0}
 {
+	//health
+	healthBar.setBarColour(sf::Color(255,0,0,200));
 }
 
 void Enemy::SetTexture(const char* path)
@@ -15,20 +18,23 @@ void Enemy::SetTexture(const char* path)
 void Enemy::SetTexture(EnemyType _type)
 {
 	enemyType = _type;
+
 	switch (_type)
 	{
 	case EnemyType::Slime:
 		tex.loadFromFile("resources/images/game/enemies/slime/slime.png");
 		break;
-	default:
-		tex.loadFromFile("resources/images/game/enemies/slime/slime.png");
+	case EnemyType::Beetle:
+		tex.loadFromFile("resources/images/game/enemies/beetle/beetle.png");
 		break;
 	}
+
 	body.setTexture(tex);
-	body.setOrigin((body.getGlobalBounds().width * 2) / 2, (body.getGlobalBounds().height * 2) / 2);
 	body.setOrigin((body.getLocalBounds().width / 2), (body.getLocalBounds().height / 2));
+	body.setScale(2.0f, 2.0f);
+
 	//Next movement bounds
-	nextMovement.setSize(sf::Vector2f{ body.getGlobalBounds().width * 2, body.getGlobalBounds().height * 2 });
+	nextMovement.setSize(sf::Vector2f{ body.getLocalBounds().width * 2, body.getLocalBounds().height * 2 });
 	nextMovement.setFillColor(sf::Color::Red);
 	nextMovement.setOrigin((nextMovement.getLocalBounds().width / 2), (nextMovement.getLocalBounds().height / 2));
 }
@@ -38,10 +44,18 @@ void Enemy::changeType(EnemyType type)
 	switch (type)
 	{
 	case EnemyType::Slime:
-		//Slime body
 		SetTexture(EnemyType::Slime);
-		setScale(2.0f, 2.0f);
-		body.setOrigin((body.getLocalBounds().width / 2), (body.getLocalBounds().height / 2));
+		//Health
+		health = SLIME_HEALTH;
+		healthBar.setMaxHealth(SLIME_HEALTH);
+
+		break;
+	case EnemyType::Beetle:
+		SetTexture(EnemyType::Beetle);
+		//Health
+		health = BEETLE_HEALTH;
+		healthBar.setMaxHealth(BEETLE_HEALTH);
+
 		break;
 	}
 
@@ -52,28 +66,40 @@ void Enemy::changeType(EnemyType type)
 
 void Enemy::processEvents(sf::Event& ev)
 {
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
 	{
-		charging = true;
-		std::cout << "Charge" << std::endl;
+		if (enemyType == EnemyType::Slime)
+		{
+			charging = true;
+		}
 	}
 }
 
 void Enemy::update(sf::Time& dt)
 {
-	m_dt = dt;
-	nextMovement.setPosition(body.getPosition());
-	bump();
-	if (enemyType == EnemyType::Slime)
+	if (alive)
 	{
-		slimeCharge(dt);
+		m_dt = dt;
+		nextMovement.setPosition(body.getPosition());
+		placeHealthBar();
+		bump();
+		if (enemyType == EnemyType::Slime)
+		{
+			slimeCharge(dt);
+		}
+		beetleInitiateAim();
 	}
 }
 
 void Enemy::render()
 {
-	window->draw(nextMovement);
-	window->draw(body);
+	if (alive)
+	{
+		window->draw(nextMovement);
+		window->draw(body);
+		healthBar.render(*window);
+	}
 }
 
 void Enemy::slimeCharge(sf::Time& dt)
@@ -109,6 +135,51 @@ void Enemy::slimeCharge(sf::Time& dt)
 	{
 		chargeDuration.restart();
 		chargePrep.restart();
+	}
+}
+
+sf::Vector2f* Enemy::getTriAim()
+{
+	if (alive)
+	{
+		float rotation[3] = { thor::polarAngle(playerDirection) - 30, thor::polarAngle(playerDirection) + 30, thor::polarAngle(playerDirection) };
+
+		for (size_t i = 0; i < 3; i++)
+		{
+			rotation[i] = rotation[i] * 3.1416 / 180;
+
+			triAim[i].x = cos(rotation[i]);
+			triAim[i].y = sin(rotation[i]);
+		}
+		return triAim;
+	}
+	else {
+		return nullptr;
+	}
+}
+
+void Enemy::beetleInitiateAim()
+{
+	if (timer(2, beetleAim) && beetleReady && enemyType == EnemyType::Beetle)
+	{
+		beetleAttacking = true;
+		beetleReady = false;
+	}
+	else if (timer(3, beetleAim) && enemyType == EnemyType::Beetle)
+	{
+		tex.loadFromFile("resources/images/game/enemies/beetle/beetle.png");
+	}
+}
+
+void Enemy::beetleReadyup()
+{
+	if (enemyType == EnemyType::Beetle)
+	{
+		beetleReady = true;
+		directionTowardsPlayer();
+		body.setRotation(thor::polarAngle(playerDirection));
+		tex.loadFromFile("resources/images/game/enemies/beetle/beetle_attack.png");
+		beetleAim.restart();
 	}
 }
 
@@ -232,5 +303,53 @@ void Enemy::bump()
 		chargePrep.restart();
 	}
 
+}
+
+void Enemy::damageEnemy(float t_damage)
+{
+	if (timer(0.1, iFrames))
+	{
+		if (health > 0)
+		{
+			health -= t_damage;
+			healthBar.takeDamage(t_damage);
+		}
+		if (health <= 0)
+		{
+			health = 0;
+			setAlive(false);
+		}
+		iFrames.restart();
+	}
+}
+
+void Enemy::placeHealthBar()
+{
+	float x = body.getPosition().x - body.getLocalBounds().width * body.getScale().x + (body.getLocalBounds().width * body.getScale().x * 0.23f);
+	float y = body.getPosition().y - body.getLocalBounds().height * body.getScale().y - (body.getLocalBounds().height * body.getScale().x * 0.5f);
+
+	healthBar.setPos(x, y);
+}
+
+void Enemy::setMovement()
+{
+	switch (currentDirection)
+	{
+	case EnemyDirection::Up:
+		directionRotation = 0;
+		break;
+	case EnemyDirection::Down:
+		directionRotation = 0;
+		break;
+	case EnemyDirection::Left:
+		directionRotation = 0;
+		break;
+	case EnemyDirection::Right:
+		directionRotation = 0;
+		break;
+	case EnemyDirection::None:
+		directionRotation = 0;
+		break;
+	}
 }
 
