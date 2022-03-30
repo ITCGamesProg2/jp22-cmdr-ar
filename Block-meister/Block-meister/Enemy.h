@@ -3,6 +3,7 @@
 #include <Thor/Vectors.hpp>
 #include "Player.h"
 #include "HealthBar.h"
+#include "BreadthFirstSearch.h"
 
 enum class EnemyType {
 	Slime, Beetle
@@ -25,7 +26,8 @@ public:
 	static sf::RenderWindow* window;
 	static Player* player;
 	HealthBar healthBar;
-	
+	static std::vector<std::shared_ptr<Terrain>>* terrain;
+
 	void processEvents(sf::Event& ev);
 	void update(sf::Time& dt);
 	void render();
@@ -73,7 +75,15 @@ public:
 	void setKnockback(bool t_knockback);
 	void resetBeetleAttacking() { beetleAttacking = false; }
 
+	//pathfinding
+	void setupPathing();
 private:
+	//pathfinding
+	BreadthFirstSearch pathing;
+	float playerDistance = 1500.f;
+	void Pathfind();
+	void updatePathing(sf::Time& dt);
+
 	sf::Time m_dt;
 	int count;
 	float speed{ 500 };

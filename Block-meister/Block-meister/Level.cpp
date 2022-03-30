@@ -12,7 +12,9 @@ Level::Level(sf::RenderWindow& t_window)
 	RangedAttackEntity::player = &player;
 	Enemy::window = &t_window;
 	Enemy::player = &player;
+	Enemy::terrain = &terrain;
 	ParticleManager::window = &t_window;
+	LevelEditor::terrain = &terrain;
 	
 	//Outline for editor placement
 	outline.setSize({ 50,50 });
@@ -28,8 +30,8 @@ Level::Level(sf::RenderWindow& t_window)
 
 	//test enemies
 	auto slime = std::make_shared<Enemy>();
-	slime->changeType(EnemyType::Beetle);
-	slime.get()->setPos(100 * 3, 10);
+	slime->changeType(EnemyType::Slime);
+	slime.get()->setPos(600, 400);
 	enemies.push_back(slime);
 
 	loadLevel();
@@ -66,6 +68,11 @@ void Level::loadLevel()
 	//////////////////////////////////////////////////////////////////////////
 	editor.editorOff();
 	if (m_levelEditor) editor.editorOn(); // EDITOR OFF OR REENABLED
+
+	for (std::shared_ptr<Enemy>& e : enemies)
+	{
+		e->setupPathing();
+	}
 }
 
 void Level::saveLevel()
@@ -86,6 +93,12 @@ void Level::processEvents(sf::Event& ev)
 	for (std::shared_ptr<Enemy> e : enemies)
 	{
 		e->processEvents(ev);
+	}
+	if (ev.type == sf::Event::KeyPressed)
+	{
+		if (ev.key.code == sf::Keyboard::V)
+		{
+		}
 	}
 
 	if (m_levelEditor)
@@ -120,7 +133,7 @@ void Level::processEvents(sf::Event& ev)
 
 					int count = 0;
 
-					for (std::shared_ptr<Terrain> t : terrain)
+					for (std::shared_ptr<Terrain>& t : terrain)
 					{
 						t->setCounter(count);
 						count++;
@@ -189,22 +202,25 @@ void Level::update(sf::Time& dt)
 	{
 		e.update(dt);
 	}
-	for (RangedAttackEntity& e : beetleAttacks)
+	if (!m_levelEditor)
 	{
-		e.update(dt);
-	}
-	for (std::shared_ptr<Enemy> e : enemies)
-	{
-		e->update(dt);
-		//Beetle aiming update loop
-		if (e->getBeetleAttacking())
+		for (RangedAttackEntity& e : beetleAttacks)
 		{
-			sf::Vector2f* aimTemp = e->getTriAim();
-			for (size_t i = 0; i < RangedAttackEntity::MAX_BEETLE_ATTACKS; i++)
+			e.update(dt);
+		}
+		for (std::shared_ptr<Enemy> e : enemies)
+		{
+			e->update(dt);
+			//Beetle aiming update loop
+			if (e->getBeetleAttacking())
 			{
-				beetleAttacks[i].activateProjectile(e->getSprite().getPosition(), aimTemp[i]);
+				sf::Vector2f* aimTemp = e->getTriAim();
+				for (size_t i = 0; i < RangedAttackEntity::MAX_BEETLE_ATTACKS; i++)
+				{
+					beetleAttacks[i].activateProjectile(e->getSprite().getPosition(), aimTemp[i]);
+				}
+				e->resetBeetleAttacking();
 			}
-			e->resetBeetleAttacking();
 		}
 	}
 	editor.update(*window);

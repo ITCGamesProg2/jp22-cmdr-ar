@@ -1,9 +1,25 @@
 #include "Enemy.h"
 sf::RenderWindow* Enemy::window = nullptr;
 Player* Enemy::player = nullptr;
+std::vector<std::shared_ptr<Terrain>>* Enemy::terrain = nullptr;
+
+// Recursive function to reverse the queue
+void reverseQueue(std::queue<int>& q)
+{
+	// Base case
+	if (q.empty())
+		return;
+	// Dequeue current item (from front) 
+	int data = q.front();
+	q.pop();
+	// Reverse remaining queue 
+	reverseQueue(q);
+	// Enqueue current item (to rear) 
+	q.push(data);
+}
 
 Enemy::Enemy() 
-	: healthBar{100, 18, 0}
+	: healthBar{100, 18, 0}, pathing{ terrain }
 {
 	//health
 	healthBar.setBarColour(sf::Color(255,0,0,200));
@@ -31,8 +47,6 @@ void Enemy::SetTexture(EnemyType _type)
 
 	body.setTexture(tex);
 	body.setOrigin((body.getLocalBounds().width / 2), (body.getLocalBounds().height / 2));
-	body.setScale(2.0f, 2.0f);
-
 	//Next movement bounds
 	nextMovement.setSize(sf::Vector2f{ body.getLocalBounds().width * 2, body.getLocalBounds().height * 2 });
 	nextMovement.setFillColor(sf::Color::Red);
@@ -81,6 +95,8 @@ void Enemy::update(sf::Time& dt)
 	if (alive)
 	{
 		m_dt = dt;
+		updatePathing(dt);
+
 		nextMovement.setPosition(body.getPosition());
 		placeHealthBar();
 		bump();
@@ -99,6 +115,7 @@ void Enemy::render()
 		window->draw(nextMovement);
 		window->draw(body);
 		healthBar.render(*window);
+		pathing.render(*window);
 	}
 }
 
@@ -266,6 +283,104 @@ void Enemy::setKnockback(bool t_knockback)
 
 	//Slime stuff
 	charging = false;
+}
+
+void Enemy::setupPathing()
+{
+	int width = 0;
+	int height = 0;
+
+	int topLeft = 0;
+	int bottomRight = 0;
+
+	for (int i = 0; i < terrain->size(); i++)
+	{
+		if (terrain->at(topLeft)->getSprite().getPosition().x >=
+			terrain->at(i)->getSprite().getPosition().x &&
+			terrain->at(topLeft)->getSprite().getPosition().y >=
+			terrain->at(i)->getSprite().getPosition().y)
+		{
+			topLeft = i;
+		}
+		if (terrain->at(bottomRight)->getSprite().getPosition().x <=
+			terrain->at(i)->getSprite().getPosition().x &&
+			terrain->at(bottomRight)->getSprite().getPosition().y <=
+			terrain->at(i)->getSprite().getPosition().y)
+		{
+			bottomRight = i;
+		}
+	}
+
+	float diffX = terrain->at(bottomRight)->getSprite().getPosition().x - terrain->at(topLeft)->getSprite().getPosition().x;
+	float diffY = terrain->at(bottomRight)->getSprite().getPosition().y - terrain->at(topLeft)->getSprite().getPosition().y;
+
+	width = diffX / 50.f;
+	height = diffY / 50.f;
+
+	pathing.setup(width, height);
+}
+
+void Enemy::updatePathing(sf::Time& dt)
+{
+	playerDistance = sqrt(pow(player->getPos().x - body.getPosition().x, 2) +
+		pow(player->getPos().y - body.getPosition().y, 2) * 1.0);
+	if (pathing.path.empty() && !charging && playerDistance > 250.f) Pathfind();
+
+	{
+		if (!pathing.path.empty() && playerDistance > 250.f)
+		{
+			sf::Vector2f target = pathing.cells.at(pathing.path.front()).position;
+
+			sf::Vector2f direction = target - body.getPosition();
+			float vectorLength = sqrt(direction.x * direction.x + direction.y * direction.y);
+			direction = direction / vectorLength;
+
+			body.move(direction * (SLIME_SPEED / 3) * dt.asSeconds());
+			nextMovement.setPosition(body.getPosition() + (direction * (SLIME_SPEED / 3) * dt.asSeconds()));
+
+			float distance = sqrt(pow(target.x - body.getPosition().x, 2) +
+				pow(target.y - body.getPosition().y, 2) * 1.0);
+			if (distance < 2.f)
+			{
+				body.setPosition(target);
+				pathing.path.pop();
+			}
+		}
+	}
+
+	if (playerDistance <= 250.f && !charging)
+	{
+		charging = true;
+	}
+}
+
+void Enemy::Pathfind()
+{
+
+	if (playerDistance < 1000.f && !charging && playerDistance > 250.f)
+	{
+		// do pathfinding
+		int bX = floor(body.getPosition().x / 50.f);
+		int bY = floor(body.getPosition().y / 50.f);
+		int start = bY * pathing.width + bX;
+
+		int pX = floor(player->getPos().x / 50.f);
+		int pY = floor(player->getPos().y / 50.f);
+		int end = pY * pathing.width + pX;
+
+		std::cout << start << ", " << end << std::endl;
+
+		pathing.findPath(start, end);
+		if (!pathing.path.empty()) reverseQueue(pathing.path);
+
+		int amountOfCells = pathing.width * pathing.height;
+
+		for (int i = 0; i < amountOfCells; i++)
+		{
+			pathing.cells[i].marked = false;
+			pathing.cells[i].father = NULL;
+		}
+	}
 }
 
 bool Enemy::timer(float t_desiredTime, sf::Clock t_timer)

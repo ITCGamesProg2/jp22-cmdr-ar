@@ -12,6 +12,7 @@ class LevelEditor
 {
 public:
 	LevelEditor();
+	static std::vector<std::shared_ptr<Terrain>>* terrain;
 
 	void update(sf::RenderWindow& t_window);
 	void processEvents(sf::Event& event);
@@ -47,5 +48,10 @@ private:
 	sf::Vector2f mousePosition{ 0,0 };
 
 	bool levelEditor{ false };
+
+	// tool vars
+	int toolIndex{ 1 };
+	sf::Vector2f fillPosition[2] = { {0,0}, {0,0} };
+	void rectFill();
 };
 

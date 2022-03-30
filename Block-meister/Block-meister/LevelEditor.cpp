@@ -1,4 +1,5 @@
 #include "LevelEditor.h"
+std::vector<std::shared_ptr<Terrain>>* LevelEditor::terrain = nullptr;
 
 LevelEditor::LevelEditor()
 {
@@ -10,6 +11,7 @@ void LevelEditor::update(sf::RenderWindow& t_window)
 	if (levelEditor)
 	{
 		mousePosition = getMousePosition(t_window);
+
 	}
 }
 
@@ -41,10 +43,33 @@ void LevelEditor::processEvents(sf::Event& event)
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 		{
 			desiredType = 0;
+			std::cout << "Type: 0" << std::endl;
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 		{
 			desiredType = 1;
+			std::cout << "Type: 1" << std::endl;
+		}
+
+		//editor tools
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) // pencil
+		{
+			toolIndex = 1;
+			std::cout << "Tool: Pencil" << std::endl;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) // rectangle fill
+		{
+			toolIndex = 2;
+			std::cout << "Tool: Rect Fill" << std::endl;
+		}
+
+		//editor tool calls
+		if (event.type == sf::Event::MouseButtonPressed)
+		{
+			if (event.mouseButton.button == sf::Mouse::Left && toolIndex == 2)
+			{
+				rectFill();
+			}
 		}
 	}
 }
@@ -142,4 +167,63 @@ sf::Vector2f LevelEditor::gridPlacement(sf::Vector2f mousePosition)
 	mouseGridPlacement.y = (static_cast<int>(mousePosition.y) / 10) * 10;
 
 	return mouseGridPlacement;
+}
+
+void LevelEditor::rectFill()
+{
+
+	if (fillPosition[1] == sf::Vector2f(0, 0))
+	{
+		if (fillPosition[0] == sf::Vector2f(0, 0))
+		{
+			fillPosition[0] = gridPlacement(mousePosition);
+			std::cout << "Rect Fill Top Left: " << fillPosition[0].x << ", "
+				<< fillPosition[0].y << std::endl;
+		}
+		else
+		{
+			if (gridPlacement(mousePosition) != fillPosition[0])
+			{
+				fillPosition[1] = gridPlacement(mousePosition);
+				std::cout << "Rect Fill Bottom Right: " << fillPosition[1].x << ", "
+					<< fillPosition[1].y << std::endl;
+			}
+		}
+	}
+	else
+	{
+		sf::Vector2f cyclePos = fillPosition[0];
+		int cycles = 0;
+		while (cycles < 10000) // max placement is 10k blocks at once
+		{
+			std::shared_ptr<Terrain> ter = std::make_shared<Terrain>(createTerrain(cyclePos, (Type)desiredType));
+			ter->changeType(ter->getType());
+			terrain->push_back(ter);
+
+			int count = 0;
+
+			for (std::shared_ptr<Terrain>& t : *terrain)
+			{
+				t->setCounter(count);
+				count++;
+			}
+
+			cyclePos += sf::Vector2f(50, 0);
+			if (cyclePos.x > fillPosition[1].x)
+			{
+				cyclePos = sf::Vector2f(fillPosition[0].x, cyclePos.y);
+				cyclePos += sf::Vector2f(0, 50);
+				if (cyclePos.y > fillPosition[1].y) // done
+				{
+					cycles = 10000;
+				}
+			}
+
+			cycles++;
+		}
+
+		//end
+		fillPosition[0] = sf::Vector2f(0, 0);
+		fillPosition[1] = sf::Vector2f(0, 0);
+	}
 }
