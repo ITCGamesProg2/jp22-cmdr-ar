@@ -28,6 +28,10 @@ void Terrain::changeType(Type type)
 		setType(Type::ground);
 		SetTexture("./resources/images/game/brick_ground.png");
 		break;
+	case Type::stairs:
+		setType(Type::stairs);
+		SetTexture("./resources/images/game/stairs.png");
+		break;
 	default:
 		break;
 	}

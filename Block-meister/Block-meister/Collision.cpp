@@ -30,6 +30,24 @@ void Collision::collisionDetection(RangedAttackEntity(&attack)[20], std::vector<
 	}
 }
 
+void Collision::collisionDetection(RangedAttackEntity(&attack)[20], std::vector<std::shared_ptr<Terrain>>& terrain)
+{
+	for (int i = 0; i < 20; i++)
+	{
+		if (attack[i].getActive())
+		{
+			for (std::shared_ptr<Terrain> t : terrain)
+			{
+				if (attack[i].getSprite().getGlobalBounds().intersects(t->getSprite().getGlobalBounds()) &&
+					t->getType() == Type::wall)
+				{
+					attack[i].setActive(false);
+				}
+			}
+		}
+	}
+}
+
 // enemy and melee attacks
 void Collision::collisionDetection(AttackEntity& attack, std::vector<std::shared_ptr<Enemy>>& enemies)
 {

@@ -188,7 +188,7 @@ void Level::processEvents(sf::Event& ev)
 		// Player Ranged Attack
 		if (ev.key.code == sf::Keyboard::Q)
 		{
-			playerRangedAttack->activateProjectile(player.getPos());
+			playerRangedAttack[currentPlayerAttack].activateProjectile(player.getPos());
 			currentPlayerAttack++;
 			if (currentPlayerAttack >= RangedAttackEntity::MAX_ATTACKS)
 			{
@@ -302,6 +302,8 @@ void Level::checkCollisions()
 	collision.collisionDetection(playerAttack, enemies);
 	// Enemies and Ranged Attack
 	collision.collisionDetection(playerRangedAttack, enemies);
+	// Terrain and Ranged Attack
+	collision.collisionDetection(playerRangedAttack, terrain);
 	// Player and Enemy Ranged Attacks
 	collision.collisionDetection(player, beetleAttacks);
 

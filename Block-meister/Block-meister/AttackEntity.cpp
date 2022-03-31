@@ -51,46 +51,13 @@ void AttackEntity::render()
 
 void AttackEntity::setAttackPos()
 {
-	sf::Vector2f playerPos = player->getSprite().getPosition();
-	float playerHeight = player->getSprite().getLocalBounds().height;
-	float playerWidth = player->getSprite().getLocalBounds().width;
-	
-	if (firstTime)
-	{
-		prevDir = sf::Vector2f(0, -playerHeight);
-		prevRotation = 270.f;
-		firstTime = false;
-	}
+	sf::Vector2f dir = player->getSprite().getPosition() - MousePosition::GetOffGrid();
 
-	switch (player->getDir())
-	{
-	case Direction::Up:
-		offset = sf::Vector2f(0, -playerHeight);
-		rotation = 270.f;
-		break;
-	case Direction::Right:
-		offset = sf::Vector2f(playerWidth, 0);
-		rotation = 0.f;
-		break;
-	case Direction::Down:
-		offset = sf::Vector2f(0, playerHeight);
-		rotation = 90.f;
-		break;
-	case Direction::Left:
-		offset = sf::Vector2f(-playerWidth, 0);
-		rotation = 180.f;
-		break;
-	default:
-		offset = prevDir;
-		rotation = prevRotation;
-		break;
-	}
-	
-	prevDir = offset;
-	prevRotation = rotation;
+	rotation = atan2(dir.y, dir.x) * 180.f / 3.1415f/* PI */;
+	offset = sf::Vector2f(cos(rotation * 3.1416 / 180), sin(rotation * 3.1416 / 180)) * -50.f;
 
-	body.setRotation(rotation);
-	body.setPosition(playerPos + (offset));
+	body.setRotation(rotation + 180.f);
+	body.setPosition(player->getSprite().getPosition() + (offset));
 	if (attackTimer.getElapsedTime().asSeconds() > 0.05f) attackDirSet = true;
 	readyToDraw = true;
 }

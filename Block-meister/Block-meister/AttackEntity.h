@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Player.h"
+#include "MousePosition.h"
 
 class AttackEntity
 {
@@ -29,10 +30,6 @@ private:
 
 	float rotation = 0.f;
 	sf::Vector2f offset;
-
-	sf::Vector2f prevDir;
-	float prevRotation = 270.f;
-	bool firstTime = true;
 
 	sf::Sprite body;
 	sf::Texture tex;

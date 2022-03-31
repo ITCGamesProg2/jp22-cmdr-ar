@@ -1,16 +1,50 @@
-﻿  Enemy.cpp
+﻿  AttackEntity.cpp
 C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\Enemy.cpp(184,39): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\Enemy.cpp(332,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\Enemy.cpp(353,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\Enemy.cpp(354,17): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\Enemy.cpp(362,23): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\Enemy.cpp(377,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\Enemy.cpp(394,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\Enemy.cpp(395,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\Enemy.cpp(398,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\Enemy.cpp(399,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\Enemy.cpp(437,16): warning C4305: '*=': truncation from 'double' to 'float'
-C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\Enemy.cpp(461,25): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\MousePosition.h(13,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\MousePosition.h(14,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\MousePosition.h(25,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\MousePosition.h(26,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\AttackEntity.cpp(57,57): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\AttackEntity.cpp(57,27): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
   Block-meister.vcxproj -> C:\Users\C00260445\Desktop\jplatest\Block-meister\Debug\Block-meister.exe

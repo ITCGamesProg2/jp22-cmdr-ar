@@ -30,7 +30,6 @@ public:
 private:
 	sf::Vector2f getMousePosition(sf::RenderWindow& t_window);
 	void calculateDirection(sf::Vector2f t_mousePos, sf::Vector2f t_start);
-	void boundsCollision(sf::Time& dt);
 
 	bool active{ false };
 	bool friendly{ false };
@@ -39,7 +38,7 @@ private:
 	float speed{ 750 };
 
 	static sf::Clock attackTimer;
-	float timeBetweenAttacks{ 0.15f };
+	float timeBetweenAttacks{ 0.35f };
 
 	sf::Sprite body;
 	sf::Texture tex;

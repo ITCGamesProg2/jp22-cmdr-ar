@@ -50,6 +50,14 @@ void ParticleManager::createParticle(EnemyType type, sf::Vector2f pos)
 	{
 		tex.loadFromFile("resources/images/game/particles/particle_beetle.png");
 	}
+	if (type == EnemyType::Hive)
+	{
+		tex.loadFromFile("resources/images/game/particles/particle_slime.png");
+	}
+	if (type == EnemyType::Spawn)
+	{
+		tex.loadFromFile("resources/images/game/particles/particle_slime.png");
+	}
 	system.setTexture(tex);
 
 	active = true;

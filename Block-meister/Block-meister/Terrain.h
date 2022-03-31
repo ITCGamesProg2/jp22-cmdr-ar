@@ -4,7 +4,7 @@
 
 enum class Type
 {
-	wall, ground
+	wall, ground, stairs
 };
 
 class Terrain

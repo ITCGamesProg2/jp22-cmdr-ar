@@ -17,4 +17,14 @@ public:
 
 		return (sf::Vector2f)mouse;
 	}
+
+	static sf::Vector2f GetOffGrid()
+	{
+		sf::Vector2i mouse = sf::Mouse::getPosition(*window);
+
+		mouse.x += (window->getView().getCenter().x - (window->getView().getSize().x / 2));
+		mouse.y += (window->getView().getCenter().y - (window->getView().getSize().y / 2));
+
+		return (sf::Vector2f)mouse;
+	}
 };

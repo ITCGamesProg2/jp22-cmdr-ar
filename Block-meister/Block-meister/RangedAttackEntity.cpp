@@ -18,7 +18,6 @@ void RangedAttackEntity::update(sf::Time& dt)
 	if (active)
 	{
 		body.move(direction * speed * dt.asSeconds());
-		boundsCollision(dt);
 	}
 }
 
@@ -42,6 +41,9 @@ sf::Vector2f RangedAttackEntity::getMousePosition(sf::RenderWindow& t_window)
 
 void RangedAttackEntity::calculateDirection(sf::Vector2f t_mousePos, sf::Vector2f t_start)
 {
+	t_mousePos.x += (window->getView().getCenter().x) - (window->getView().getSize().x / 2);
+	t_mousePos.y += (window->getView().getCenter().y) - (window->getView().getSize().y / 2);
+
 	direction = t_mousePos - t_start;
 	float vectorLength = sqrt(direction.x * direction.x + direction.y * direction.y);
 	direction = direction / vectorLength;
@@ -51,30 +53,6 @@ void RangedAttackEntity::calculateDirection(sf::Vector2f t_mousePos, sf::Vector2
 	body.setRotation(angle + 90);
 }
 
-
-void RangedAttackEntity::boundsCollision(sf::Time& dt)
-{
-	//Left Side Bounds
-	if (body.getPosition().x < 0)
-	{
-		active = false;
-	}
-	//Right Side Bounds
-	if (body.getPosition().x > Window::WIDTH)
-	{
-		active = false;
-	}
-	//Top Side Bounds
-	if (body.getPosition().y < 0)
-	{
-		active = false;
-	}
-	//Bottom Side Bounds
-	if (body.getPosition().y > Window::HEIGHT)
-	{
-		active = false;
-	}
-}
 
 /// <summary>
 /// Enemy Projectile Activation

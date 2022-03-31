@@ -12,6 +12,7 @@ public:
 	Collision();
 
 	void collisionDetection(RangedAttackEntity(&attack)[20], std::vector<std::shared_ptr<Enemy>>& enemies);
+	void collisionDetection(RangedAttackEntity(&attack)[20], std::vector<std::shared_ptr<Terrain>>& terrain);
 	void collisionDetection(AttackEntity& attack, std::vector<std::shared_ptr<Enemy>>& enemies);
 	void collisionDetection(std::vector<std::shared_ptr<Terrain>>& terrain, std::vector<std::shared_ptr<Enemy>> enemies);
 	void collisionDetection(Player& player, std::vector<std::shared_ptr<Enemy>>& enemies);
