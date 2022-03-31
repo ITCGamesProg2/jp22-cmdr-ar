@@ -10,7 +10,6 @@ RangedAttackEntity::RangedAttackEntity()
 	body.setTexture(tex);
 	body.setScale(1.5, 1.5);
 	body.setOrigin(body.getLocalBounds().width / 2, body.getLocalBounds().height);
-
 }
 
 
@@ -48,7 +47,7 @@ void RangedAttackEntity::calculateDirection(sf::Vector2f t_mousePos, sf::Vector2
 	direction = direction / vectorLength;
 
 	float angle = atan2(t_mousePos.y - player->getPos().y, t_mousePos.x - player->getPos().x);
-	angle = angle * 180 / 3.1416;
+	angle = angle * 180.f / 3.1416f;
 	body.setRotation(angle + 90);
 }
 

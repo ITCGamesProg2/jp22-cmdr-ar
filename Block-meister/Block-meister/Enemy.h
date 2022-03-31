@@ -37,6 +37,7 @@ public:
 	void damageEnemy(float t_damage);
 	void placeHealthBar();
 	void setMovement();
+	void move(sf::Time& dt);
 
 	EnemyType enemyType = EnemyType::Slime;
 	int count;
@@ -46,7 +47,7 @@ public:
 	float directionRotation{ 0 };
 
 	//Slime stuff
-	void slimeCharge(sf::Time& dt);
+	void slimeUpdate(sf::Time& dt);
 	void setCharge(bool t_charging) { charging = t_charging; }
 
 	//Beetle stuff
@@ -62,6 +63,7 @@ public:
 	void getBounceDirection();
 	void directionTowardsPlayer();
 	sf::RectangleShape getNextMove() { return nextMovement; }
+	bool getAlive() { return alive; }
 
 	//Setters
 	void setPos(float x, float y) { body.setPosition(x, y); }
@@ -87,6 +89,10 @@ private:
 	sf::Clock bumpDuration;
 	bool knockback{ false };
 
+	// Movement
+	sf::Vector2f moveBy;
+	float speedMultiplier{ 3 };
+
 	//Health Related stuff
 	float health{ 0 };
 	bool alive{ true };
@@ -94,7 +100,7 @@ private:
 	sf::Clock iFrames;
 
 	//Slime stuff
-	const float SLIME_HEALTH{ 50 };
+	const float SLIME_HEALTH{ 75 };
 	bool charging{ false };
 	bool chargeActive{ false };
 	const float CHARGE_SPEED = 750;

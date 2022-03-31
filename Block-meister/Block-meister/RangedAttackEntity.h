@@ -16,9 +16,11 @@ public:
 	void activateProjectile(sf::Vector2f t_position);
 
 	bool getActive() { return active; }
+	bool getFriendly() { return friendly; }
 	sf::Sprite getSprite() { return body; }
 
 	void setActive(bool t_active) { active = t_active; }
+	void setFriendly(bool t_friendly) { friendly = t_friendly; }
 
 	static const int MAX_ATTACKS = 20;
 	static const int MAX_BEETLE_ATTACKS = 3;
@@ -31,6 +33,7 @@ private:
 	void boundsCollision(sf::Time& dt);
 
 	bool active{ false };
+	bool friendly{ false };
 
 	sf::Vector2f direction{ 0,0 };
 	float speed{ 750 };

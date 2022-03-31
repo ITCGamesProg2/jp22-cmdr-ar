@@ -34,6 +34,12 @@ Level::Level(sf::RenderWindow& t_window)
 	slime.get()->setPos(600, 400);
 	enemies.push_back(slime);
 
+	//player projectiles
+	for (RangedAttackEntity& e : playerRangedAttack)
+	{
+		e.setFriendly(true);
+	}
+
 	loadLevel();
 }
 
@@ -291,6 +297,8 @@ void Level::checkCollisions()
 	collision.collisionDetection(playerAttack, enemies);
 	// Enemies and Ranged Attack
 	collision.collisionDetection(playerRangedAttack, enemies);
+	// Player and Enemy Ranged Attacks
+	collision.collisionDetection(player, beetleAttacks);
 
 	// Particle Manager
 	for (std::shared_ptr<Enemy> e : enemies)
@@ -339,8 +347,8 @@ void Level::setOutline()
 sf::Vector2f Level::gridPlacement(sf::Vector2f mousePosition)
 {
 	sf::Vector2f mouseGridPlacement;
-	mouseGridPlacement.x = (static_cast<int>(mousePosition.x) / 10) * 10;
-	mouseGridPlacement.y = (static_cast<int>(mousePosition.y) / 10) * 10;
+	mouseGridPlacement.x = (static_cast<int>(mousePosition.x) / 50) * 50;
+	mouseGridPlacement.y = (static_cast<int>(mousePosition.y) / 50) * 50;
 
 	return mouseGridPlacement;
 }

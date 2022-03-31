@@ -96,15 +96,13 @@ void Enemy::update(sf::Time& dt)
 	if (alive)
 	{
 		m_dt = dt;
+		move(dt);
 		updatePathing(dt);
 
 		nextMovement.setPosition(body.getPosition());
 		placeHealthBar();
 		bump();
-		if (enemyType == EnemyType::Slime)
-		{
-			slimeCharge(dt);
-		}
+		slimeUpdate(dt);
 		beetleUpdate();
 	}
 }
@@ -120,41 +118,52 @@ void Enemy::render()
 	}
 }
 
-void Enemy::slimeCharge(sf::Time& dt)
+void Enemy::slimeUpdate(sf::Time& dt)
 {
-	if (charging)
+	if (enemyType == EnemyType::Slime)
 	{
-		// Sets charge to true when timer is ready
-		if (timer(2, chargePrep) && chargeActive == false)
+		if (playerDistance <= 250.f && !charging)
 		{
-			chargeActive = true;
-			speed = CHARGE_SPEED;
-			directionTowardsPlayer();
-			direction = playerDirection;
-			chargePrep.restart();
+			if (timer(2, chargeCooldown))
+			{
+				charging = true;
+			}
 		}
 
-		// Starts charging when ready
-		if (chargeActive)
+		if (charging)
 		{
-			body.move(playerDirection * CHARGE_SPEED * dt.asSeconds());
-			nextMovement.setPosition(body.getPosition() + (playerDirection * CHARGE_SPEED * dt.asSeconds()));
-
-			// Resets movement values when charge is over ( 2.0s - 2.5s = 0.5s charge duration)
-			if (timer(2.5, chargeDuration))
+			// Sets charge to true when timer is ready
+			if (timer(2, chargePrep) && chargeActive == false)
 			{
-				chargeActive = false;
-				charging = false;
-				speed = SLIME_SPEED;
+				chargeActive = true;
+				speed = CHARGE_SPEED;
+				directionTowardsPlayer();
+				direction = playerDirection;
+				chargePrep.restart();
 			}
 
-			chargeCooldown.restart();
+			// Starts charging when ready
+			if (chargeActive)
+			{
+				body.move(playerDirection * CHARGE_SPEED * dt.asSeconds());
+				nextMovement.setPosition(body.getPosition() + (playerDirection * CHARGE_SPEED * dt.asSeconds()));
+
+				// Resets movement values when charge is over ( 2.0s - 2.5s = 0.5s charge duration)
+				if (timer(2.5, chargeDuration))
+				{
+					chargeActive = false;
+					charging = false;
+					speed = SLIME_SPEED;
+				}
+
+				chargeCooldown.restart();
+			}
 		}
-	}
-	else
-	{
-		chargeDuration.restart();
-		chargePrep.restart();
+		else
+		{
+			chargeDuration.restart();
+			chargePrep.restart();
+		}
 	}
 }
 
@@ -207,7 +216,10 @@ void Enemy::beetleUpdate()
 		// Sets rotation of beetle
 		if (!beetleReady && !beetleAttacking)
 		{
-			//body.setRotation(thor::polarAngle(direction));
+			if (moveBy != sf::Vector2f{ 0,0 })
+			{
+				body.setRotation(thor::polarAngle(moveBy));
+			}
 		}
 	}
 }
@@ -360,8 +372,7 @@ void Enemy::updatePathing(sf::Time& dt)
 			float vectorLength = sqrt(direction.x * direction.x + direction.y * direction.y);
 			direction = direction / vectorLength;
 
-			body.move(direction * (SLIME_SPEED / 3) * dt.asSeconds());
-			nextMovement.setPosition(body.getPosition() + (direction * (SLIME_SPEED / 3) * dt.asSeconds()));
+			moveBy = direction;
 
 			float distance = sqrt(pow(target.x - body.getPosition().x, 2) +
 				pow(target.y - body.getPosition().y, 2) * 1.0);
@@ -372,20 +383,12 @@ void Enemy::updatePathing(sf::Time& dt)
 			}
 		}
 	}
-
-	if (playerDistance <= 250.f && !charging)
-	{
-		if (timer(2, chargeCooldown))
-		{
-			charging = true;
-		}
-	}
 }
 
 void Enemy::Pathfind()
 {
 
-	if (playerDistance < 1000.f && !charging && playerDistance > 250.f)
+	if (playerDistance < 1000.f && playerDistance > 250.f)
 	{
 		// do pathfinding
 		int bX = floor(body.getPosition().x / 50.f);
@@ -494,6 +497,15 @@ void Enemy::setMovement()
 	case EnemyDirection::None:
 		directionRotation = 0;
 		break;
+	}
+}
+
+void Enemy::move(sf::Time& dt)
+{
+	if (!knockback && !charging && !beetleAttacking && !beetleReady)
+	{
+ 		body.move(moveBy * (SLIME_SPEED / speedMultiplier) * dt.asSeconds());
+		nextMovement.setPosition(body.getPosition() + (moveBy * (SLIME_SPEED / speedMultiplier) * dt.asSeconds()));
 	}
 }
 
