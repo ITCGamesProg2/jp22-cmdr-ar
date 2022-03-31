@@ -18,11 +18,11 @@ void reverseQueue(std::queue<int>& q)
 	q.push(data);
 }
 
-Enemy::Enemy() 
-	: healthBar{100, 18, 0}, pathing{ terrain }
+Enemy::Enemy()
+	: healthBar{ 100, 18, 0 }, pathing{ terrain }
 {
 	//health
-	healthBar.setBarColour(sf::Color(255,0,0,200));
+	healthBar.setBarColour(sf::Color(255, 0, 0, 200));
 }
 
 void Enemy::SetTexture(const char* path)
@@ -42,13 +42,13 @@ void Enemy::SetTexture(EnemyType _type)
 		break;
 	case EnemyType::Beetle:
 		tex.loadFromFile("resources/images/game/enemies/beetle/beetle.png");
-		body.setScale(1.5,1.5);
+		body.setScale(1.5, 1.5);
 		break;
 	case EnemyType::Hive:
-		tex.loadFromFile("resources/images/game/enemies/slime/slime.png");
+		tex.loadFromFile("resources/images/game/enemies/hive/Hive.png");
 		break;
 	case EnemyType::Spawn:
-		tex.loadFromFile("resources/images/game/enemies/slime/slime.png");
+		tex.loadFromFile("resources/images/game/enemies/spawn/Spawn.png");
 		break;
 	}
 
@@ -69,6 +69,7 @@ void Enemy::changeType(EnemyType type)
 		//Health
 		health = SLIME_HEALTH;
 		healthBar.setMaxHealth(SLIME_HEALTH);
+		typeSpeed = SLIME_SPEED;
 
 		break;
 	case EnemyType::Beetle:
@@ -76,6 +77,22 @@ void Enemy::changeType(EnemyType type)
 		//Health
 		health = BEETLE_HEALTH;
 		healthBar.setMaxHealth(BEETLE_HEALTH);
+		typeSpeed = BEETLE_SPEED;
+
+		break;
+	case EnemyType::Hive:
+		SetTexture(EnemyType::Hive);
+		//Health
+		health = HIVE_HEALTH;
+		healthBar.setMaxHealth(HIVE_HEALTH);
+		typeSpeed = 0;
+
+		break;
+	case EnemyType::Spawn:
+		SetTexture(EnemyType::Spawn);
+		//Health
+		health = SPAWN_HEALTH;
+		typeSpeed = SPAWN_SPEED;
 
 		break;
 	}
@@ -90,10 +107,6 @@ void Enemy::processEvents(sf::Event& ev)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
 	{
-		if (enemyType == EnemyType::Slime)
-		{
-			charging = true;
-		}
 	}
 }
 
@@ -110,6 +123,7 @@ void Enemy::update(sf::Time& dt)
 		bump();
 		slimeUpdate(dt);
 		beetleUpdate();
+		hiveUpdate();
 	}
 }
 
@@ -117,9 +131,12 @@ void Enemy::render()
 {
 	if (alive)
 	{
-		window->draw(nextMovement);
+		//window->draw(nextMovement);
 		window->draw(body);
-		healthBar.render(*window);
+		if (enemyType != EnemyType::Spawn)
+		{
+			healthBar.render(*window);
+		}
 		pathing.render(*window);
 	}
 }
@@ -224,6 +241,17 @@ void Enemy::beetleUpdate()
 	}
 }
 
+void Enemy::hiveUpdate()
+{
+	if (enemyType == EnemyType::Hive)
+	{
+		if (timer(5, spawnTimer))
+		{
+			spawnReady = true;
+			spawnTimer.restart();
+		}
+	}
+}
 
 bool Enemy::getParticleReady()
 {
@@ -321,6 +349,17 @@ void Enemy::beetleReset()
 	}
 }
 
+void Enemy::spawnReset(sf::Vector2f pos)
+{
+	if (enemyType == EnemyType::Spawn)
+	{
+		health = SPAWN_HEALTH;
+		alive = true;
+		body.setPosition(pos);
+		knockback = false;
+	}
+}
+
 void Enemy::setupPathing()
 {
 	int width = 0;
@@ -388,7 +427,8 @@ void Enemy::updatePathing(sf::Time& dt)
 void Enemy::Pathfind()
 {
 
-	if (playerDistance < 1000.f && playerDistance > 250.f)
+	if (playerDistance < 1000.f && playerDistance > 250.f &&
+		enemyType != EnemyType::Hive && enemyType != EnemyType::Spawn)
 	{
 		// do pathfinding
 		int bX = floor(body.getPosition().x / 50.f);
@@ -432,23 +472,25 @@ bool Enemy::timer(float t_desiredTime, sf::Clock t_timer)
 /// </summary>
 void Enemy::bump()
 {
-	if (!timer(0.5, bumpDuration) && knockback)
+	if (enemyType != EnemyType::Hive)
 	{
-		speed *= 0.92;
-		body.move(direction * speed * m_dt.asSeconds());
-	}
-	if (timer(0.5, bumpDuration) && knockback)
-	{
-		knockback = false;
+		if (!timer(0.5, bumpDuration) && knockback)
+		{
+			speed *= 0.92;
+			body.move(direction * speed * m_dt.asSeconds());
+		}
+		if (timer(0.5, bumpDuration) && knockback)
+		{
+			knockback = false;
 
-		//Slime stuff
-		speed = SLIME_SPEED;
-		chargeActive = false;
-		charging = false;
-		chargeDuration.restart();
-		chargePrep.restart();
+			//Slime stuff
+			speed = typeSpeed;
+			chargeActive = false;
+			charging = false;
+			chargeDuration.restart();
+			chargePrep.restart();
+		}
 	}
-
 }
 
 void Enemy::damageEnemy(float t_damage)
@@ -459,6 +501,8 @@ void Enemy::damageEnemy(float t_damage)
 		{
 			health -= t_damage;
 			healthBar.takeDamage(t_damage);
+			//hive stuff
+			hiveHit = true;
 		}
 		if (health <= 0)
 		{
@@ -478,48 +522,28 @@ void Enemy::placeHealthBar()
 	healthBar.setPos(x, y);
 }
 
-void Enemy::setMovement()
-{
-	switch (currentDirection)
-	{
-	case EnemyDirection::Up:
-		directionRotation = 0;
-		break;
-	case EnemyDirection::Down:
-		directionRotation = 0;
-		break;
-	case EnemyDirection::Left:
-		directionRotation = 0;
-		break;
-	case EnemyDirection::Right:
-		directionRotation = 0;
-		break;
-	case EnemyDirection::None:
-		directionRotation = 0;
-		break;
-	}
-}
-
 void Enemy::move(sf::Time& dt)
 {
-	if (!knockback && !charging && !beetleAttacking && !beetleReady)
+	if (!knockback && !charging && !beetleAttacking && !beetleReady && enemyType != EnemyType::Hive)
 	{
 		if (!timer(1, runAwayTimer) && enemyType == EnemyType::Beetle)
 		{
 			directionTowardsPlayer();
 			playerDirection = -playerDirection;
-			body.move(playerDirection * (SLIME_SPEED / speedMultiplier) * dt.asSeconds());
+			body.move(playerDirection * (typeSpeed / speedMultiplier) * dt.asSeconds());
+			nextMovement.setPosition(body.getPosition() + (playerDirection * (typeSpeed / speedMultiplier) * dt.asSeconds()));
 			body.setRotation(thor::polarAngle(playerDirection));
 		}
 
+		// Beetle runs away from player when in range
 		if (playerDistance < BEETLE_AIM_RANGE && enemyType == EnemyType::Beetle)
 		{
 			runAwayTimer.restart();
 		}
 		else if (timer(1, runAwayTimer))
 		{
- 			body.move(moveBy * (SLIME_SPEED / speedMultiplier) * dt.asSeconds());
-			nextMovement.setPosition(body.getPosition() + (moveBy * (SLIME_SPEED / speedMultiplier) * dt.asSeconds()));
+			body.move(moveBy * (typeSpeed / speedMultiplier) * dt.asSeconds());
+			nextMovement.setPosition(body.getPosition() + (moveBy * (typeSpeed / speedMultiplier) * dt.asSeconds()));
 
 			// Sets rotation of beetle
 			if (!beetleReady && !beetleAttacking && enemyType == EnemyType::Beetle)
@@ -528,6 +552,19 @@ void Enemy::move(sf::Time& dt)
 				{
 					body.setRotation(thor::polarAngle(moveBy));
 				}
+			}
+		}
+		// Spawn movement
+		if (enemyType == EnemyType::Spawn)
+		{
+			directionTowardsPlayer();
+
+			body.move(playerDirection * (typeSpeed / speedMultiplier) * dt.asSeconds());
+			nextMovement.setPosition(body.getPosition() + (playerDirection * (typeSpeed / speedMultiplier) * dt.asSeconds()));
+
+			if (playerDirection != sf::Vector2f{ 0,0 })
+			{
+				body.setRotation(thor::polarAngle(playerDirection));
 			}
 		}
 	}

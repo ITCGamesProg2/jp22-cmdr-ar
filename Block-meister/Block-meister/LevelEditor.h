@@ -24,9 +24,10 @@ public:
 	void deleteTerrain(std::vector<std::shared_ptr<Terrain>>& terrain, int terrainIndex);
 
 	//Enemy creation
-	void createEnemy(std::vector<std::shared_ptr<Enemy>>& enemies);
+	Enemy createEnemy();
 	Enemy createEnemy(sf::Vector2f position, EnemyType type);
 	void deleteEnemy(std::vector<std::shared_ptr<Enemy>>& enemies, int enemiesIndex);
+	Enemy createSpawn(sf::Vector2f position);
 
 	//Tools
 	void editorOn() { levelEditor = true; }

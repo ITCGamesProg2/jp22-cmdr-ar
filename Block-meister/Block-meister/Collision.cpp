@@ -4,6 +4,24 @@ Collision::Collision()
 {
 }
 
+void Collision::collisionDetection(RangedAttackEntity(&attack)[20], std::vector<std::shared_ptr<Terrain>>& terrain)
+{
+	for (int i = 0; i < 20; i++)
+	{
+		if (attack[i].getActive())
+		{
+			for (std::shared_ptr<Terrain> t : terrain)
+			{
+				if (attack[i].getSprite().getGlobalBounds().intersects(t->getSprite().getGlobalBounds()) &&
+					t->getType() == Type::wall)
+				{
+					attack[i].setActive(false);
+				}
+			}
+		}
+	}
+}
+
 // enemy and ranged attacks
 void Collision::collisionDetection(RangedAttackEntity(&attack)[20], std::vector<std::shared_ptr<Enemy>>& enemies)
 {
@@ -24,24 +42,6 @@ void Collision::collisionDetection(RangedAttackEntity(&attack)[20], std::vector<
 						attack[i].setActive(false);
 						e->damageEnemy(RangedAttackEntity::ATTACK_DAMAGE);
 					}
-				}
-			}
-		}
-	}
-}
-
-void Collision::collisionDetection(RangedAttackEntity(&attack)[20], std::vector<std::shared_ptr<Terrain>>& terrain)
-{
-	for (int i = 0; i < 20; i++)
-	{
-		if (attack[i].getActive())
-		{
-			for (std::shared_ptr<Terrain> t : terrain)
-			{
-				if (attack[i].getSprite().getGlobalBounds().intersects(t->getSprite().getGlobalBounds()) &&
-					t->getType() == Type::wall)
-				{
-					attack[i].setActive(false);
 				}
 			}
 		}
@@ -103,6 +103,10 @@ void Collision::collisionDetection(Player& player, std::vector<std::shared_ptr<E
 					e->getBounceDirection(player.getSprite());
 					e->resetSpeed();
 				}
+				if (e->enemyType == EnemyType::Spawn)
+				{
+					e->setAlive(false);
+				}
 				player.getKnockbackDirection(e->getSprite());
 			}
 		}
@@ -122,7 +126,7 @@ void Collision::collisionDetection(Player& player, std::vector<std::shared_ptr<T
 				player.bump();
 			}
 		}
-		else 
+		else
 		{
 			if (player.getNextMove().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()) &&
 				e->getType() == Type::wall)

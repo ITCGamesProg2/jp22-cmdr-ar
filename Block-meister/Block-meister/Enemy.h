@@ -9,11 +9,6 @@ enum class EnemyType {
 	Slime, Beetle, Hive, Spawn
 };
 
-enum class EnemyDirection
-{
-	Up, Down, Left, Right, None
-};
-
 class Enemy
 {
 public:
@@ -36,15 +31,11 @@ public:
 	void resetSpeed() { speed = SLIME_SPEED; }
 	void damageEnemy(float t_damage);
 	void placeHealthBar();
-	void setMovement();
 	void move(sf::Time& dt);
 
 	EnemyType enemyType = EnemyType::Slime;
 	int count;
 
-	//Directional
-	EnemyDirection currentDirection{ EnemyDirection::None };
-	float directionRotation{ 0 };
 
 	//Slime stuff
 	void slimeUpdate(sf::Time& dt);
@@ -53,7 +44,14 @@ public:
 	//Beetle stuff
 	sf::Vector2f* getTriAim();
 	void beetleUpdate();
-	
+	void resetBeetleAttacking() { beetleAttacking = false, beetleReady = false; }
+
+	//Hive stuff
+	void hiveUpdate();
+
+	//Spawn stuff
+	void spawnReset(sf::Vector2f pos);
+
 	//Getters
 	sf::Sprite& getSprite() { return body; }
 	bool getChargeActive() { return chargeActive; }
@@ -64,6 +62,8 @@ public:
 	void directionTowardsPlayer();
 	sf::RectangleShape getNextMove() { return nextMovement; }
 	bool getAlive() { return alive; }
+	bool getSpawnReady() { return spawnReady; }
+	bool getHiveHit() { return hiveHit; }
 
 	//Setters
 	void setPos(float x, float y) { body.setPosition(x, y); }
@@ -71,7 +71,8 @@ public:
 	void setCounter(int t_count) { count = t_count; }
 	void setAlive(bool t_alive);
 	void setKnockback(bool t_knockback);
-	void resetBeetleAttacking() { beetleAttacking = false, beetleReady = false; }
+	void setSpawnReady(bool t_ready) { spawnReady = t_ready; }
+	void setHiveHit(bool t_hit) { hiveHit = t_hit; }
 
 	//pathfinding
 	void setupPathing();
@@ -83,14 +84,17 @@ private:
 	void updatePathing(sf::Time& dt);
 
 	sf::Time m_dt;
-	float speed{ 500 };
+
 	sf::Vector2f direction{ 0,0 };
 	sf::Vector2f playerDirection;
 	sf::Clock bumpDuration;
 	bool knockback{ false };
 
 	// Movement
+	//const float SLIME_SPEED = 500;
 	sf::Vector2f moveBy;
+	float speed{ 500 };
+	float typeSpeed{ 0 };
 	float speedMultiplier{ 3 };
 
 	//Health Related stuff
@@ -104,7 +108,8 @@ private:
 	bool charging{ false };
 	bool chargeActive{ false };
 	const float CHARGE_SPEED = 650;
-	const float SLIME_SPEED = 500;
+	const float SLIME_SPEED = 650;
+
 	sf::Clock chargePrep;
 	sf::Clock chargeDuration;
 	sf::Clock chargeCooldown;
@@ -112,12 +117,24 @@ private:
 	//Beetle stuff
 	const float BEETLE_HEALTH{ 100 };
 	const float BEETLE_AIM_RANGE{ 400 };
+	const float BEETLE_SPEED{ 350 };
 	sf::Clock beetleAim;
 	sf::Clock beetleAttackCooldown;
 	sf::Clock runAwayTimer;
 	bool beetleReady{ false };
 	bool beetleAttacking{ false };
 	sf::Vector2f triAim[3];
+
+	//Hive stuff
+	const float HIVE_HEALTH{ 300 };
+	const float HIVE_SPAWN_RANGE{ 500 };
+	sf::Clock spawnTimer;
+	bool spawnReady{ false };
+	bool hiveHit{ false };
+
+	//Spawn
+	const float SPAWN_HEALTH{ 10 };
+	const float SPAWN_SPEED{ 500 };
 
 	//Reset Values
 	void beetleReset();

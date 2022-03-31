@@ -62,5 +62,10 @@ private:
 	LevelData levelData;
 	PlayerData playerData;
 	int currentLevel = 1;
+
+	//hive
+	bool spawnReady = false;
+	sf::Vector2f spawnPos;
+	void SpawnSpawn();
 };
 

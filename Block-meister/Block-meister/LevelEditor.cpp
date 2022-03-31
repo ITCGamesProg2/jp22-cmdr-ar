@@ -63,6 +63,30 @@ void LevelEditor::processEvents(sf::Event& event)
 						std::cout << "Type: Beetle" << std::endl;
 					}
 				}
+				if (event.key.code == sf::Keyboard::Num3)
+				{
+					desiredType = 2;
+
+					if (currentMode == Mode::terrain)
+					{
+						std::cout << "Type: Nothing" << std::endl;
+					}
+					else {
+						std::cout << "Type: Hive" << std::endl;
+					}
+				}
+				if (event.key.code == sf::Keyboard::Num4)
+				{
+					desiredType = 3;
+
+					if (currentMode == Mode::terrain)
+					{
+						std::cout << "Type: Nothing" << std::endl;
+					}
+					else {
+						std::cout << "Type: Spawn" << std::endl;
+					}
+				}
 
 				//editor tools
 				if (event.key.code == sf::Keyboard::P) // pencil
@@ -120,12 +144,18 @@ void LevelEditor::deleteTerrain(std::vector<std::shared_ptr<Terrain>>& terrain, 
 {
 	if (levelEditor)
 	{
+		int count = 0;
+		for (std::shared_ptr<Terrain> t : terrain)
+		{
+			t->setCounter(count);
+			count++;
+		}
 		if (terrainIndex != -1)
 		{
 			std::vector< std::shared_ptr<Terrain>>::const_iterator i = terrain.begin() + terrainIndex;
 			terrain.erase(i);
 		}
-		int count = 0;
+		count = 0;
 		for (std::shared_ptr<Terrain> t : terrain)
 		{
 			t->setCounter(count);
@@ -134,34 +164,34 @@ void LevelEditor::deleteTerrain(std::vector<std::shared_ptr<Terrain>>& terrain, 
 	}
 }
 
-void LevelEditor::createEnemy(std::vector<std::shared_ptr<Enemy>>& enemies)
+Enemy LevelEditor::createEnemy()
 {
 	if (levelEditor)
 	{
-		std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>();
+		Enemy enemy;
+
 		switch (desiredType)
 		{
 		case 0:
-			enemy->changeType(EnemyType::Slime);
+			enemy.changeType(EnemyType::Slime);
 			break;
 		case 1:
-			enemy->changeType(EnemyType::Beetle);
+			enemy.changeType(EnemyType::Beetle);
+			break;
+		case 2:
+			enemy.changeType(EnemyType::Hive);
+			break;
+		case 3:
+			enemy.changeType(EnemyType::Spawn);
 			break;
 		default:
-			enemy->changeType(EnemyType::Slime);
+			enemy.changeType(EnemyType::Slime);
 			break;
 		}
 
-		enemy->setPos(MousePosition::Get());
-		enemies.push_back(enemy);
+		enemy.setPos(MousePosition::Get());
 
-		int count = 0;
-
-		for (std::shared_ptr<Enemy> e : enemies)
-		{
-			e->setCounter(count);
-			count++;
-		}
+		return enemy;
 	}
 }
 
@@ -179,6 +209,12 @@ Enemy LevelEditor::createEnemy(sf::Vector2f position, EnemyType type)
 		case EnemyType::Beetle:
 			enemy.changeType(EnemyType::Beetle);
 			break;
+		case EnemyType::Hive:
+			enemy.changeType(EnemyType::Hive);
+			break;
+		case EnemyType::Spawn:
+			enemy.changeType(EnemyType::Spawn);
+			break;
 		}
 
 		enemy.setPos(position);
@@ -191,18 +227,34 @@ void LevelEditor::deleteEnemy(std::vector<std::shared_ptr<Enemy>>& enemies, int 
 {
 	if (levelEditor)
 	{
-		if (enemiesIndex != -1)
-		{
-			std::vector<std::shared_ptr<Enemy>>::const_iterator i = enemies.begin() + enemiesIndex;
-			enemies.erase(i);
-		}
 		int count = 0;
 		for (std::shared_ptr<Enemy> t : enemies)
 		{
 			t->setCounter(count);
 			count++;
 		}
+		if (enemiesIndex != -1)
+		{
+			std::vector<std::shared_ptr<Enemy>>::const_iterator i = enemies.begin() + enemiesIndex;
+			enemies.erase(i);
+		}
+		count = 0;
+		for (std::shared_ptr<Enemy> t : enemies)
+		{
+			t->setCounter(count);
+			count++;
+		}
 	}
+}
+
+Enemy LevelEditor::createSpawn(sf::Vector2f position)
+{
+	Enemy enemy;
+
+	enemy.changeType(EnemyType::Spawn);
+	enemy.setPos(position);
+
+	return enemy;
 }
 
 void LevelEditor::rectFill()

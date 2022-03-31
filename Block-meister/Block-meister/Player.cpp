@@ -126,7 +126,7 @@ void Player::update(sf::Time& dt)
 void Player::render()
 {
 	window->setView(view);
-	window->draw(nextMovement);
+	//window->draw(nextMovement);
 	window->draw(body);
 }
 

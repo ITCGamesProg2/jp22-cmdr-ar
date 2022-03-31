@@ -149,7 +149,9 @@ void Level::processEvents(sf::Event& ev)
 			// Enemy Mode
 			else if (editor.getMode() == Mode::enemies)
 			{
-				editor.createEnemy(enemies);
+				std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(editor.createEnemy());
+				enemy->changeType(enemy->enemyType);
+				enemies.push_back(enemy);
 
 				int count = 0;
 				for (std::shared_ptr<Enemy>& t : enemies)
@@ -234,7 +236,33 @@ void Level::update(sf::Time& dt)
 				}
 				e->resetBeetleAttacking();
 			}
+			//Hive Spawning
+			if (e->getSpawnReady())
+			{
+				bool found = false;
+				for (std::shared_ptr<Enemy>& s : enemies)
+				{
+					if (!s->getAlive() && s->enemyType == EnemyType::Spawn)
+					{
+						s->spawnReset(e->getSprite().getPosition());
+						e->setSpawnReady(false);
+						found = true;
+					}
+				}
+				if (!found)
+				{
+					e->setSpawnReady(false);
+					spawnReady = true;
+					spawnPos = e->getSprite().getPosition();
+				}
+			}
+			if (e->enemyType == EnemyType::Hive && e->getHiveHit())
+			{
+				particleManager.createParticle(EnemyType::Hive, e->getSprite().getPosition());
+				e->setHiveHit(false);
+			}
 		}
+		if (spawnReady) SpawnSpawn();
 	}
 	editor.update(*window);
 	outline.setPosition(MousePosition::Get());
@@ -349,4 +377,19 @@ void Level::setOutline()
 			break;
 		}
 	}
+}
+
+void Level::SpawnSpawn()
+{
+	std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(editor.createSpawn(spawnPos));
+	enemy->changeType(enemy->enemyType);
+	enemies.push_back(enemy);
+
+	int count = 0;
+	for (std::shared_ptr<Enemy>& t : enemies)
+	{
+		t->setCounter(count);
+		count++;
+	}
+	spawnReady = false;
 }
