@@ -20,7 +20,7 @@ public:
 
 	//Terrain creation
 	Terrain createTerrain();
-	Terrain createTerrain(sf::Vector2f position, Type type);
+	Terrain createTerrain(sf::Vector2f position, Block type);
 	void deleteTerrain(std::vector<std::shared_ptr<Terrain>>& terrain, int terrainIndex);
 
 	//Enemy creation

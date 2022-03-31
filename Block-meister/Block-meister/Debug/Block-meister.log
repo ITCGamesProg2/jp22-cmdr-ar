@@ -1,23 +1,6 @@
-﻿  Enemy.cpp
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(201,39): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(371,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(392,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(393,17): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(401,23): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(416,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(434,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(435,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(438,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(439,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(479,17): warning C4305: '*=': truncation from 'double' to 'float'
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(503,25): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  Player.cpp
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Player.cpp(148,42): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Player.cpp(156,42): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
-C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Player.cpp(202,16): warning C4305: '*=': truncation from 'double' to 'float'
-  Generating Code...
-  Block-meister.vcxproj -> C:\Users\unumuser\Desktop\jp22-cmdr-ar\Block-meister\Debug\Block-meister.exe
+﻿  BreadthFirstSearch.cpp
+C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\Player.h(32,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\BreadthFirstSearch.cpp(33,21): warning C4018: '<': signed/unsigned mismatch
+  Block-meister.vcxproj -> C:\Users\C00260445\Desktop\jplatest\Block-meister\Debug\Block-meister.exe

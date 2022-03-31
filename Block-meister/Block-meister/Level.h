@@ -33,6 +33,7 @@ public:
 	void setOutline();
 	
 private:
+	void TraverseLevel();
 	LevelEditor editor;
 	sf::RectangleShape mouseBounds;
 	Collision collision;

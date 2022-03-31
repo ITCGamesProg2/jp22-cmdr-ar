@@ -37,6 +37,7 @@ void YamlLoader::load(int level, LevelData& t_data)
 {
 	try
 	{
+		std::cout << "Trying to load: " << "resources/levels/level" + std::to_string(level) + ".yaml" << std::endl;
 		YAML::Node baseNode = YAML::LoadFile("resources/levels/level" + std::to_string(level) + ".yaml");
 		baseNode >> t_data;
 	}
@@ -81,7 +82,7 @@ void YamlLoader::emittter(int level, std::vector<std::shared_ptr<Terrain>> ter,
 	{
 		out << YAML::BeginMap;
 		out << YAML::Key << "type"; // t type
-		out << YAML::Value << (int)t->getType();
+		out << YAML::Value << (int)t->getBlock();
 		out << YAML::Key << "x"; // t x
 		out << YAML::Value << t->getPos().x;
 		out << YAML::Key << "y"; // t y

@@ -7,6 +7,7 @@ Level::Level(sf::RenderWindow& t_window)
 	Entity::window = &t_window;
 	Entity::player = &player;
 	Terrain::window = &t_window;
+	Terrain::player = &player;
 	AttackEntity::window = &t_window;
 	AttackEntity::player = &player;
 	RangedAttackEntity::window = &t_window;
@@ -38,6 +39,20 @@ Level::Level(sf::RenderWindow& t_window)
 	loadLevel();
 }
 
+void Level::TraverseLevel()
+{
+	if (Terrain::NextLevelReady)
+	{
+		Terrain::NextLevelReady = false;
+		currentLevel++;
+		saveGame();
+		terrain.clear();
+		enemies.clear();
+		entities.clear();
+		loadLevel();
+	}
+}
+
 void Level::loadLevel()
 {
 	editor.editorOn(); // EDITOR ENABLED
@@ -47,14 +62,17 @@ void Level::loadLevel()
 	currentLevel = playerData.Level;
 	player.setPos(playerData.X, playerData.Y);
 
+	levelData.enemies.clear();
+	levelData.objects.clear();
 	yml.load(currentLevel, levelData); // load the current level
 
 
 	for (Object& o : levelData.objects) // TERRAIN
 	{
 
-		std::shared_ptr<Terrain> ter = std::make_shared<Terrain>(editor.createTerrain(sf::Vector2f(o.X, o.Y), static_cast<Type>(o.Type)));
+		std::shared_ptr<Terrain> ter = std::make_shared<Terrain>(editor.createTerrain(sf::Vector2f(o.X, o.Y), static_cast<Block>(o.Type)));
 		ter->changeType(ter->getType());
+		ter->changeBlock(ter->getBlock());
 		terrain.push_back(ter);
 
 		int count = 0;
@@ -137,6 +155,7 @@ void Level::processEvents(sf::Event& ev)
 			{
 				std::shared_ptr<Terrain> ter = std::make_shared<Terrain>(editor.createTerrain());
 				ter->changeType(ter->getType());
+				ter->changeBlock(ter->getBlock());
 				terrain.push_back(ter);
 
 				int count = 0;
@@ -219,7 +238,12 @@ void Level::update(sf::Time& dt)
 		{
 			e.update(dt);
 		}
-		for (std::shared_ptr<Enemy> e : enemies)
+		for (std::shared_ptr<Terrain>& t : terrain)
+		{
+			t->update(dt);
+			if (Terrain::NextLevelReady) TraverseLevel();
+		}
+		for (std::shared_ptr<Enemy>& e : enemies)
 		{
 			e->update(dt);
 			//Beetle aiming update loop

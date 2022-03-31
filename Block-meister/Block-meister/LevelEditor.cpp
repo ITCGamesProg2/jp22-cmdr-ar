@@ -45,7 +45,7 @@ void LevelEditor::processEvents(sf::Event& event)
 
 					if (currentMode == Mode::terrain)
 					{
-						std::cout << "Type: Wall" << std::endl;
+						std::cout << "Type: Brick" << std::endl;
 					}
 					else {
 						std::cout << "Type: Slime" << std::endl;
@@ -57,7 +57,7 @@ void LevelEditor::processEvents(sf::Event& event)
 
 					if (currentMode == Mode::terrain)
 					{
-						std::cout << "Type: Ground" << std::endl;
+						std::cout << "Type: Dirt" << std::endl;
 					}
 					else {
 						std::cout << "Type: Beetle" << std::endl;
@@ -69,7 +69,7 @@ void LevelEditor::processEvents(sf::Event& event)
 
 					if (currentMode == Mode::terrain)
 					{
-						std::cout << "Type: Nothing" << std::endl;
+						std::cout << "Type: Cobble" << std::endl;
 					}
 					else {
 						std::cout << "Type: Hive" << std::endl;
@@ -81,7 +81,7 @@ void LevelEditor::processEvents(sf::Event& event)
 
 					if (currentMode == Mode::terrain)
 					{
-						std::cout << "Type: Nothing" << std::endl;
+						std::cout << "Type: Stairs" << std::endl;
 					}
 					else {
 						std::cout << "Type: Spawn" << std::endl;
@@ -114,11 +114,11 @@ void LevelEditor::processEvents(sf::Event& event)
 
 Terrain LevelEditor::createTerrain()
 {
-	Terrain t = createTerrain(MousePosition::Get(), (Type)desiredType);
+	Terrain t = createTerrain(MousePosition::Get(), (Block)desiredType);
 	return t;
 }
 
-Terrain LevelEditor::createTerrain(sf::Vector2f position, Type type)
+Terrain LevelEditor::createTerrain(sf::Vector2f position, Block type)
 {
 	if (levelEditor)
 	{
@@ -126,14 +126,21 @@ Terrain LevelEditor::createTerrain(sf::Vector2f position, Type type)
 
 		switch (type)
 		{
-		case Type::wall:
+		case Block::brick:
 			wall.changeType(Type::wall);
 			break;
-		case Type::ground:
+		case Block::cobble:
+			wall.changeType(Type::wall);
+			break;
+		case Block::dirt:
+			wall.changeType(Type::ground);
+			break;
+		case Block::stairs:
 			wall.changeType(Type::ground);
 			break;
 		}
 
+		wall.changeBlock(type);
 		wall.setPos(position);
 
 		return wall;
@@ -284,7 +291,7 @@ void LevelEditor::rectFill()
 		int cycles = 0;
 		while (cycles < 10000) // max placement is 10k blocks at once
 		{
-			std::shared_ptr<Terrain> ter = std::make_shared<Terrain>(createTerrain(cyclePos, (Type)desiredType));
+			std::shared_ptr<Terrain> ter = std::make_shared<Terrain>(createTerrain(cyclePos, (Block)desiredType));
 			ter->changeType(ter->getType());
 			terrain->push_back(ter);
 

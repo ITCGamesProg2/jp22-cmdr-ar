@@ -27,6 +27,12 @@ public:
 	bool timer(float t_desiredTime, sf::Clock t_timer);
 
 	//Getters
+	float getDistance(sf::Vector2f other)
+	{
+		float distance = sqrt(pow(other.x - body.getPosition().x, 2) +
+			pow(other.y - body.getPosition().y, 2) * 1.0);
+		return distance;
+	}
 	sf::Sprite getSprite() { return body; }
 	sf::RectangleShape getNextMove() { return nextMovement; }
 	bool getDodging() { return dodging; }

@@ -96,14 +96,17 @@ void BreadthFirstSearch::findPath(int start, int end)
 	{
 		if (!q.empty())
 		{
-			for (int i : cells[q.front()].neighbours)
+			if (!cells[q.front()].neighbours.empty())
 			{
-				if (!cells[i].marked && !cells[i].containsWall)
+				for (int i : cells[q.front()].neighbours)
 				{
-					q.push(i);
-					cells[i].marked = true;
-					cells[i].father = q.front();
-					if (i == end) foundPath = true;
+					if (!cells[i].marked && !cells[i].containsWall)
+					{
+						q.push(i);
+						cells[i].marked = true;
+						cells[i].father = q.front();
+						if (i == end) foundPath = true;
+					}
 				}
 			}
 		}
