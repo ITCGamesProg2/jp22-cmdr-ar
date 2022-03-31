@@ -1008,302 +1008,269 @@ objects:
     x: 150
     y: 250
   - type: 1
-    x: 300
-    y: 250
-  - type: 1
-    x: 350
-    y: 250
-  - type: 1
-    x: 350
-    y: 250
-  - type: 1
-    x: 350
-    y: 250
-  - type: 1
-    x: 350
-    y: 250
-  - type: 1
-    x: 350
-    y: 250
-  - type: 1
-    x: 350
-    y: 250
-  - type: 1
-    x: 400
-    y: 250
-  - type: 1
-    x: 400
-    y: 250
-  - type: 1
-    x: 400
-    y: 250
-  - type: 1
-    x: 450
-    y: 200
-  - type: 1
-    x: 450
-    y: 200
-  - type: 1
-    x: 450
-    y: 200
-  - type: 1
-    x: 450
-    y: 200
-  - type: 1
-    x: 450
-    y: 150
-  - type: 1
-    x: 450
-    y: 150
-  - type: 1
-    x: 450
-    y: 150
-  - type: 1
-    x: 450
-    y: 150
-  - type: 1
-    x: 450
-    y: 100
-  - type: 1
-    x: 400
-    y: 100
-  - type: 1
-    x: 400
-    y: 100
-  - type: 1
-    x: 400
-    y: 100
-  - type: 1
-    x: 350
-    y: 100
-  - type: 1
-    x: 350
-    y: 100
-  - type: 1
-    x: 350
-    y: 100
-  - type: 1
-    x: 350
-    y: 100
-  - type: 1
-    x: 300
-    y: 100
-  - type: 1
-    x: 300
-    y: 100
-  - type: 1
-    x: 300
-    y: 100
-  - type: 1
-    x: 250
-    y: 150
-  - type: 1
-    x: 250
-    y: 150
-  - type: 1
-    x: 250
-    y: 150
-  - type: 1
-    x: 250
-    y: 150
-  - type: 1
-    x: 250
-    y: 200
-  - type: 1
-    x: 250
-    y: 100
-  - type: 1
-    x: 250
-    y: 100
-  - type: 1
-    x: 300
-    y: 150
-  - type: 1
-    x: 300
-    y: 150
-  - type: 1
-    x: 400
-    y: 200
-  - type: 1
-    x: 400
-    y: 200
-  - type: 1
-    x: 400
-    y: 200
-  - type: 1
-    x: 350
-    y: 200
-  - type: 1
-    x: 350
-    y: 200
-  - type: 1
-    x: 350
-    y: 200
-  - type: 1
-    x: 350
-    y: 200
-  - type: 1
-    x: 300
-    y: 200
-  - type: 1
-    x: 400
-    y: 150
-  - type: 1
-    x: 400
-    y: 150
-  - type: 1
-    x: 400
-    y: 150
-  - type: 1
-    x: 400
-    y: 150
-  - type: 2
-    x: 250
-    y: 250
-  - type: 2
-    x: 200
-    y: 250
-  - type: 2
-    x: 200
-    y: 250
-  - type: 2
-    x: 200
-    y: 250
-  - type: 2
-    x: 200
-    y: 200
-  - type: 2
-    x: 200
-    y: 200
-  - type: 2
-    x: 200
-    y: 150
-  - type: 2
-    x: 200
-    y: 150
-  - type: 2
-    x: 200
-    y: 100
-  - type: 2
-    x: 200
-    y: 100
-  - type: 2
-    x: 200
-    y: 100
-  - type: 2
-    x: 200
-    y: 50
-  - type: 2
-    x: 200
-    y: 50
-  - type: 2
-    x: 250
-    y: 50
-  - type: 2
-    x: 250
-    y: 50
-  - type: 2
-    x: 250
-    y: 50
-  - type: 2
-    x: 300
-    y: 50
-  - type: 2
-    x: 300
-    y: 50
-  - type: 2
-    x: 300
-    y: 50
-  - type: 2
-    x: 350
-    y: 50
-  - type: 2
-    x: 350
-    y: 50
-  - type: 2
-    x: 350
-    y: 50
-  - type: 2
-    x: 400
-    y: 50
-  - type: 2
-    x: 400
-    y: 50
-  - type: 2
-    x: 400
-    y: 50
-  - type: 2
-    x: 450
-    y: 50
-  - type: 2
-    x: 450
-    y: 50
-  - type: 2
-    x: 450
-    y: 50
-  - type: 2
-    x: 500
-    y: 50
-  - type: 2
-    x: 500
-    y: 50
-  - type: 2
-    x: 500
-    y: 100
-  - type: 2
-    x: 500
-    y: 100
-  - type: 2
-    x: 500
-    y: 100
-  - type: 2
-    x: 500
-    y: 100
-  - type: 2
-    x: 500
-    y: 100
-  - type: 2
-    x: 500
-    y: 150
-  - type: 2
-    x: 500
-    y: 150
-  - type: 2
-    x: 500
-    y: 150
-  - type: 2
-    x: 500
-    y: 150
-  - type: 2
-    x: 500
-    y: 200
-  - type: 2
-    x: 500
-    y: 200
-  - type: 2
-    x: 500
-    y: 200
-  - type: 2
-    x: 500
-    y: 250
-  - type: 2
-    x: 500
-    y: 250
-  - type: 2
-    x: 450
-    y: 250
-  - type: 2
-    x: 450
-    y: 250
-  - type: 2
-    x: 450
-    y: 250
-  - type: 1
     x: 100
     y: 250
   - type: 3
     x: 350
     y: 150
+  - type: 4
+    x: 300
+    y: 250
+  - type: 4
+    x: 350
+    y: 250
+  - type: 4
+    x: 350
+    y: 250
+  - type: 4
+    x: 350
+    y: 250
+  - type: 4
+    x: 400
+    y: 250
+  - type: 4
+    x: 400
+    y: 200
+  - type: 4
+    x: 400
+    y: 200
+  - type: 4
+    x: 350
+    y: 200
+  - type: 4
+    x: 350
+    y: 200
+  - type: 4
+    x: 350
+    y: 200
+  - type: 4
+    x: 350
+    y: 200
+  - type: 4
+    x: 350
+    y: 200
+  - type: 4
+    x: 300
+    y: 200
+  - type: 4
+    x: 300
+    y: 200
+  - type: 4
+    x: 250
+    y: 200
+  - type: 4
+    x: 250
+    y: 200
+  - type: 4
+    x: 250
+    y: 150
+  - type: 4
+    x: 250
+    y: 150
+  - type: 4
+    x: 300
+    y: 150
+  - type: 4
+    x: 300
+    y: 150
+  - type: 4
+    x: 300
+    y: 150
+  - type: 4
+    x: 300
+    y: 100
+  - type: 4
+    x: 300
+    y: 100
+  - type: 4
+    x: 250
+    y: 100
+  - type: 4
+    x: 350
+    y: 100
+  - type: 4
+    x: 350
+    y: 100
+  - type: 4
+    x: 400
+    y: 100
+  - type: 4
+    x: 400
+    y: 100
+  - type: 4
+    x: 400
+    y: 150
+  - type: 4
+    x: 450
+    y: 100
+  - type: 4
+    x: 450
+    y: 100
+  - type: 4
+    x: 450
+    y: 100
+  - type: 4
+    x: 450
+    y: 150
+  - type: 4
+    x: 450
+    y: 150
+  - type: 4
+    x: 450
+    y: 200
+  - type: 4
+    x: 450
+    y: 200
+  - type: 0
+    x: 250
+    y: 250
+  - type: 0
+    x: 200
+    y: 250
+  - type: 0
+    x: 200
+    y: 250
+  - type: 0
+    x: 200
+    y: 200
+  - type: 0
+    x: 200
+    y: 200
+  - type: 0
+    x: 200
+    y: 200
+  - type: 0
+    x: 200
+    y: 200
+  - type: 0
+    x: 200
+    y: 150
+  - type: 0
+    x: 200
+    y: 150
+  - type: 0
+    x: 200
+    y: 150
+  - type: 0
+    x: 200
+    y: 100
+  - type: 0
+    x: 200
+    y: 100
+  - type: 0
+    x: 200
+    y: 50
+  - type: 0
+    x: 250
+    y: 50
+  - type: 0
+    x: 250
+    y: 50
+  - type: 0
+    x: 300
+    y: 50
+  - type: 0
+    x: 300
+    y: 50
+  - type: 0
+    x: 300
+    y: 50
+  - type: 0
+    x: 350
+    y: 50
+  - type: 0
+    x: 350
+    y: 50
+  - type: 0
+    x: 350
+    y: 50
+  - type: 0
+    x: 350
+    y: 50
+  - type: 0
+    x: 350
+    y: 50
+  - type: 0
+    x: 400
+    y: 50
+  - type: 0
+    x: 400
+    y: 50
+  - type: 0
+    x: 400
+    y: 50
+  - type: 0
+    x: 400
+    y: 50
+  - type: 0
+    x: 400
+    y: 50
+  - type: 0
+    x: 400
+    y: 50
+  - type: 0
+    x: 450
+    y: 50
+  - type: 0
+    x: 450
+    y: 50
+  - type: 0
+    x: 450
+    y: 50
+  - type: 0
+    x: 450
+    y: 50
+  - type: 0
+    x: 450
+    y: 50
+  - type: 0
+    x: 500
+    y: 50
+  - type: 0
+    x: 500
+    y: 100
+  - type: 0
+    x: 500
+    y: 100
+  - type: 0
+    x: 500
+    y: 100
+  - type: 0
+    x: 500
+    y: 150
+  - type: 0
+    x: 500
+    y: 150
+  - type: 0
+    x: 500
+    y: 200
+  - type: 0
+    x: 500
+    y: 200
+  - type: 0
+    x: 500
+    y: 200
+  - type: 0
+    x: 500
+    y: 200
+  - type: 0
+    x: 500
+    y: 200
+  - type: 0
+    x: 500
+    y: 250
+  - type: 0
+    x: 500
+    y: 250
+  - type: 0
+    x: 500
+    y: 250
+  - type: 0
+    x: 450
+    y: 250
+  - type: 0
+    x: 450
+    y: 250
 enemies:
   - type: 1
     x: 430

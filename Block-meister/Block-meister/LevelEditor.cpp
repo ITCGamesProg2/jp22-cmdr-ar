@@ -87,6 +87,18 @@ void LevelEditor::processEvents(sf::Event& event)
 						std::cout << "Type: Spawn" << std::endl;
 					}
 				}
+				if (event.key.code == sf::Keyboard::Num5)
+				{
+					desiredType = 4;
+
+					if (currentMode == Mode::terrain)
+					{
+						std::cout << "Type: Stone" << std::endl;
+					}
+					else {
+						std::cout << "Type: Nothing" << std::endl;
+					}
+				}
 
 				//editor tools
 				if (event.key.code == sf::Keyboard::P) // pencil
@@ -136,6 +148,9 @@ Terrain LevelEditor::createTerrain(sf::Vector2f position, Block type)
 			wall.changeType(Type::ground);
 			break;
 		case Block::stairs:
+			wall.changeType(Type::ground);
+			break;
+		case Block::stone:
 			wall.changeType(Type::ground);
 			break;
 		}

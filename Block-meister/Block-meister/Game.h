@@ -1,10 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Menu.h"
+#include "DeadMenu.h"
 #include "Level.h"
 
 enum class State {
-	Menu, Game
+	Menu, Game, Dead
 };
 
 class Game
@@ -25,7 +26,9 @@ private:
 	bool m_exitGame = false;
 
 	Menu menu;
+	DeadMenu deadMenu;
 	Level level;
 
+	sf::Clock deadTimer;
 };
 

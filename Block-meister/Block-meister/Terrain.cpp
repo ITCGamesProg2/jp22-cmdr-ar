@@ -48,6 +48,9 @@ void Terrain::changeBlock(Block _type)
 	case Block::stairs:
 		SetTexture("./resources/images/game/stairs.png");
 		break;
+	case Block::stone:
+		SetTexture("./resources/images/game/stone.png");
+		break;
 	default:
 		break;
 	}

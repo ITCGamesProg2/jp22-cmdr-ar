@@ -32,12 +32,19 @@ public:
 	void editorOn();
 	void setOutline();
 	
+	Player player;
+	bool savedAfterDeath = false;
+	void clearAllVectors()
+	{
+		terrain.clear();
+		enemies.clear();
+		entities.clear();
+	}
 private:
 	void TraverseLevel();
 	LevelEditor editor;
 	sf::RectangleShape mouseBounds;
 	Collision collision;
-	Player player;
 	AttackEntity playerAttack;
 
 	//Player ranged attacks

@@ -9,7 +9,7 @@ enum class Type
 
 enum class Block
 {
-	brick, dirt, cobble, stairs
+	brick, dirt, cobble, stairs, stone
 };
 
 class Terrain

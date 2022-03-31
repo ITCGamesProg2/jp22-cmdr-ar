@@ -1,6 +1,41 @@
-﻿  Entity.cpp
-C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(13,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(13,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Player.h(35,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Block-meister\Entity.cpp(43,16): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-  Block-meister.vcxproj -> C:\Users\Archi\Desktop\jp22-cmdr-ar\Block-meister\Debug\Block-meister.exe
+﻿  Level.cpp
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\HealthBar.h(13,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\HealthBar.h(13,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\Player.h(35,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\MousePosition.h(13,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\MousePosition.h(14,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\MousePosition.h(25,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\MousePosition.h(26,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+  Block-meister.vcxproj -> C:\Users\C00260445\Desktop\jp\Block-meister\Debug\Block-meister.exe

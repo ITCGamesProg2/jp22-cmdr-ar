@@ -235,6 +235,11 @@ void Level::update(sf::Time& dt)
 {
 	checkCollisions();
 	player.update(dt);
+	if (!player.getAlive() && !savedAfterDeath)
+	{
+		savedAfterDeath = true;
+		yml.emittter(1, sf::Vector2f(300.f, 300.f));
+	}
 	playerAttack.update(dt);
 	for (RangedAttackEntity& e : playerRangedAttack)
 	{
@@ -253,55 +258,59 @@ void Level::update(sf::Time& dt)
 		}
 		for (std::shared_ptr<Enemy>& e : enemies)
 		{
-			// Drop health hearts
-			if (e->dropHealth())
+			float dist = player.getDistance(e->getSprite().getPosition());
+			if (dist < 700.f)
 			{
-				std::shared_ptr<Entity> entity = std::make_shared<Entity>();
-				entity->setType(EntityType::Heart);
-				entity->spawn(e->getSprite().getPosition());
-				entities.push_back(entity);
-			}
-			e->update(dt);
-			//Beetle aiming update loop
-			if (e->getBeetleAttacking())
-			{
-				sf::Vector2f* aimTemp = e->getTriAim();
-				for (size_t i = 0; i < RangedAttackEntity::MAX_BEETLE_ATTACKS; i++)
+				// Drop health hearts
+				if (e->dropHealth())
 				{
-					if (currentBeetleAttack >= 50)
-					{
-						currentBeetleAttack = 0;
-					}
-					beetleAttacks[currentBeetleAttack].activateProjectile(e->getSprite().getPosition(), aimTemp[i]);
-					currentBeetleAttack++;
+					std::shared_ptr<Entity> entity = std::make_shared<Entity>();
+					entity->setType(EntityType::Heart);
+					entity->spawn(e->getSprite().getPosition());
+					entities.push_back(entity);
 				}
-				e->resetBeetleAttacking();
-			}
-			//Hive Spawning
-			if (e->getSpawnReady())
-			{
-				bool found = false;
-				for (std::shared_ptr<Enemy>& s : enemies)
+				e->update(dt);
+				//Beetle aiming update loop
+				if (e->getBeetleAttacking())
 				{
-					if (!s->getAlive() && s->enemyType == EnemyType::Spawn)
+					sf::Vector2f* aimTemp = e->getTriAim();
+					for (size_t i = 0; i < RangedAttackEntity::MAX_BEETLE_ATTACKS; i++)
 					{
-						s->spawnReset(e->getSprite().getPosition());
+						if (currentBeetleAttack >= 50)
+						{
+							currentBeetleAttack = 0;
+						}
+						beetleAttacks[currentBeetleAttack].activateProjectile(e->getSprite().getPosition(), aimTemp[i]);
+						currentBeetleAttack++;
+					}
+					e->resetBeetleAttacking();
+				}
+				//Hive Spawning
+				if (e->getSpawnReady())
+				{
+					bool found = false;
+					for (std::shared_ptr<Enemy>& s : enemies)
+					{
+						if (!s->getAlive() && s->enemyType == EnemyType::Spawn)
+						{
+							s->spawnReset(e->getSprite().getPosition());
+							e->setSpawnReady(false);
+							found = true;
+						}
+					}
+					if (!found)
+					{
 						e->setSpawnReady(false);
-						found = true;
+						spawnReady = true;
+						spawnPos = e->getSprite().getPosition();
 					}
 				}
-				if (!found)
+				//Particles for hitting hive
+				if (e->enemyType == EnemyType::Hive && e->getHiveHit())
 				{
-					e->setSpawnReady(false);
-					spawnReady = true;
-					spawnPos = e->getSprite().getPosition();
+					particleManager.createParticle(EnemyType::Hive, e->getSprite().getPosition());
+					e->setHiveHit(false);
 				}
-			}
-			//Particles for hitting hive
-			if (e->enemyType == EnemyType::Hive && e->getHiveHit())
-			{
-				particleManager.createParticle(EnemyType::Hive, e->getSprite().getPosition());
-				e->setHiveHit(false);
 			}
 		}
 		if (spawnReady) SpawnSpawn();
@@ -318,16 +327,19 @@ void Level::render()
 
 	for (std::shared_ptr<Terrain>& t : terrain)
 	{
-		t->render();
+		float dist = player.getDistance(t->getPos());
+		if (dist < 700.f) t->render();
 	}
 	for (std::shared_ptr<Entity>& e : entities)
 	{
-		e->render();
+		float dist = player.getDistance(e->getSprite().getPosition());
+		if (dist < 700.f) e->render();
 	}
 	particleManager.render();
 	for (std::shared_ptr<Enemy>& e : enemies)
 	{
-		e.get()->render();
+		float dist = player.getDistance(e->getSprite().getPosition());
+		if (dist < 700.f) e.get()->render();
 	}
 	player.render();
 	for (RangedAttackEntity& e : playerRangedAttack)

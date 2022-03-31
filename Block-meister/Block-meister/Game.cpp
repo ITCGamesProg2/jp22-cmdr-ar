@@ -2,7 +2,7 @@
 
 Game::Game() :
 	m_window{ sf::VideoMode{ 1024U, 576U, 32U }, "Block-Meister" },
-	menu{ m_window }, level{ m_window }
+	menu{ m_window }, level{ m_window }, deadMenu{ m_window }
 {
 	state = State::Menu;
 }
@@ -50,6 +50,9 @@ void Game::processEvents()
 		case State::Game:
 			level.processEvents(newEvent);
 			break;
+		case State::Dead:
+			deadMenu.processEvents(newEvent);
+			break;
 		}
 	}
 }
@@ -72,6 +75,27 @@ void Game::update(sf::Time dt)
 		break;
 	case State::Game:
 		level.update(dt);
+		if (!level.player.getAlive() && deadTimer.getElapsedTime().asSeconds() > 6.f)
+		{
+			deadTimer.restart();
+		}
+		else if (!level.player.getAlive() && deadTimer.getElapsedTime().asSeconds() > 5.f)
+		{
+			state = State::Dead;
+			m_window.setView(m_window.getDefaultView());
+			level.savedAfterDeath = false;
+		}
+
+		break;
+	case State::Dead:
+		deadMenu.update(dt);
+		if (deadMenu.restartClicked)
+		{
+			deadMenu.restartClicked = false;
+			state = State::Game;
+			level.clearAllVectors();
+			level.loadLevel();
+		}
 		break;
 	}
 }
@@ -85,6 +109,9 @@ void Game::render()
 		break;
 	case State::Game:
 		level.render();
+		break;
+	case State::Dead:
+		deadMenu.render();
 		break;
 	}
 }
