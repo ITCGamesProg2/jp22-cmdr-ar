@@ -3,10 +3,7 @@ sf::RenderWindow* ParticleManager::window = nullptr;
 
 ParticleManager::ParticleManager()
 {
-	tex.loadFromFile("resources/images/game/particle.png");
-
 	//setting emitter
-	emitter.setEmissionRate(100);
 	emitter.setParticleLifetime(sf::seconds(0.4f));
 	emitter.setParticleRotation(thor::Distributions::uniform(0, 360));
 
@@ -29,7 +26,7 @@ void ParticleManager::update(sf::Time& dt)
 
 	if (!timer(0.2, particalTimer) && active == true)
 	{
-		emitter.setEmissionRate(100);
+		emitter.setEmissionRate(50);
 	}
 	else 
 	{
@@ -47,7 +44,11 @@ void ParticleManager::createParticle(EnemyType type, sf::Vector2f pos)
 {
 	if (type == EnemyType::Slime)
 	{
-		tex.loadFromFile("resources/images/game/particle.png");
+		tex.loadFromFile("resources/images/game/particles/particle_slime.png");
+	}
+	if (type == EnemyType::Beetle)
+	{
+		tex.loadFromFile("resources/images/game/particles/particle_beetle.png");
 	}
 	system.setTexture(tex);
 

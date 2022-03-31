@@ -41,7 +41,7 @@ public:
 private:
 
 	sf::Vector2f moveBy;
-	float speed = 150.f;
+	float speed = 300.f;
 	float MAX_SPEED{ 150.f };
 	sf::Time m_dt;
 

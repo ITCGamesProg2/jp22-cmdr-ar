@@ -393,12 +393,6 @@ objects:
     x: 550
     y: 350
   - type: 1
-    x: 600
-    y: 350
-  - type: 1
-    x: 650
-    y: 350
-  - type: 1
     x: 700
     y: 350
   - type: 1
@@ -828,12 +822,6 @@ objects:
     x: 550
     y: 400
   - type: 1
-    x: 600
-    y: 400
-  - type: 1
-    x: 650
-    y: 400
-  - type: 1
     x: 700
     y: 400
   - type: 1
@@ -1121,7 +1109,25 @@ objects:
   - type: 1
     x: 250
     y: 700
+  - type: 1
+    x: 600
+    y: 350
+  - type: 1
+    x: 600
+    y: 400
+  - type: 1
+    x: 650
+    y: 400
+  - type: 1
+    x: 650
+    y: 350
 enemies:
+  - type: 1
+    x: 430
+    y: 410
+  - type: 1
+    x: 250
+    y: 440
   - type: 0
-    x: 610
-    y: 320
+    x: 690
+    y: 400

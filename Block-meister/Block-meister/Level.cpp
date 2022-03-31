@@ -226,8 +226,12 @@ void Level::update(sf::Time& dt)
 			if (e->getBeetleAttacking())
 			{
 				sf::Vector2f* aimTemp = e->getTriAim();
-				for (size_t i = 0; i < RangedAttackEntity::MAX_BEETLE_ATTACKS; i++)
+				for (size_t i = currentBeetleAttack; i < RangedAttackEntity::MAX_BEETLE_ATTACKS; i++)
 				{
+					if (currentBeetleAttack >= 50)
+					{
+						currentBeetleAttack = 0;
+					}
 					beetleAttacks[i].activateProjectile(e->getSprite().getPosition(), aimTemp[i]);
 				}
 				e->resetBeetleAttacking();

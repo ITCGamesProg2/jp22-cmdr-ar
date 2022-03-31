@@ -6,7 +6,7 @@
 #include "BreadthFirstSearch.h"
 
 enum class EnemyType {
-	Slime, Beetle
+	Slime, Beetle, Hive, Spawn
 };
 
 enum class EnemyDirection
@@ -103,7 +103,7 @@ private:
 	const float SLIME_HEALTH{ 75 };
 	bool charging{ false };
 	bool chargeActive{ false };
-	const float CHARGE_SPEED = 750;
+	const float CHARGE_SPEED = 650;
 	const float SLIME_SPEED = 500;
 	sf::Clock chargePrep;
 	sf::Clock chargeDuration;
@@ -111,7 +111,10 @@ private:
 
 	//Beetle stuff
 	const float BEETLE_HEALTH{ 100 };
+	const float BEETLE_AIM_RANGE{ 400 };
 	sf::Clock beetleAim;
+	sf::Clock beetleAttackCooldown;
+	sf::Clock runAwayTimer;
 	bool beetleReady{ false };
 	bool beetleAttacking{ false };
 	sf::Vector2f triAim[3];

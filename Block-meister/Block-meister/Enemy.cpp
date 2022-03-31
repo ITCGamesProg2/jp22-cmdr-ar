@@ -43,6 +43,12 @@ void Enemy::SetTexture(EnemyType _type)
 	case EnemyType::Beetle:
 		tex.loadFromFile("resources/images/game/enemies/beetle/beetle.png");
 		body.setScale(1.5,1.5);
+	case EnemyType::Hive:
+		tex.loadFromFile("resources/images/game/enemies/slime/slime.png");
+		break;
+	case EnemyType::Spawn:
+		tex.loadFromFile("resources/images/game/enemies/slime/slime.png");
+		break;
 		break;
 	}
 
@@ -193,8 +199,9 @@ void Enemy::beetleUpdate()
 	if (enemyType == EnemyType::Beetle)
 	{
 		// Beetle aims at play once in range and changes texture
-		if (playerDistance < 350.f &&
-			!beetleReady && !beetleAttacking)
+		if (playerDistance < BEETLE_AIM_RANGE &&
+			!beetleReady && !beetleAttacking &&
+			timer(3, beetleAttackCooldown))
 		{
 			beetleReady = true;
 			directionTowardsPlayer();
@@ -206,20 +213,13 @@ void Enemy::beetleUpdate()
 		{
 			beetleAttacking = true;
 			beetleReady = false;
+			beetleAttackCooldown.restart();
 		}
 
 		// Changes texture back to normal once timer runs out
 		if (timer(3, beetleAim))
 		{
 			tex.loadFromFile("resources/images/game/enemies/beetle/beetle.png");
-		}
-		// Sets rotation of beetle
-		if (!beetleReady && !beetleAttacking)
-		{
-			if (moveBy != sf::Vector2f{ 0,0 })
-			{
-				body.setRotation(thor::polarAngle(moveBy));
-			}
 		}
 	}
 }
@@ -453,7 +453,7 @@ void Enemy::bump()
 
 void Enemy::damageEnemy(float t_damage)
 {
-	if (timer(0.1, iFrames))
+	if (timer(0.5, iFrames))
 	{
 		if (health > 0)
 		{
@@ -504,8 +504,32 @@ void Enemy::move(sf::Time& dt)
 {
 	if (!knockback && !charging && !beetleAttacking && !beetleReady)
 	{
- 		body.move(moveBy * (SLIME_SPEED / speedMultiplier) * dt.asSeconds());
-		nextMovement.setPosition(body.getPosition() + (moveBy * (SLIME_SPEED / speedMultiplier) * dt.asSeconds()));
+		if (!timer(1, runAwayTimer) && enemyType == EnemyType::Beetle)
+		{
+			directionTowardsPlayer();
+			playerDirection = -playerDirection;
+			body.move(playerDirection * (SLIME_SPEED / speedMultiplier) * dt.asSeconds());
+			body.setRotation(thor::polarAngle(playerDirection));
+		}
+
+		if (playerDistance < BEETLE_AIM_RANGE && enemyType == EnemyType::Beetle)
+		{
+			runAwayTimer.restart();
+		}
+		else if (timer(1, runAwayTimer))
+		{
+ 			body.move(moveBy * (SLIME_SPEED / speedMultiplier) * dt.asSeconds());
+			nextMovement.setPosition(body.getPosition() + (moveBy * (SLIME_SPEED / speedMultiplier) * dt.asSeconds()));
+
+			// Sets rotation of beetle
+			if (!beetleReady && !beetleAttacking && enemyType == EnemyType::Beetle)
+			{
+				if (moveBy != sf::Vector2f{ 0,0 })
+				{
+					body.setRotation(thor::polarAngle(moveBy));
+				}
+			}
+		}
 	}
 }
 

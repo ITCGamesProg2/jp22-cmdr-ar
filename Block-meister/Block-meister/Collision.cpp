@@ -119,7 +119,7 @@ void Collision::collisionDetection(Player& player, RangedAttackEntity(&attack)[5
 {
 	for (int i = 0; i < 50; i++)
 	{
-		if (attack[i].getActive())
+		if (attack[i].getActive() && !player.getDodging())
 		{
 			if (attack[i].getSprite().getGlobalBounds().intersects(player.getSprite().getGlobalBounds()) &&
 				!attack[i].getFriendly())
