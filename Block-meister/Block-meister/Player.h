@@ -27,6 +27,7 @@ public:
 	bool timer(float t_desiredTime, sf::Clock t_timer);
 	void damagePlayer(float t_damage);
 	void damageSelf();
+	void heal(float t_value);
 
 	//Getters
 	float getDistance(sf::Vector2f other)

@@ -8,6 +8,7 @@ public:
 
 	void render(sf::RenderWindow& window);
 	void takeDamage(int dmg);
+	void heal(int t_value);
 
 	void setMaxHealth(float max) { maxHP = max, currentHP = max; }
 	void setPos(float x, float y);

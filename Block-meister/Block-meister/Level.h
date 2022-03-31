@@ -50,7 +50,7 @@ private:
 	int currentBeetleAttack{ 0 };
 
 	//Entities
-	std::vector<Entity> entities;
+	std::vector<std::shared_ptr<Entity>> entities;
 	std::vector<std::shared_ptr<Terrain>> terrain;
 	std::vector<std::shared_ptr<Enemy>> enemies;
 	sf::RectangleShape outline;

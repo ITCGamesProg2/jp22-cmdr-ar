@@ -334,6 +334,7 @@ void Enemy::setAlive(bool t_alive)
 	if (!alive)
 	{
 		particleReady = true;
+		heartReady = true;
 	}
 }
 
@@ -578,6 +579,19 @@ void Enemy::move(sf::Time& dt)
 				body.setRotation(thor::polarAngle(playerDirection));
 			}
 		}
+	}
+}
+
+bool Enemy::dropHealth()
+{
+	if (enemyType != EnemyType::Spawn && heartReady)
+	{
+		heartReady = false;
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
 

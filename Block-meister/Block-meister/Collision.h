@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Terrain.h"
 #include "Enemy.h"
+#include "Entity.h"
 #include "RangedAttackEntity.h"
 #include "AttackEntity.h"
 #include "vector"
@@ -19,6 +20,7 @@ public:
 	void collisionDetection(Player& player, std::vector<std::shared_ptr<Terrain>>& terrain);
 	void collisionDetection(Player& player, RangedAttackEntity(&attack)[50]);
 	void collisionDetection(Player& player, sf::RectangleShape& shape, std::vector<std::shared_ptr<Terrain>>& terrain);
+	void collisionDetection(Player& player, std::vector<std::shared_ptr<Entity>>& t_entities);
 	int selectTerrain(sf::RectangleShape& shape, std::vector<std::shared_ptr<Terrain>>& terrain);
 	int selectEnemy(sf::RectangleShape& shape, std::vector<std::shared_ptr<Enemy>>& enemies);
 

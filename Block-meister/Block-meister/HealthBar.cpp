@@ -28,6 +28,17 @@ void HealthBar::takeDamage(int dmg)
 	}
 }
 
+void HealthBar::heal(int t_value)
+{
+	currentHP += t_value;
+	if (currentHP > maxHP)
+	{
+		currentHP = maxHP;
+	}
+	float hpAsPercent = ((float)currentHP / (float)maxHP) * 100.f;
+	bar.setSize({ barXAsPercent * hpAsPercent, bar.getSize().y });
+}
+
 void HealthBar::setPos(float x, float y)
 {
 	bg.setPosition(x,y);

@@ -253,6 +253,14 @@ void Level::update(sf::Time& dt)
 		}
 		for (std::shared_ptr<Enemy>& e : enemies)
 		{
+			// Drop health hearts
+			if (e->dropHealth())
+			{
+				std::shared_ptr<Entity> entity = std::make_shared<Entity>();
+				entity->setType(EntityType::Heart);
+				entity->spawn(e->getSprite().getPosition());
+				entities.push_back(entity);
+			}
 			e->update(dt);
 			//Beetle aiming update loop
 			if (e->getBeetleAttacking())
@@ -289,6 +297,7 @@ void Level::update(sf::Time& dt)
 					spawnPos = e->getSprite().getPosition();
 				}
 			}
+			//Particles for hitting hive
 			if (e->enemyType == EnemyType::Hive && e->getHiveHit())
 			{
 				particleManager.createParticle(EnemyType::Hive, e->getSprite().getPosition());
@@ -307,16 +316,16 @@ void Level::render()
 {
 	window->clear(sf::Color::Black);
 
-	for (Entity& e : entities)
-	{
-		e.render();
-	}
-	for (std::shared_ptr<Terrain> t : terrain)
+	for (std::shared_ptr<Terrain>& t : terrain)
 	{
 		t->render();
 	}
+	for (std::shared_ptr<Entity>& e : entities)
+	{
+		e->render();
+	}
 	particleManager.render();
-	for (std::shared_ptr<Enemy> e : enemies)
+	for (std::shared_ptr<Enemy>& e : enemies)
 	{
 		e.get()->render();
 	}
@@ -367,6 +376,8 @@ void Level::checkCollisions()
 	collision.collisionDetection(playerRangedAttack, terrain);
 	// Player and Enemy Ranged Attacks
 	collision.collisionDetection(player, beetleAttacks);
+	// Player and Entity
+	collision.collisionDetection(player, entities);
 
 	// Particle Manager
 	for (std::shared_ptr<Enemy> e : enemies)

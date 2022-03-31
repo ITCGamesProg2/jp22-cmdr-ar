@@ -305,6 +305,16 @@ void Player::damageSelf()
 	}
 }
 
+void Player::heal(float t_value)
+{
+	health += t_value;
+	if (health > MAX_HEALTH)
+	{
+		health = MAX_HEALTH;
+	}
+	healthBar.heal(t_value);
+}
+
 
 void Player::getKnockbackDirection(sf::Sprite t_sprite)
 {

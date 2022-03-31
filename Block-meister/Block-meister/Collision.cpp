@@ -180,6 +180,18 @@ void Collision::collisionDetection(Player& player, sf::RectangleShape& shape, st
 	}
 }
 
+// Player and Entity collision
+void Collision::collisionDetection(Player& player, std::vector<std::shared_ptr<Entity>>& t_entities)
+{
+	for (std::shared_ptr<Entity>& e : t_entities)
+	{
+		if (player.getSprite().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()))
+		{
+			e->heal();
+		}
+	}
+}
+
 int Collision::selectTerrain(sf::RectangleShape& shape, std::vector<std::shared_ptr<Terrain>>& terrain)
 {
 	for (std::shared_ptr<Terrain> e : terrain)

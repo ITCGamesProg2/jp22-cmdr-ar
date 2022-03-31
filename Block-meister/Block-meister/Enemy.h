@@ -32,6 +32,7 @@ public:
 	void damageEnemy(float t_damage);
 	void placeHealthBar();
 	void move(sf::Time& dt);
+	bool dropHealth();
 
 	EnemyType enemyType = EnemyType::Slime;
 	int count;
@@ -87,6 +88,7 @@ private:
 
 	sf::Time m_dt;
 	sf::Clock highlightTimer;
+	bool heartReady{ false };
 
 	//damage
 	float damage{ 0 };
