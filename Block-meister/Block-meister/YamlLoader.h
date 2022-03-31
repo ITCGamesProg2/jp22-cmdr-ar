@@ -6,8 +6,16 @@
 #include "yaml-cpp/yaml.h"
 
 #include "Terrain.h"
+#include "Enemy.h"
 
 struct Object
+{
+	int Type;
+	float X;
+	float Y;
+};
+
+struct EnemyObj
 {
 	int Type;
 	float X;
@@ -17,6 +25,7 @@ struct Object
 struct LevelData
 {
 	std::vector<Object> objects;
+	std::vector<EnemyObj> enemies;
 };
 
 struct PlayerData
@@ -31,6 +40,7 @@ class YamlLoader
 public:
 	static void load(int level, LevelData& t_data);
 	static void load(PlayerData& t_data);
-	static void emittter(int level, std::vector<std::shared_ptr<Terrain>> ter);
+	static void emittter(int level, std::vector<std::shared_ptr<Terrain>> ter,
+		std::vector<std::shared_ptr<Enemy>> enemy);
 	static void emittter(int level, sf::Vector2f pos);
 };

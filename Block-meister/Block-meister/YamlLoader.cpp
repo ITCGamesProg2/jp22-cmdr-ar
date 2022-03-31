@@ -7,14 +7,29 @@ void operator >> (const YAML::Node& objectNode, Object& o)
 	o.Y = objectNode["y"].as<float>();
 }
 
+void operator >> (const YAML::Node& enemyNode, EnemyObj& e)
+{
+	e.Type = enemyNode["type"].as<float>();
+	e.X = enemyNode["x"].as<float>();
+	e.Y = enemyNode["y"].as<float>();
+}
+
 void operator >> (const YAML::Node& t_baseNode, LevelData& ldata)
 {
-	const YAML::Node& levelDataNode = t_baseNode["objects"].as<YAML::Node>();
-	for (unsigned i = 0; i < levelDataNode.size(); ++i)
+	const YAML::Node& ObjectDataNode = t_baseNode["objects"].as<YAML::Node>();
+	for (unsigned i = 0; i < ObjectDataNode.size(); ++i)
 	{
 		Object obj;
-		levelDataNode[i] >> obj;
+		ObjectDataNode[i] >> obj;
 		ldata.objects.push_back(obj);
+	}
+
+	const YAML::Node& EnemyDataNode = t_baseNode["enemies"].as<YAML::Node>();
+	for (unsigned i = 0; i < EnemyDataNode.size(); ++i)
+	{
+		EnemyObj obj;
+		EnemyDataNode[i] >> obj;
+		ldata.enemies.push_back(obj);
 	}
 }
 
@@ -52,9 +67,12 @@ void YamlLoader::load(PlayerData& t_data)
 	}
 }
 
-void YamlLoader::emittter(int level, std::vector<std::shared_ptr<Terrain>> ter)
+void YamlLoader::emittter(int level, std::vector<std::shared_ptr<Terrain>> ter,
+	std::vector<std::shared_ptr<Enemy>> enemy)
 {
 	YAML::Emitter out;
+
+	// TERRAIN
 	out << YAML::BeginMap;
 	out << YAML::Key << "objects";
 	out << YAML::BeginSeq;
@@ -68,6 +86,24 @@ void YamlLoader::emittter(int level, std::vector<std::shared_ptr<Terrain>> ter)
 		out << YAML::Value << t->getPos().x;
 		out << YAML::Key << "y"; // t y
 		out << YAML::Value << t->getPos().y;
+		out << YAML::EndMap;
+	}
+
+	out << YAML::EndSeq;
+
+	// ENEMIES
+	out << YAML::Key << "enemies";
+	out << YAML::BeginSeq;
+
+	for (std::shared_ptr<Enemy> e : enemy)
+	{
+		out << YAML::BeginMap;
+		out << YAML::Key << "type"; // t type
+		out << YAML::Value << (int)e->enemyType;
+		out << YAML::Key << "x"; // t x
+		out << YAML::Value << e->getSprite().getPosition().x;
+		out << YAML::Key << "y"; // t y
+		out << YAML::Value << e->getSprite().getPosition().y;
 		out << YAML::EndMap;
 	}
 

@@ -28,12 +28,6 @@ Level::Level(sf::RenderWindow& t_window)
 	//Mouse bounds
 	mouseBounds.setSize(sf::Vector2f{ 1, 1 });
 
-	//test enemies
-	auto slime = std::make_shared<Enemy>();
-	slime->changeType(EnemyType::Beetle);
-	slime.get()->setPos(600, 400);
-	enemies.push_back(slime);
-
 	//player projectiles
 	for (RangedAttackEntity& e : playerRangedAttack)
 	{
@@ -55,7 +49,7 @@ void Level::loadLevel()
 	yml.load(currentLevel, levelData); // load the current level
 
 
-	for (Object& o : levelData.objects)
+	for (Object& o : levelData.objects) // TERRAIN
 	{
 
 		std::shared_ptr<Terrain> ter = std::make_shared<Terrain>(editor.createTerrain(sf::Vector2f(o.X, o.Y), static_cast<Type>(o.Type)));
@@ -71,6 +65,15 @@ void Level::loadLevel()
 		}
 	}
 
+	for (EnemyObj& e : levelData.enemies) // ENEMIES
+	{
+
+		std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>();
+		enemy->changeType((EnemyType)e.Type);
+		enemy->setPos(e.X, e.Y);
+		enemies.push_back(enemy);
+	}
+
 	//////////////////////////////////////////////////////////////////////////
 	editor.editorOff();
 	if (m_levelEditor) editor.editorOn(); // EDITOR OFF OR REENABLED
@@ -83,7 +86,7 @@ void Level::loadLevel()
 
 void Level::saveLevel()
 {
-	yml.emittter(currentLevel, terrain);
+	yml.emittter(currentLevel, terrain, enemies);
 }
 
 void Level::saveGame()

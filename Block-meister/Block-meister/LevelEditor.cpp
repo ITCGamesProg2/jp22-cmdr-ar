@@ -212,8 +212,8 @@ sf::Vector2f LevelEditor::getMousePosition(sf::RenderWindow& t_window)
 {
 	sf::Vector2f m_mousePosition;
 
-	m_mousePosition.x = (float)sf::Mouse::getPosition(t_window).x + (t_window.getView().getCenter().x - (t_window.getView().getSize().x / 2));
-	m_mousePosition.y = (float)sf::Mouse::getPosition(t_window).y + (t_window.getView().getCenter().y - (t_window.getView().getSize().y / 2));
+	m_mousePosition.x = (float)sf::Mouse::getPosition(t_window).x + (t_window.getView().getCenter().x - (t_window.getView().getSize().x / 2) + 25);
+	m_mousePosition.y = (float)sf::Mouse::getPosition(t_window).y + (t_window.getView().getCenter().y - (t_window.getView().getSize().y / 2) + 25);
 
 	return m_mousePosition;
 }

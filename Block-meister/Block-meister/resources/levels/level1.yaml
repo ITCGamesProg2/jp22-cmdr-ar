@@ -1121,3 +1121,7 @@ objects:
   - type: 1
     x: 250
     y: 700
+enemies:
+  - type: 0
+    x: 610
+    y: 320
