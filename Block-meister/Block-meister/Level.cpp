@@ -3,6 +3,7 @@
 Level::Level(sf::RenderWindow& t_window)
 	: window{ &t_window }, player{ t_window }
 {
+	Collision::ptrplayer = &player;
 	MousePosition::window = &t_window;
 	Entity::window = &t_window;
 	Entity::player = &player;

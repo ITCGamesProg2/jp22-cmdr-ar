@@ -1,4 +1,4 @@
-﻿  Level.cpp
+﻿  Collision.cpp
 C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\HealthBar.h(13,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\HealthBar.h(13,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\Player.h(35,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
@@ -38,4 +38,5 @@ C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\MousePosition.h(26,1):
           [
               T=int
           ]
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\Collision.cpp(83,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   Block-meister.vcxproj -> C:\Users\C00260445\Desktop\jp\Block-meister\Debug\Block-meister.exe

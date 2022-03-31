@@ -1,4 +1,5 @@
 #include "Collision.h"
+Player* Collision::ptrplayer = nullptr;
 
 Collision::Collision()
 {
@@ -55,12 +56,16 @@ void Collision::collisionDetection(AttackEntity& attack, std::vector<std::shared
 	{
 		if (e->getAlive())
 		{
-			if (attack.getSprite().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()) && attack.attacking())
+			float dist = ptrplayer->getDistance(e->getSprite().getPosition());
+			if (dist < 700.f)
 			{
-				e->setKnockback(true);
-				e->getBounceDirection();
-				e->resetSpeed();
-				e->damageEnemy(AttackEntity::ATTACK_DAMAGE);
+				if (attack.getSprite().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()) && attack.attacking())
+				{
+					e->setKnockback(true);
+					e->getBounceDirection();
+					e->resetSpeed();
+					e->damageEnemy(AttackEntity::ATTACK_DAMAGE);
+				}
 			}
 		}
 	}
@@ -75,14 +80,20 @@ void Collision::collisionDetection(std::vector<std::shared_ptr<Terrain>>& terrai
 		{
 			for (std::shared_ptr<Terrain>& t : terrain)
 			{
+				float distance = sqrt(pow(t->getPos().x - e->getSprite().getPosition().x, 2) +
+					pow(t->getPos().y - e->getSprite().getPosition().y, 2) * 1.0);
 
-				if (e->getNextMove().getGlobalBounds().intersects(t->getSprite().getGlobalBounds()) &&
-					t->getType() == Type::wall)
+				if (distance < 100.f)
 				{
-					e->setKnockback(true);
-					e->getBounceDirection(t->getSprite());
+					if (e->getNextMove().getGlobalBounds().intersects(t->getSprite().getGlobalBounds()) &&
+						t->getType() == Type::wall)
+					{
+						e->setKnockback(true);
+						e->getBounceDirection(t->getSprite());
+					}
 				}
 			}
+
 		}
 	}
 }
@@ -94,21 +105,25 @@ void Collision::collisionDetection(Player& player, std::vector<std::shared_ptr<E
 	{
 		if (e->getAlive())
 		{
-			if (player.getNextMove().getGlobalBounds().intersects(e->getNextMove().getGlobalBounds()) &&
-				!player.getDodging())
+			float dist = player.getDistance(e->getSprite().getPosition());
+			if (dist < 100.f)
 			{
-				if (e->getChargeActive() || player.getKnockedback())
+				if (player.getNextMove().getGlobalBounds().intersects(e->getNextMove().getGlobalBounds()) &&
+					!player.getDodging())
 				{
-					e->setKnockback(true);
-					e->getBounceDirection(player.getSprite());
-					e->resetSpeed();
+					if (e->getChargeActive() || player.getKnockedback())
+					{
+						e->setKnockback(true);
+						e->getBounceDirection(player.getSprite());
+						e->resetSpeed();
+					}
+					if (e->enemyType == EnemyType::Spawn)
+					{
+						e->setAlive(false);
+					}
+					player.getKnockbackDirection(e->getSprite());
+					player.damagePlayer(e->getDamage());
 				}
-				if (e->enemyType == EnemyType::Spawn)
-				{
-					e->setAlive(false);
-				}
-				player.getKnockbackDirection(e->getSprite());
-				player.damagePlayer(e->getDamage());
 			}
 		}
 	}
@@ -119,20 +134,24 @@ void Collision::collisionDetection(Player& player, std::vector<std::shared_ptr<T
 {
 	for (std::shared_ptr<Terrain>& e : terrain)
 	{
-		if (!player.getDodging())
+		float dist = player.getDistance(e->getSprite().getPosition());
+		if (dist < 100.f)
 		{
-			if (player.getSprite().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()) &&
-				e->getType() == Type::wall)
+			if (!player.getDodging())
 			{
-				player.bump();
+				if (player.getSprite().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()) &&
+					e->getType() == Type::wall)
+				{
+					player.bump();
+				}
 			}
-		}
-		else
-		{
-			if (player.getNextMove().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()) &&
-				e->getType() == Type::wall)
+			else
 			{
-				player.getKnockbackDirection(e->getSprite());
+				if (player.getNextMove().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()) &&
+					e->getType() == Type::wall)
+				{
+					player.getKnockbackDirection(e->getSprite());
+				}
 			}
 		}
 	}
@@ -185,9 +204,13 @@ void Collision::collisionDetection(Player& player, std::vector<std::shared_ptr<E
 {
 	for (std::shared_ptr<Entity>& e : t_entities)
 	{
-		if (player.getSprite().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()))
+		float dist = player.getDistance(e->getSprite().getPosition());
+		if (dist < 50.f)
 		{
-			e->heal();
+			if (player.getSprite().getGlobalBounds().intersects(e->getSprite().getGlobalBounds()))
+			{
+				e->heal();
+			}
 		}
 	}
 }

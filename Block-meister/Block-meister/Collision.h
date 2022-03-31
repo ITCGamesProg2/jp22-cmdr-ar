@@ -11,6 +11,7 @@ class Collision
 {
 public:
 	Collision();
+	static Player* ptrplayer;
 
 	void collisionDetection(RangedAttackEntity(&attack)[20], std::vector<std::shared_ptr<Enemy>>& enemies);
 	void collisionDetection(RangedAttackEntity(&attack)[20], std::vector<std::shared_ptr<Terrain>>& terrain);
