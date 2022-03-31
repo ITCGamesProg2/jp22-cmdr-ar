@@ -43,12 +43,12 @@ void Enemy::SetTexture(EnemyType _type)
 	case EnemyType::Beetle:
 		tex.loadFromFile("resources/images/game/enemies/beetle/beetle.png");
 		body.setScale(1.5,1.5);
+		break;
 	case EnemyType::Hive:
 		tex.loadFromFile("resources/images/game/enemies/slime/slime.png");
 		break;
 	case EnemyType::Spawn:
 		tex.loadFromFile("resources/images/game/enemies/slime/slime.png");
-		break;
 		break;
 	}
 

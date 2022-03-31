@@ -8,81 +8,81 @@ LevelEditor::LevelEditor()
 
 void LevelEditor::update(sf::RenderWindow& t_window)
 {
-	if (levelEditor)
-	{
-		mousePosition = getMousePosition(t_window);
-
-	}
 }
 
 void LevelEditor::processEvents(sf::Event& event)
 {
 	if (levelEditor)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab))
+		if (levelEditor)
 		{
-			modeIndex++;
-
-			switch (modeIndex)
+			if (event.type == sf::Event::KeyPressed)
 			{
-			case 1:
-				currentMode = Mode::terrain;
-				std::cout << "Mode: Terrain" << std::endl;
-				break;
-			case 2:
-				currentMode = Mode::enemies;
-				std::cout << "Mode: Enemies" << std::endl;
-				break;
-			}
+				if (event.key.code == sf::Keyboard::Tab)
+				{
+					modeIndex++;
 
-			if (modeIndex > 2)
+					switch (modeIndex)
+					{
+					case 1:
+						currentMode = Mode::terrain;
+						std::cout << "Mode: Terrain" << std::endl;
+						break;
+					case 2:
+						currentMode = Mode::enemies;
+						std::cout << "Mode: Enemies" << std::endl;
+						break;
+					}
+
+					if (modeIndex > 2)
+					{
+						modeIndex = 0;
+					}
+				}
+				if (event.key.code == sf::Keyboard::Num1)
+				{
+					desiredType = 0;
+
+					if (currentMode == Mode::terrain)
+					{
+						std::cout << "Type: Wall" << std::endl;
+					}
+					else {
+						std::cout << "Type: Slime" << std::endl;
+					}
+				}
+				if (event.key.code == sf::Keyboard::Num2)
+				{
+					desiredType = 1;
+
+					if (currentMode == Mode::terrain)
+					{
+						std::cout << "Type: Ground" << std::endl;
+					}
+					else {
+						std::cout << "Type: Beetle" << std::endl;
+					}
+				}
+
+				//editor tools
+				if (event.key.code == sf::Keyboard::P) // pencil
+				{
+					toolIndex = 1;
+					std::cout << "Tool: Pencil" << std::endl;
+				}
+				if (event.key.code == sf::Keyboard::R) // rectangle fill
+				{
+					toolIndex = 2;
+					std::cout << "Tool: Rect Fill" << std::endl;
+				}
+			}
+			//editor tool calls
+			if (event.type == sf::Event::MouseButtonPressed)
 			{
-				modeIndex = 0;
-			}
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
-		{
-			desiredType = 0;
-
-			if (currentMode == Mode::terrain)
-			{
-				std::cout << "Type: Wall" << std::endl;
-			}
-			else {
-				std::cout << "Type: Slime" << std::endl;
-			}
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
-		{
-			desiredType = 1;
-
-			if (currentMode == Mode::terrain)
-			{
-				std::cout << "Type: Ground" << std::endl;
-			}
-			else {
-				std::cout << "Type: Beetle" << std::endl;
-			}
-		}
-
-		//editor tools
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) // pencil
-		{
-			toolIndex = 1;
-			std::cout << "Tool: Pencil" << std::endl;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) // rectangle fill
-		{
-			toolIndex = 2;
-			std::cout << "Tool: Rect Fill" << std::endl;
-		}
-
-		//editor tool calls
-		if (event.type == sf::Event::MouseButtonPressed)
-		{
-			if (event.mouseButton.button == sf::Mouse::Left && toolIndex == 2)
-			{
-				rectFill();
+				if (event.mouseButton.button == sf::Mouse::Left && toolIndex == 2)
+				{
+					rectFill();
+				}
 			}
 		}
 	}
@@ -90,7 +90,7 @@ void LevelEditor::processEvents(sf::Event& event)
 
 Terrain LevelEditor::createTerrain()
 {
-	Terrain t = createTerrain(gridPlacement(mousePosition), (Type)desiredType);
+	Terrain t = createTerrain(MousePosition::Get(), (Type)desiredType);
 	return t;
 }
 
@@ -143,19 +143,16 @@ void LevelEditor::createEnemy(std::vector<std::shared_ptr<Enemy>>& enemies)
 		{
 		case 0:
 			enemy->changeType(EnemyType::Slime);
-			std::cout << "Enemy: Slime" << std::endl;
 			break;
 		case 1:
 			enemy->changeType(EnemyType::Beetle);
-			std::cout << "Enemy: Beetle" << std::endl;
 			break;
 		default:
 			enemy->changeType(EnemyType::Slime);
-			std::cout << "Enemy: Default Slime" << std::endl;
 			break;
 		}
 
-		enemy->setPos(gridPlacement(mousePosition));
+		enemy->setPos(MousePosition::Get());
 		enemies.push_back(enemy);
 
 		int count = 0;
@@ -208,25 +205,6 @@ void LevelEditor::deleteEnemy(std::vector<std::shared_ptr<Enemy>>& enemies, int 
 	}
 }
 
-sf::Vector2f LevelEditor::getMousePosition(sf::RenderWindow& t_window)
-{
-	sf::Vector2f m_mousePosition;
-
-	m_mousePosition.x = (float)sf::Mouse::getPosition(t_window).x + (t_window.getView().getCenter().x - (t_window.getView().getSize().x / 2) + 25);
-	m_mousePosition.y = (float)sf::Mouse::getPosition(t_window).y + (t_window.getView().getCenter().y - (t_window.getView().getSize().y / 2) + 25);
-
-	return m_mousePosition;
-}
-
-sf::Vector2f LevelEditor::gridPlacement(sf::Vector2f mousePosition)
-{
-	sf::Vector2f mouseGridPlacement;
-	mouseGridPlacement.x = (static_cast<int>(mousePosition.x) / 10) * 10;
-	mouseGridPlacement.y = (static_cast<int>(mousePosition.y) / 10) * 10;
-
-	return mouseGridPlacement;
-}
-
 void LevelEditor::rectFill()
 {
 
@@ -234,15 +212,15 @@ void LevelEditor::rectFill()
 	{
 		if (fillPosition[0] == sf::Vector2f(0, 0))
 		{
-			fillPosition[0] = gridPlacement(mousePosition);
+			fillPosition[0] = MousePosition::Get();
 			std::cout << "Rect Fill Top Left: " << fillPosition[0].x << ", "
 				<< fillPosition[0].y << std::endl;
 		}
 		else
 		{
-			if (gridPlacement(mousePosition) != fillPosition[0])
+			if (MousePosition::Get() != fillPosition[0])
 			{
-				fillPosition[1] = gridPlacement(mousePosition);
+				fillPosition[1] = MousePosition::Get();
 				std::cout << "Rect Fill Bottom Right: " << fillPosition[1].x << ", "
 					<< fillPosition[1].y << std::endl;
 			}

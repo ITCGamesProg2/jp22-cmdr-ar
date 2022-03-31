@@ -3,6 +3,7 @@
 Level::Level(sf::RenderWindow& t_window)
 	: window{ &t_window }, player{ t_window }
 {
+	MousePosition::window = &t_window;
 	Entity::window = &t_window;
 	Entity::player = &player;
 	Terrain::window = &t_window;
@@ -112,52 +113,49 @@ void Level::processEvents(sf::Event& ev)
 
 	if (m_levelEditor)
 	{
-		if (ev.type == sf::Event::MouseButtonPressed)
+		// Deleteing Entities
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{
-			// Deleteing Entities
-			if (sf::Mouse::Right == ev.key.code)
+			// Terrain Mode
+			if (editor.getMode() == Mode::terrain)
 			{
-				// Terrain Mode
-				if (editor.getMode() == Mode::terrain)
+				int terrainIndex = collision.selectTerrain(mouseBounds, terrain);
+				editor.deleteTerrain(terrain, terrainIndex);
+			}
+			// Enemy Mode
+			else if (editor.getMode() == Mode::enemies)
+			{
+				int enemyIndex = collision.selectEnemy(mouseBounds, enemies);
+				editor.deleteEnemy(enemies, enemyIndex);
+			}
+		}
+		// Creating Entities
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			// Terrain Mode
+			if (editor.getMode() == Mode::terrain && outline.getFillColor() == sf::Color::Green)
+			{
+				std::shared_ptr<Terrain> ter = std::make_shared<Terrain>(editor.createTerrain());
+				ter->changeType(ter->getType());
+				terrain.push_back(ter);
+
+				int count = 0;
+				for (std::shared_ptr<Terrain>& t : terrain)
 				{
-					int terrainIndex = collision.selectTerrain(mouseBounds, terrain);
-					editor.deleteTerrain(terrain, terrainIndex);
-				}
-				// Enemy Mode
-				else if (editor.getMode() == Mode::enemies)
-				{
-					int enemyIndex = collision.selectEnemy(mouseBounds, enemies);
-					editor.deleteEnemy(enemies, enemyIndex);
+					t->setCounter(count);
+					count++;
 				}
 			}
-			// Creating Entities
-			if (sf::Mouse::Left == ev.key.code)
+			// Enemy Mode
+			else if (editor.getMode() == Mode::enemies)
 			{
-				// Terrain Mode
-				if (editor.getMode() == Mode::terrain && outline.getFillColor() == sf::Color::Green)
-				{
-					std::shared_ptr<Terrain> ter = std::make_shared<Terrain>(editor.createTerrain());
-					ter->changeType(ter->getType());
-					terrain.push_back(ter);
+				editor.createEnemy(enemies);
 
-					int count = 0;
-					for (std::shared_ptr<Terrain>& t : terrain)
-					{
-						t->setCounter(count);
-						count++;
-					}
-				}
-				// Enemy Mode
-				else if (editor.getMode() == Mode::enemies)
+				int count = 0;
+				for (std::shared_ptr<Enemy>& t : enemies)
 				{
-					editor.createEnemy(enemies);
-
-					int count = 0;
-					for (std::shared_ptr<Enemy>& t : enemies)
-					{
-						t->setCounter(count);
-						count++;
-					}
+					t->setCounter(count);
+					count++;
 				}
 			}
 		}
@@ -239,7 +237,7 @@ void Level::update(sf::Time& dt)
 		}
 	}
 	editor.update(*window);
-	outline.setPosition(gridPlacement(editor.getMouse()));
+	outline.setPosition(MousePosition::Get());
 	outlineFill.setPosition(outline.getPosition());
 	particleManager.update(dt);
 }
@@ -290,7 +288,7 @@ void Level::render()
 
 void Level::checkCollisions()
 {
-	mouseBounds.setPosition(editor.getMouse());
+	mouseBounds.setPosition(MousePosition::Get());
 
 	//Player and Enemies
 	collision.collisionDetection(player, enemies);
@@ -349,13 +347,4 @@ void Level::setOutline()
 			break;
 		}
 	}
-}
-
-sf::Vector2f Level::gridPlacement(sf::Vector2f mousePosition)
-{
-	sf::Vector2f mouseGridPlacement;
-	mouseGridPlacement.x = (static_cast<int>(mousePosition.x) / 50) * 50;
-	mouseGridPlacement.y = (static_cast<int>(mousePosition.y) / 50) * 50;
-
-	return mouseGridPlacement;
 }

@@ -30,6 +30,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelEditor.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="MousePosition.h" />
     <ClInclude Include="ParticleManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RangedAttackEntity.h" />
@@ -49,6 +50,7 @@
     <ClCompile Include="LevelEditor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MousePosition.cpp" />
     <ClCompile Include="ParticleManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RangedAttackEntity.cpp" />

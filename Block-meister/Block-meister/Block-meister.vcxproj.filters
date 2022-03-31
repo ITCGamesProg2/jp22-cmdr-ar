@@ -63,6 +63,9 @@
     <ClInclude Include="BreadthFirstSearch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MousePosition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -114,6 +117,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BreadthFirstSearch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MousePosition.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

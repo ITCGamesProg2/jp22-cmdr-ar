@@ -11,6 +11,7 @@
 #include "RangedAttackEntity.h"
 #include "YamlLoader.h"
 #include "ParticleManager.h"
+#include "MousePosition.h"
 
 class Level
 {
@@ -30,8 +31,7 @@ public:
 	void checkCollisions();
 	void editorOn();
 	void setOutline();
-	sf::Vector2f gridPlacement(sf::Vector2f mousePosition);
-
+	
 private:
 	LevelEditor editor;
 	sf::RectangleShape mouseBounds;
