@@ -1,6 +1,396 @@
-﻿  BreadthFirstSearch.cpp
-C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\Player.h(32,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\C00260445\Desktop\jplatest\Block-meister\Block-meister\BreadthFirstSearch.cpp(33,21): warning C4018: '<': signed/unsigned mismatch
-  Block-meister.vcxproj -> C:\Users\C00260445\Desktop\jplatest\Block-meister\Debug\Block-meister.exe
+﻿  AttackEntity.cpp
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.h(34,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(13,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(14,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(25,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(26,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\AttackEntity.cpp(57,57): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\AttackEntity.cpp(57,27): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  BreadthFirstSearch.cpp
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.h(34,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\BreadthFirstSearch.cpp(33,21): warning C4018: '<': signed/unsigned mismatch
+  Collision.cpp
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.h(34,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(13,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(14,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(25,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(26,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+  Enemy.cpp
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.h(34,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(131,6): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(209,39): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(379,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(400,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(401,17): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(409,23): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(424,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(442,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(443,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(446,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(447,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(487,17): warning C4305: '*=': truncation from 'double' to 'float'
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(506,5): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Enemy.cpp(511,25): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Entity.cpp
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.h(34,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Game.cpp
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.h(34,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(13,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(14,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(25,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(26,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+  Level.cpp
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.h(34,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(13,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(14,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(25,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(26,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+  LevelEditor.cpp
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.h(34,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(13,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(14,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(25,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(26,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+  ParticleManager.cpp
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.h(34,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\ParticleManager.cpp(27,5): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.29.30037\include\functional(753,27): warning C4244: 'return': conversion from 'T' to '_Rx', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              _Rx=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.29.30037\include\functional(919): message : see reference to function template instantiation '_Rx std::_Invoker_ret<_Rx,false>::_Call<_Callable&,>(_Fx) noexcept(false)' being compiled
+          with
+          [
+              _Rx=float,
+              _Callable=thor::Distribution<int>,
+              _Fx=thor::Distribution<int> &
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.29.30037\include\functional(920): message : see reference to function template instantiation '_Rx std::_Invoker_ret<_Rx,false>::_Call<_Callable&,>(_Fx) noexcept(false)' being compiled
+          with
+          [
+              _Rx=float,
+              _Callable=thor::Distribution<int>,
+              _Fx=thor::Distribution<int> &
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.29.30037\include\functional(919): message : while compiling class template member function '_Rx std::_Func_impl_no_alloc<thor::Distribution<int>,_Rx>::_Do_call(void)'
+          with
+          [
+              _Rx=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.29.30037\include\functional(813): message : see reference to class template instantiation 'std::_Func_impl_no_alloc<thor::Distribution<int>,_Ret>' being compiled
+          with
+          [
+              _Ret=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.29.30037\include\functional(1010): message : see reference to variable template 'const bool _Is_large<std::_Func_impl_no_alloc<thor::Distribution<int>,float> >' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.29.30037\include\functional(1143): message : see reference to function template instantiation 'void std::_Func_class<_Ret>::_Reset<thor::Distribution<int>>(_Fx &&)' being compiled
+          with
+          [
+              _Ret=float,
+              _Fx=thor::Distribution<int>
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.29.30037\include\functional(1143): message : see reference to function template instantiation 'void std::_Func_class<_Ret>::_Reset<thor::Distribution<int>>(_Fx &&)' being compiled
+          with
+          [
+              _Ret=float,
+              _Fx=thor::Distribution<int>
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\include\Thor\Math\Distribution.hpp(127): message : see reference to function template instantiation 'std::function<T (void)>::function<Fn,0>(_Fx)' being compiled
+          with
+          [
+              T=float,
+              Fn=thor::Distribution<int>,
+              _Fx=thor::Distribution<int>
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\include\Thor\Math\Distribution.hpp(126): message : see reference to function template instantiation 'std::function<T (void)>::function<Fn,0>(_Fx)' being compiled
+          with
+          [
+              T=float,
+              Fn=thor::Distribution<int>,
+              _Fx=thor::Distribution<int>
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\ParticleManager.cpp(8): message : see reference to function template instantiation 'thor::Distribution<float>::Distribution<thor::Distribution<int>>(Fn,void *)' being compiled
+          with
+          [
+              Fn=thor::Distribution<int>
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\ParticleManager.cpp(8): message : see reference to function template instantiation 'thor::Distribution<float>::Distribution<thor::Distribution<int>>(Fn,void *)' being compiled
+          with
+          [
+              Fn=thor::Distribution<int>
+          ]
+  Player.cpp
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.h(34,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.cpp(139,5): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.cpp(172,42): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.cpp(180,42): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.cpp(227,5): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.cpp(229,16): warning C4305: '*=': truncation from 'double' to 'float'
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.cpp(246,10): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.cpp(276,5): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.cpp(281,25): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  RangedAttackEntity.cpp
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.h(34,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Terrain.cpp
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.h(34,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  YamlLoader.cpp
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.h(34,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\YamlLoader.cpp(5,39): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\YamlLoader.cpp(12,38): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\YamlLoader.cpp(53,49): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+  main.cpp
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\HealthBar.h(12,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\Player.h(34,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(13,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(14,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(25,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\MousePosition.h(26,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+  Generating Code...
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\LevelEditor.cpp(148): warning C4715: 'LevelEditor::createTerrain': not all control paths return a value
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\LevelEditor.cpp(203): warning C4715: 'LevelEditor::createEnemy': not all control paths return a value
+C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Block-meister\LevelEditor.cpp(231): warning C4715: 'LevelEditor::createEnemy': not all control paths return a value
+  Block-meister.vcxproj -> C:\Users\unumuser\Desktop\laterestsmerst\jp22-cmdr-ar\Block-meister\Debug\Block-meister.exe

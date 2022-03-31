@@ -16,7 +16,7 @@ class Player
 public:
 	Player(sf::RenderWindow& t_window);
 	sf::RenderWindow* window;
-	HealthBar health;
+	HealthBar healthBar;
 
 	void processEvents(sf::Event& event);
 	void update(sf::Time& dt);
@@ -25,6 +25,8 @@ public:
 	void dodge();
 	void knockbackEntity();
 	bool timer(float t_desiredTime, sf::Clock t_timer);
+	void damagePlayer(float t_damage);
+	void damageSelf();
 
 	//Getters
 	float getDistance(sf::Vector2f other)
@@ -37,6 +39,7 @@ public:
 	sf::RectangleShape getNextMove() { return nextMovement; }
 	bool getDodging() { return dodging; }
 	bool getKnockedback() { return knockback; }
+	bool getAlive() { return alive; }
 	Direction getDir() { return currentDirection; }
 	sf::Vector2f getPos() { return body.getPosition(); }
 	void getKnockbackDirection(sf::Sprite t_sprite);
@@ -46,18 +49,28 @@ public:
 
 private:
 
-	sf::Vector2f moveBy;
-	float speed = 300.f;
-	float MAX_SPEED{ 150.f };
 	sf::Time m_dt;
+
+	//Health
+	float health{ 200 };
+	const float MAX_HEALTH{ 150 };
+	static const int ATTACK_SELF_DAMAGE = 5;
+	bool alive{ true };
+	sf::Clock iFrames;
+	sf::Clock highlightTimer;
 
 	//dodging
 	bool dodging;
+	bool dodgingKnockedback{ false };
 	sf::Clock dodgeTimer;
 	void animateDodge(sf::Time& dt);
 	float alpha = 255;
 
 	//movement
+	sf::Vector2f moveBy;
+	float speed = 300.f;
+	const float MAX_SPEED{ 200.f };
+	const float DASH_SPEED{ 700.f };
 	Direction currentDirection{ Direction::None };
 	sf::RectangleShape nextMovement;
 	void setMovement();
@@ -66,7 +79,7 @@ private:
 	sf::Vector2f knockbackDirection;
 	sf::Clock knockbackDuration;
 	bool knockback{ false };
-	float knockbackStrength{ 5 };
+	float knockbackStrength{ 5.5 };
 
 	//animation
 	void animate();
@@ -74,6 +87,8 @@ private:
 
 	sf::View view;
 	sf::Sprite body;
+	sf::Sprite shadow;
 	sf::Texture tex;
+	sf::Texture shadowTex;
 };
 

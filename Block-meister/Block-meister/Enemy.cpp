@@ -70,6 +70,7 @@ void Enemy::changeType(EnemyType type)
 		health = SLIME_HEALTH;
 		healthBar.setMaxHealth(SLIME_HEALTH);
 		typeSpeed = SLIME_SPEED;
+		damage = SLIME_DAMAGE;
 
 		break;
 	case EnemyType::Beetle:
@@ -78,6 +79,7 @@ void Enemy::changeType(EnemyType type)
 		health = BEETLE_HEALTH;
 		healthBar.setMaxHealth(BEETLE_HEALTH);
 		typeSpeed = BEETLE_SPEED;
+		damage = BEETLE_DAMAGE;
 
 		break;
 	case EnemyType::Hive:
@@ -86,6 +88,7 @@ void Enemy::changeType(EnemyType type)
 		health = HIVE_HEALTH;
 		healthBar.setMaxHealth(HIVE_HEALTH);
 		typeSpeed = 0;
+		damage = HIVE_DAMAGE;
 
 		break;
 	case EnemyType::Spawn:
@@ -93,6 +96,7 @@ void Enemy::changeType(EnemyType type)
 		//Health
 		health = SPAWN_HEALTH;
 		typeSpeed = SPAWN_SPEED;
+		damage = SPAWN_DAMAGE;
 
 		break;
 	}
@@ -117,13 +121,17 @@ void Enemy::update(sf::Time& dt)
 		m_dt = dt;
 		move(dt);
 		updatePathing(dt);
-
 		nextMovement.setPosition(body.getPosition());
 		placeHealthBar();
 		bump();
 		slimeUpdate(dt);
 		beetleUpdate();
 		hiveUpdate();
+
+		if (timer(0.1, highlightTimer))
+		{
+			body.setColor(sf::Color::White);
+		}
 	}
 }
 
@@ -245,7 +253,7 @@ void Enemy::hiveUpdate()
 {
 	if (enemyType == EnemyType::Hive)
 	{
-		if (timer(5, spawnTimer))
+		if (timer(5, spawnTimer) && playerDistance < 500)
 		{
 			spawnReady = true;
 			spawnTimer.restart();
@@ -439,7 +447,7 @@ void Enemy::Pathfind()
 		int pY = floor(player->getPos().y / 50.f);
 		int end = pY * pathing.width + pX;
 
-		std::cout << start << ", " << end << std::endl;
+		//std::cout << start << ", " << end << std::endl;
 
 		pathing.findPath(start, end);
 		if (!pathing.path.empty()) reverseQueue(pathing.path);
@@ -495,12 +503,13 @@ void Enemy::bump()
 
 void Enemy::damageEnemy(float t_damage)
 {
-	if (timer(0.5, iFrames))
+	if (timer(0.3, iFrames))
 	{
 		if (health > 0)
 		{
 			health -= t_damage;
 			healthBar.takeDamage(t_damage);
+
 			//hive stuff
 			hiveHit = true;
 		}
@@ -509,8 +518,10 @@ void Enemy::damageEnemy(float t_damage)
 			health = 0;
 			setAlive(false);
 		}
-		iFrames.restart();
 		beetleReset();
+		body.setColor(sf::Color::Red);
+		iFrames.restart();
+		highlightTimer.restart();
 	}
 }
 

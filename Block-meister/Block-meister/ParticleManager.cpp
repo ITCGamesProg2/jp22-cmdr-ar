@@ -4,14 +4,14 @@ sf::RenderWindow* ParticleManager::window = nullptr;
 ParticleManager::ParticleManager()
 {
 	//setting emitter
-	emitter.setParticleLifetime(sf::seconds(0.4f));
+	emitter.setParticleLifetime(sf::seconds(0.3f));
 	emitter.setParticleRotation(thor::Distributions::uniform(0, 360));
 
 	// Create particle system, add reference to emitter
 	system.setTexture(tex);
 	system.addEmitter(thor::refEmitter(emitter));
 
-	thor::FadeAnimation fader(0.1f, 0.1f);
+	thor::FadeAnimation fader(0.3f, 0.3f);
 
 	// Affectors
 	system.addAffector(thor::TorqueAffector(150.f));
@@ -26,9 +26,9 @@ void ParticleManager::update(sf::Time& dt)
 
 	if (!timer(0.2, particalTimer) && active == true)
 	{
-		emitter.setEmissionRate(50);
+		emitter.setEmissionRate(25);
 	}
-	else 
+	else
 	{
 		emitter.setEmissionRate(0);
 		active = false;
@@ -52,7 +52,7 @@ void ParticleManager::createParticle(EnemyType type, sf::Vector2f pos)
 	}
 	if (type == EnemyType::Hive)
 	{
-		tex.loadFromFile("resources/images/game/particles/particle_slime.png");
+		tex.loadFromFile("resources/images/game/particles/particle_hive.png");
 	}
 	if (type == EnemyType::Spawn)
 	{

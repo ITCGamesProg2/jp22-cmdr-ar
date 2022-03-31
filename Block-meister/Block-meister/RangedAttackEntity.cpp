@@ -65,10 +65,6 @@ void RangedAttackEntity::activateProjectile(sf::Vector2f t_position, sf::Vector2
 	active = true;
 	direction = t_direction;
 
-	float angle = atan2(t_position.y - player->getPos().y, t_position.x - player->getPos().x);
-	angle = angle * 180 / 3.1416;
-	body.setRotation(angle - 90);
-
 	attackTimer.restart();
 }
 
@@ -84,7 +80,17 @@ void RangedAttackEntity::activateProjectile(sf::Vector2f t_position)
 		body.setPosition(t_position);
 		active = true;
 		calculateDirection(getMousePosition(*window), player->getPos());
+		player->damageSelf();
 
 		attackTimer.restart();
 	}
+}
+
+void RangedAttackEntity::changeTex(const char* t_path)
+{
+	tex.loadFromFile(t_path);
+	body.setTexture(tex);
+	body.setTextureRect({ 0,0,10,10 });
+	body.setScale(1.5, 1.5);
+	body.setOrigin(body.getLocalBounds().width / 2, body.getLocalBounds().height / 2);
 }

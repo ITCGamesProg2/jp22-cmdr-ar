@@ -64,6 +64,7 @@ public:
 	bool getAlive() { return alive; }
 	bool getSpawnReady() { return spawnReady; }
 	bool getHiveHit() { return hiveHit; }
+	float getDamage() { return damage; }
 
 	//Setters
 	void setPos(float x, float y) { body.setPosition(x, y); }
@@ -77,6 +78,7 @@ public:
 	//pathfinding
 	void setupPathing();
 private:
+
 	//pathfinding
 	BreadthFirstSearch pathing;
 	float playerDistance = 1500.f;
@@ -84,14 +86,18 @@ private:
 	void updatePathing(sf::Time& dt);
 
 	sf::Time m_dt;
+	sf::Clock highlightTimer;
 
+	//damage
+	float damage{ 0 };
+
+	//knockback interaction
 	sf::Vector2f direction{ 0,0 };
 	sf::Vector2f playerDirection;
 	sf::Clock bumpDuration;
 	bool knockback{ false };
 
 	// Movement
-	//const float SLIME_SPEED = 500;
 	sf::Vector2f moveBy;
 	float speed{ 500 };
 	float typeSpeed{ 0 };
@@ -108,7 +114,8 @@ private:
 	bool charging{ false };
 	bool chargeActive{ false };
 	const float CHARGE_SPEED = 650;
-	const float SLIME_SPEED = 650;
+	const float SLIME_SPEED = 500;
+	const float SLIME_DAMAGE = 25;
 
 	sf::Clock chargePrep;
 	sf::Clock chargeDuration;
@@ -116,8 +123,9 @@ private:
 
 	//Beetle stuff
 	const float BEETLE_HEALTH{ 100 };
-	const float BEETLE_AIM_RANGE{ 400 };
+	const float BEETLE_AIM_RANGE{ 350 };
 	const float BEETLE_SPEED{ 350 };
+	const float BEETLE_DAMAGE = 10;
 	sf::Clock beetleAim;
 	sf::Clock beetleAttackCooldown;
 	sf::Clock runAwayTimer;
@@ -127,14 +135,16 @@ private:
 
 	//Hive stuff
 	const float HIVE_HEALTH{ 300 };
-	const float HIVE_SPAWN_RANGE{ 500 };
+	const float HIVE_SPAWN_RANGE{ 550 };
 	sf::Clock spawnTimer;
 	bool spawnReady{ false };
 	bool hiveHit{ false };
+	const float HIVE_DAMAGE = 5;
 
 	//Spawn
 	const float SPAWN_HEALTH{ 10 };
 	const float SPAWN_SPEED{ 500 };
+	const float SPAWN_DAMAGE = 20;
 
 	//Reset Values
 	void beetleReset();

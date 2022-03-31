@@ -108,6 +108,7 @@ void Collision::collisionDetection(Player& player, std::vector<std::shared_ptr<E
 					e->setAlive(false);
 				}
 				player.getKnockbackDirection(e->getSprite());
+				player.damagePlayer(e->getDamage());
 			}
 		}
 	}
@@ -147,6 +148,7 @@ void Collision::collisionDetection(Player& player, RangedAttackEntity(&attack)[5
 				!attack[i].getFriendly())
 			{
 				player.getKnockbackDirection(attack[i].getSprite());
+				player.damagePlayer(RangedAttackEntity::BEETLE_RANGED_DAMAGE);
 				attack[i].setActive(false);
 			}
 		}

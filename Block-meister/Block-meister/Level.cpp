@@ -35,6 +35,11 @@ Level::Level(sf::RenderWindow& t_window)
 	{
 		e.setFriendly(true);
 	}
+	//beetle projectiles
+	for (RangedAttackEntity& e : beetleAttacks)
+	{
+		e.changeTex("resources/images/game/player/blob.png");
+	}
 
 	loadLevel();
 }
@@ -117,7 +122,10 @@ void Level::processEvents(sf::Event& ev)
 {
 	player.processEvents(ev);
 	editor.processEvents(ev);
-	playerAttack.processEvents(ev);
+	if (player.getAlive())
+	{
+		playerAttack.processEvents(ev);
+	}
 	for (std::shared_ptr<Enemy> e : enemies)
 	{
 		e->processEvents(ev);
@@ -207,7 +215,7 @@ void Level::processEvents(sf::Event& ev)
 	if (ev.type == sf::Event::KeyPressed)
 	{
 		// Player Ranged Attack
-		if (ev.key.code == sf::Keyboard::Q)
+		if (ev.key.code == sf::Keyboard::Q && player.getAlive())
 		{
 			playerRangedAttack[currentPlayerAttack].activateProjectile(player.getPos());
 			currentPlayerAttack++;
@@ -250,13 +258,14 @@ void Level::update(sf::Time& dt)
 			if (e->getBeetleAttacking())
 			{
 				sf::Vector2f* aimTemp = e->getTriAim();
-				for (size_t i = currentBeetleAttack; i < RangedAttackEntity::MAX_BEETLE_ATTACKS; i++)
+				for (size_t i = 0; i < RangedAttackEntity::MAX_BEETLE_ATTACKS; i++)
 				{
 					if (currentBeetleAttack >= 50)
 					{
 						currentBeetleAttack = 0;
 					}
-					beetleAttacks[i].activateProjectile(e->getSprite().getPosition(), aimTemp[i]);
+					beetleAttacks[currentBeetleAttack].activateProjectile(e->getSprite().getPosition(), aimTemp[i]);
+					currentBeetleAttack++;
 				}
 				e->resetBeetleAttacking();
 			}
@@ -330,8 +339,8 @@ void Level::render()
 
 	{ // FORBIDDEN CODE I AM SORRY - conor
 		sf::Vector2f newPos = window->getView().getCenter() - (window->getView().getSize() / 2.f);
-		player.health.setPos(newPos.x, newPos.y);
-		player.health.render(*window);
+		player.healthBar.setPos(newPos.x, newPos.y);
+		player.healthBar.render(*window);
 	}
 
 	window->display();

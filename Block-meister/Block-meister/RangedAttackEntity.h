@@ -14,6 +14,7 @@ public:
 	void render();
 	void activateProjectile(sf::Vector2f t_position, sf::Vector2f t_direction);
 	void activateProjectile(sf::Vector2f t_position);
+	void changeTex(const char* t_path);
 
 	bool getActive() { return active; }
 	bool getFriendly() { return friendly; }
@@ -24,6 +25,7 @@ public:
 
 	static const int MAX_ATTACKS = 20;
 	static const int MAX_BEETLE_ATTACKS = 3;
+	static const int BEETLE_RANGED_DAMAGE{ 15 };
 
 	static const int ATTACK_DAMAGE = 25;
 
