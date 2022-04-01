@@ -1,5 +1,5 @@
 ## PlantUML Domain Model
-![PlantUML_Model](./domain_model.png)
+![PlantUML Model](./domain_model.PNG)
 
 ## PlantUML Domain Model Code
 collision->Level : collision detection
