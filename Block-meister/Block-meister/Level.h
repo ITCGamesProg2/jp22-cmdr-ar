@@ -53,7 +53,7 @@ private:
 	int currentPlayerAttack{ 0 };
 
 	//Beetle stuff
-	RangedAttackEntity beetleAttacks[50];
+	RangedAttackEntity beetleAttacks[20];
 	int currentBeetleAttack{ 0 };
 
 	//Entities

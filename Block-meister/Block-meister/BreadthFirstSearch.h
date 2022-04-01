@@ -18,7 +18,8 @@ struct Cell
 class BreadthFirstSearch
 {
 public:
-	BreadthFirstSearch(std::vector<std::shared_ptr<Terrain>>* ter);
+	BreadthFirstSearch();
+	static std::vector<std::shared_ptr<Terrain>>* t;
 	void setup(int _width, int _height);
 
 	std::queue<int> q;

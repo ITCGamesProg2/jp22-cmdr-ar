@@ -77,11 +77,12 @@ public:
 	void setHiveHit(bool t_hit) { hiveHit = t_hit; }
 
 	//pathfinding
-	void setupPathing();
+	static void setupPathing();
+	static int width;
+	static int height;
+	static BreadthFirstSearch pathing;
 private:
-
 	//pathfinding
-	BreadthFirstSearch pathing;
 	float playerDistance = 1500.f;
 	void Pathfind();
 	void updatePathing(sf::Time& dt);

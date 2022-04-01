@@ -157,9 +157,9 @@ void Collision::collisionDetection(Player& player, std::vector<std::shared_ptr<T
 	}
 }
 
-void Collision::collisionDetection(Player& player, RangedAttackEntity(&attack)[50])
+void Collision::collisionDetection(Player& player, RangedAttackEntity(&attack)[20])
 {
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		if (attack[i].getActive() && !player.getDodging())
 		{

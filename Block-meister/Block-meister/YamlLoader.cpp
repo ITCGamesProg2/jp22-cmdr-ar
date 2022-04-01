@@ -23,6 +23,8 @@ void operator >> (const YAML::Node& t_baseNode, LevelData& ldata)
 		ObjectDataNode[i] >> obj;
 		ldata.objects.push_back(obj);
 	}
+	system("CLS");
+	std::cout << "Loading: 2/3";
 
 	const YAML::Node& EnemyDataNode = t_baseNode["enemies"].as<YAML::Node>();
 	for (unsigned i = 0; i < EnemyDataNode.size(); ++i)
@@ -31,14 +33,20 @@ void operator >> (const YAML::Node& t_baseNode, LevelData& ldata)
 		EnemyDataNode[i] >> obj;
 		ldata.enemies.push_back(obj);
 	}
+	system("CLS");
+	std::cout << "Loading: 3/3";
 }
 
 void YamlLoader::load(int level, LevelData& t_data)
 {
 	try
 	{
-		std::cout << "Trying to load: " << "resources/levels/level" + std::to_string(level) + ".yaml" << std::endl;
+		//std::cout << "Trying to load: " << "resources/levels/level" + std::to_string(level) + ".yaml" << std::endl;
+		system("CLS");
+		std::cout << "Loading: 0/3";
 		YAML::Node baseNode = YAML::LoadFile("resources/levels/level" + std::to_string(level) + ".yaml");
+		system("CLS");
+		std::cout << "Loading: 1/3";
 		baseNode >> t_data;
 	}
 	catch (std::exception& e)
@@ -78,17 +86,34 @@ void YamlLoader::emittter(int level, std::vector<std::shared_ptr<Terrain>> ter,
 	out << YAML::Key << "objects";
 	out << YAML::BeginSeq;
 
-	for (std::shared_ptr<Terrain> t : ter)
+	int index1 = 0;
+	
+	std::cout << "Saving..." << std::endl;
+
+	for (int h = -1; h < Enemy::height + 1; h++)
 	{
-		out << YAML::BeginMap;
-		out << YAML::Key << "type"; // t type
-		out << YAML::Value << (int)t->getBlock();
-		out << YAML::Key << "x"; // t x
-		out << YAML::Value << t->getPos().x;
-		out << YAML::Key << "y"; // t y
-		out << YAML::Value << t->getPos().y;
-		out << YAML::EndMap;
+		for (int w = -1; w < Enemy::width + 20; w++)
+		{
+			sf::Vector2f test = sf::Vector2f((w * 50) + 25, (h * 50) + 25);
+			for (std::shared_ptr<Terrain>& t : ter)
+			{
+				if (t->getSprite().getGlobalBounds().contains(test))
+				{
+					out << YAML::BeginMap;
+					out << YAML::Key << "type"; // t type
+					out << YAML::Value << (int)t->getBlock();
+					out << YAML::Key << "x"; // t x
+					out << YAML::Value << t->getPos().x;
+					out << YAML::Key << "y"; // t y
+					out << YAML::Value << t->getPos().y;
+					out << YAML::EndMap;
+					break;
+				}
+			}
+		}
 	}
+
+	std::cout << "Terrain done..." << std::endl;
 
 	out << YAML::EndSeq;
 
@@ -96,17 +121,32 @@ void YamlLoader::emittter(int level, std::vector<std::shared_ptr<Terrain>> ter,
 	out << YAML::Key << "enemies";
 	out << YAML::BeginSeq;
 
-	for (std::shared_ptr<Enemy> e : enemy)
+	for (int h = -1; h < Enemy::height * 2; h++)
 	{
-		out << YAML::BeginMap;
-		out << YAML::Key << "type"; // t type
-		out << YAML::Value << (int)e->enemyType;
-		out << YAML::Key << "x"; // t x
-		out << YAML::Value << e->getSprite().getPosition().x;
-		out << YAML::Key << "y"; // t y
-		out << YAML::Value << e->getSprite().getPosition().y;
-		out << YAML::EndMap;
+		for (int w = -1; w < Enemy::width * 2; w++)
+		{
+			sf::Vector2f test = sf::Vector2f((w * 50), (h * 50));
+
+			for (std::shared_ptr<Enemy>& e : enemy)
+			{
+				if (e->getSprite().getGlobalBounds().contains(test))
+				{
+
+					out << YAML::BeginMap;
+					out << YAML::Key << "type"; // t type
+					out << YAML::Value << (int)e->enemyType;
+					out << YAML::Key << "x"; // t x
+					out << YAML::Value << e->getSprite().getPosition().x;
+					out << YAML::Key << "y"; // t y
+					out << YAML::Value << e->getSprite().getPosition().y;
+					out << YAML::EndMap;
+					break;
+				}
+			}
+		}
 	}
+
+	std::cout << "Enemies done..." << std::endl;
 
 	out << YAML::EndSeq;
 	out << YAML::EndMap;

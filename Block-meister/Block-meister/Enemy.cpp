@@ -2,6 +2,9 @@
 sf::RenderWindow* Enemy::window = nullptr;
 Player* Enemy::player = nullptr;
 std::vector<std::shared_ptr<Terrain>>* Enemy::terrain = nullptr;
+int Enemy::width = 0;
+int Enemy::height = 0;
+BreadthFirstSearch Enemy::pathing;
 
 // Recursive function to reverse the queue
 void reverseQueue(std::queue<int>& q)
@@ -19,7 +22,7 @@ void reverseQueue(std::queue<int>& q)
 }
 
 Enemy::Enemy()
-	: healthBar{ 100, 18, 0 }, pathing{ terrain }
+	: healthBar{ 100, 18, 0 }
 {
 	//health
 	healthBar.setBarColour(sf::Color(255, 0, 0, 200));
@@ -145,7 +148,7 @@ void Enemy::render()
 		{
 			healthBar.render(*window);
 		}
-		pathing.render(*window);
+		Enemy::pathing.render(*window);
 	}
 }
 
@@ -155,7 +158,7 @@ void Enemy::slimeUpdate(sf::Time& dt)
 	{
 		if (playerDistance <= 250.f && !charging)
 		{
-			if (timer(2, chargeCooldown))
+			if (timer(1, chargeCooldown))
 			{
 				charging = true;
 			}
@@ -164,7 +167,7 @@ void Enemy::slimeUpdate(sf::Time& dt)
 		if (charging)
 		{
 			// Sets charge to true when timer is ready
-			if (timer(2, chargePrep) && chargeActive == false)
+			if (timer(1, chargePrep) && chargeActive == false)
 			{
 				chargeActive = true;
 				speed = CHARGE_SPEED;
@@ -180,7 +183,7 @@ void Enemy::slimeUpdate(sf::Time& dt)
 				nextMovement.setPosition(body.getPosition() + (playerDirection * CHARGE_SPEED * dt.asSeconds()));
 
 				// Resets movement values when charge is over ( 2.0s - 2.5s = 0.5s charge duration)
-				if (timer(2.5, chargeDuration))
+				if (timer(1.5, chargeDuration))
 				{
 					chargeActive = false;
 					charging = false;
@@ -371,8 +374,6 @@ void Enemy::spawnReset(sf::Vector2f pos)
 
 void Enemy::setupPathing()
 {
-	int width = 0;
-	int height = 0;
 
 	int topLeft = 0;
 	int bottomRight = 0;
@@ -398,10 +399,10 @@ void Enemy::setupPathing()
 	float diffX = terrain->at(bottomRight)->getSprite().getPosition().x - terrain->at(topLeft)->getSprite().getPosition().x;
 	float diffY = terrain->at(bottomRight)->getSprite().getPosition().y - terrain->at(topLeft)->getSprite().getPosition().y;
 
-	width = diffX / 50.f;
-	height = diffY / 50.f;
+	Enemy::width = diffX / 50.f;
+	Enemy::height = diffY / 50.f;
 
-	pathing.setup(width, height);
+	std::cout << "\nFound Terrain Placement!";
 }
 
 void Enemy::updatePathing(sf::Time& dt)
@@ -409,12 +410,12 @@ void Enemy::updatePathing(sf::Time& dt)
 	// NOTE - ENEMY NEEDS TO STOP MOVING WHEN (knockback) IS TRUE
 	playerDistance = sqrt(pow(player->getPos().x - body.getPosition().x, 2) +
 		pow(player->getPos().y - body.getPosition().y, 2) * 1.0);
-	if (pathing.path.empty() && !charging && playerDistance > 250.f) Pathfind();
+	if (Enemy::pathing.path.empty() && !charging && playerDistance > 250.f) Pathfind();
 
 	{
-		if (!pathing.path.empty() && playerDistance > 250.f)
+		if (!Enemy::pathing.path.empty() && playerDistance > 250.f)
 		{
-			sf::Vector2f target = pathing.cells.at(pathing.path.front()).position;
+			sf::Vector2f target = Enemy::pathing.cells.at(Enemy::pathing.path.front()).position;
 
 			sf::Vector2f direction = target - body.getPosition();
 			float vectorLength = sqrt(direction.x * direction.x + direction.y * direction.y);
@@ -427,7 +428,7 @@ void Enemy::updatePathing(sf::Time& dt)
 			if (distance < 2.f)
 			{
 				body.setPosition(target);
-				pathing.path.pop();
+				Enemy::pathing.path.pop();
 			}
 		}
 	}
@@ -442,23 +443,23 @@ void Enemy::Pathfind()
 		// do pathfinding
 		int bX = floor(body.getPosition().x / 50.f);
 		int bY = floor(body.getPosition().y / 50.f);
-		int start = bY * pathing.width + bX;
+		int start = bY * Enemy::pathing.width + bX;
 
 		int pX = floor(player->getPos().x / 50.f);
 		int pY = floor(player->getPos().y / 50.f);
-		int end = pY * pathing.width + pX;
+		int end = pY * Enemy::pathing.width + pX;
 
 		//std::cout << start << ", " << end << std::endl;
 
-		pathing.findPath(start, end);
-		if (!pathing.path.empty()) reverseQueue(pathing.path);
+		Enemy::pathing.findPath(start, end);
+		if (!Enemy::pathing.path.empty()) reverseQueue(Enemy::pathing.path);
 
-		int amountOfCells = pathing.width * pathing.height;
+		int amountOfCells = Enemy::pathing.width * Enemy::pathing.height;
 
 		for (int i = 0; i < amountOfCells; i++)
 		{
-			pathing.cells[i].marked = false;
-			pathing.cells[i].father = NULL;
+			Enemy::pathing.cells[i].marked = false;
+			Enemy::pathing.cells[i].father = NULL;
 		}
 	}
 }

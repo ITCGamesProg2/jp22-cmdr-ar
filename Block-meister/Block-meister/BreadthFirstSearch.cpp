@@ -1,7 +1,7 @@
 #include "BreadthFirstSearch.h"
+std::vector<std::shared_ptr<Terrain>>* BreadthFirstSearch::t = nullptr;
 
-BreadthFirstSearch::BreadthFirstSearch(std::vector<std::shared_ptr<Terrain>>* ter)
-	:	terrain{ ter }
+BreadthFirstSearch::BreadthFirstSearch()
 {
 }
 
@@ -30,20 +30,24 @@ void BreadthFirstSearch::setup(int _width, int _height)
 		c.position = sf::Vector2f(currentColumnX, nextRowY);
 		c.firstIdInRow = nextRow - width + 1;
 		c.lastIdInRow = nextRow;
-		for (int i = 0; i < terrain->size(); i++)
+		
+		for (int x = 0; x < t->size(); x++)
 		{
-			if (terrain->at(i)->getType() == Type::wall)
+			if (t->at(x)->getType() == Type::wall)
 			{
-				if (terrain->at(i)->getSprite().getGlobalBounds().contains(c.position))
+				if (t->at(x)->getSprite().getGlobalBounds().contains(c.position))
 				{
 					c.containsWall = true;
 				}
 			}
 		}
+		
 		cells.push_back(c);
 
 		currentColumnX += 50.f;
 	}
+
+	std::cout << "\nCells Made!";
 
 	for (int i = 1; i < amountOfCells + 1; i++)
 	{
@@ -64,6 +68,7 @@ void BreadthFirstSearch::setup(int _width, int _height)
 			cells[i].neighbours.push_back(i + width);
 		}
 	}
+	std::cout << "\nNeighbours Found!";
 }
 
 void BreadthFirstSearch::findPath(int start, int end)

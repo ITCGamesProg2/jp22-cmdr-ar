@@ -18,6 +18,15 @@ public:
 		return (sf::Vector2f)mouse;
 	}
 
+	static sf::Vector2f GetFromOther(sf::Vector2f other)
+	{
+		sf::Vector2i mouse = (sf::Vector2i)other;
+
+		mouse = (mouse / 50) * 50;
+
+		return (sf::Vector2f)mouse;
+	}
+
 	static sf::Vector2f GetOffGrid()
 	{
 		sf::Vector2i mouse = sf::Mouse::getPosition(*window);

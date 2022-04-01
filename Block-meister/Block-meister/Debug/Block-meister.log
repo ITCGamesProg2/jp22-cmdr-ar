@@ -1,4 +1,4 @@
-﻿  Collision.cpp
+﻿  YamlLoader.cpp
 C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\HealthBar.h(13,41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\HealthBar.h(13,58): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\Player.h(35,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
@@ -20,7 +20,7 @@ C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\MousePosition.h(14,1):
           [
               T=int
           ]
-C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\MousePosition.h(25,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\MousePosition.h(34,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=float
@@ -29,7 +29,7 @@ C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\MousePosition.h(25,1):
           [
               T=int
           ]
-C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\MousePosition.h(26,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\MousePosition.h(35,1): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=float
@@ -38,5 +38,39 @@ C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\MousePosition.h(26,1):
           [
               T=int
           ]
-C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\Collision.cpp(83,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\YamlLoader.cpp(5,39): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\YamlLoader.cpp(12,38): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\YamlLoader.cpp(61,49): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\YamlLoader.cpp(97,61): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\YamlLoader.cpp(97,46): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\YamlLoader.cpp(128,50): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\C00260445\Desktop\jp\Block-meister\Block-meister\YamlLoader.cpp(128,40): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
   Block-meister.vcxproj -> C:\Users\C00260445\Desktop\jp\Block-meister\Debug\Block-meister.exe

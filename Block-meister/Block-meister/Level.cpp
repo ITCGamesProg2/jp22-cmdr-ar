@@ -18,6 +18,7 @@ Level::Level(sf::RenderWindow& t_window)
 	Enemy::terrain = &terrain;
 	ParticleManager::window = &t_window;
 	LevelEditor::terrain = &terrain;
+	BreadthFirstSearch::t = &terrain;
 	
 	//Outline for editor placement
 	outline.setSize({ 50,50 });
@@ -103,10 +104,18 @@ void Level::loadLevel()
 	editor.editorOff();
 	if (m_levelEditor) editor.editorOn(); // EDITOR OFF OR REENABLED
 
+	int max = enemies.size();
+	int i = 0;
+	Enemy::setupPathing();
+	Enemy::pathing.setup(Enemy::width, Enemy::height);
+	/*
 	for (std::shared_ptr<Enemy>& e : enemies)
 	{
-		e->setupPathing();
-	}
+		e->setupMyPathfinding();
+		i++;
+		system("CLS");
+		std::cout << "Pathing setup for enemy: " << i << "/" << max;
+	}*/
 }
 
 void Level::saveLevel()
@@ -277,7 +286,7 @@ void Level::update(sf::Time& dt)
 					sf::Vector2f* aimTemp = e->getTriAim();
 					for (size_t i = 0; i < RangedAttackEntity::MAX_BEETLE_ATTACKS; i++)
 					{
-						if (currentBeetleAttack >= 50)
+						if (currentBeetleAttack >= 20)
 						{
 							currentBeetleAttack = 0;
 						}
@@ -373,34 +382,40 @@ void Level::checkCollisions()
 {
 	mouseBounds.setPosition(MousePosition::Get());
 
-	//Player and Enemies
-	collision.collisionDetection(player, enemies);
-	// Player and Terrain
-	collision.collisionDetection(player, terrain);
 	// Player, Terrain and Outline 
-	collision.collisionDetection(player, outline, terrain);
-	// Enemies and Terrain
-	collision.collisionDetection(terrain, enemies);
-	// Enemies and Attack
-	collision.collisionDetection(playerAttack, enemies);
-	// Enemies and Ranged Attack
-	collision.collisionDetection(playerRangedAttack, enemies);
-	// Terrain and Ranged Attack
-	collision.collisionDetection(playerRangedAttack, terrain);
-	// Player and Enemy Ranged Attacks
-	collision.collisionDetection(player, beetleAttacks);
-	// Player and Entity
-	collision.collisionDetection(player, entities);
-
-	// Particle Manager
-	for (std::shared_ptr<Enemy> e : enemies)
+	if (m_levelEditor)
 	{
-		if (e->getParticleReady())
+		collision.collisionDetection(player, outline, terrain);
+	}
+	else
+	{
+		//Player and Enemies
+		collision.collisionDetection(player, enemies);
+		// Player and Terrain
+		collision.collisionDetection(player, terrain);
+
+		// Enemies and Terrain
+		collision.collisionDetection(terrain, enemies);
+		// Enemies and Attack
+		collision.collisionDetection(playerAttack, enemies);
+		// Enemies and Ranged Attack
+		collision.collisionDetection(playerRangedAttack, enemies);
+		// Terrain and Ranged Attack
+		collision.collisionDetection(playerRangedAttack, terrain);
+		// Player and Enemy Ranged Attacks
+		collision.collisionDetection(player, beetleAttacks);
+		// Player and Entity
+		collision.collisionDetection(player, entities);
+
+		// Particle Manager
+		for (std::shared_ptr<Enemy> e : enemies)
 		{
-			particleManager.createParticle(e->enemyType, e->getSprite().getPosition());
+			if (e->getParticleReady())
+			{
+				particleManager.createParticle(e->enemyType, e->getSprite().getPosition());
+			}
 		}
 	}
-	
 }
 
 void Level::editorOn()

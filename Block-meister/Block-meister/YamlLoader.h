@@ -7,6 +7,7 @@
 
 #include "Terrain.h"
 #include "Enemy.h"
+#include "MousePosition.h"
 
 struct Object
 {
