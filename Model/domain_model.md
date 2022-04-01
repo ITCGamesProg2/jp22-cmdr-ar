@@ -1,5 +1,7 @@
-![PlantUML Model](./domain_model.png)
+## PlantUML Domain Model
+![PlantUML_Model](./domain_model.png)
 
+## PlantUML Domain Model Code
 collision->Level : collision detection
 Player ->Level : render
 Enemy->Level : render
